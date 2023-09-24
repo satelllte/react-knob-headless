@@ -1,0 +1,25 @@
+{
+  "name": "docs",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test:lint": "next lint --max-warnings=0 --format=compact"
+  },
+  "dependencies": {
+    "next": "13.5.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "13.5.2",
+    "@rkh/tsconfig": "*",
+    "@types/node": "20.6.4",
+    "@types/react": "18.2.22",
+    "autoprefixer": "10.4.16",
+    "eslint-plugin-tailwindcss": "3.13.0",
+    "prettier-plugin-tailwindcss": "0.5.4",
+    "tailwindcss": "3.3.3"
+  }
+}
