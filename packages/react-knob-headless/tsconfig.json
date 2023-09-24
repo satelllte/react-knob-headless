@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/library.json",
+  "extends": "@rkh/tsconfig/library-react.json",
   "include": ["tsup.config.ts", "src/**/*.ts"],
   "exclude": []
 }

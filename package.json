@@ -7,7 +7,7 @@
     "test:format": "prettier . --check"
   },
   "devDependencies": {
-    "tsconfig": "*",
+    "@rkh/tsconfig": "*",
     "eslint": "8.49.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-config-turbo": "1.10.13",

@@ -1,11 +1,10 @@
 {
-  "name": "example",
-  "private": true,
+  "name": "react-knob-headless",
   "scripts": {
     "build": "tsup",
     "test:lint": "eslint ./src/**/* --max-warnings=0 --format=compact"
   },
   "devDependencies": {
-    "tsconfig": "*"
+    "@rkh/tsconfig": "*"
   }
 }

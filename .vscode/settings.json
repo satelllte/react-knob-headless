@@ -6,7 +6,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "eslint.workingDirectories": [
-    "packages/example",
+    "packages/react-knob-headless",
     "packages/tsconfig"
   ]
 }
