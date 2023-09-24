@@ -1,1 +1,1 @@
-export {example} from './example';
+export {HeadlessKnob} from './HeadlessKnob';
