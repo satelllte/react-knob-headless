@@ -4,7 +4,8 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "test:lint": "turbo run test:lint",
-    "test:format": "prettier . --check"
+    "test:format": "prettier . --check",
+    "format": "prettier . --write"
   },
   "devDependencies": {
     "@rkh/tsconfig": "*",
