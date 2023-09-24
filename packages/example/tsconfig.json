@@ -1,0 +1,5 @@
+{
+  "extends": "tsconfig/library.json",
+  "include": ["tsup.config.ts", "src/**/*.ts"],
+  "exclude": []
+}

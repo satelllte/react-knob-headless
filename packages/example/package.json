@@ -1,0 +1,11 @@
+{
+  "name": "example",
+  "private": true,
+  "scripts": {
+    "build": "tsup",
+    "test:lint": "eslint ./src/**/* --max-warnings=0 --format=compact"
+  },
+  "devDependencies": {
+    "tsconfig": "*"
+  }
+}
