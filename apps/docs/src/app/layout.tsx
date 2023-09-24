@@ -6,8 +6,8 @@ import {Inter} from 'next/font/google';
 const inter = Inter({subsets: ['latin']});
 
 export const metadata: Metadata = {
-  title: 'SOAN',
-  description: 'SOAN - Experimental DAW',
+  title: 'React Knob Headless',
+  description: 'Headless knob component for React',
 };
 
 function RootLayout({children}: {readonly children: React.ReactNode}) {
