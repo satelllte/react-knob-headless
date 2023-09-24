@@ -1,4 +1,5 @@
 import './style.css';
+import clsx from 'clsx';
 import {type Metadata} from 'next';
 import {Inter} from 'next/font/google';
 
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 
 function RootLayout({children}: {readonly children: React.ReactNode}) {
   return (
-    <html lang='en' className={inter.className}>
+    <html
+      lang='en'
+      className={clsx(inter.className, 'bg-stone-950 text-stone-100')}
+    >
       {children}
     </html>
   );

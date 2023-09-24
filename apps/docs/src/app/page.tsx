@@ -1,11 +1,13 @@
-import {HeadlessKnob} from 'react-knob-headless';
+import {KnobHeadless} from 'react-knob-headless';
 
 function IndexPage() {
   return (
-    <div className='p-4'>
-      <h1>Index Page</h1>
-      <HeadlessKnob />
-    </div>
+    <>
+      <h1 className='px-4 py-8 text-center text-4xl'>React Knob Headless</h1>
+      <div className='flex items-center justify-center bg-stone-800 px-4 py-8'>
+        <KnobHeadless />
+      </div>
+    </>
   );
 }
 

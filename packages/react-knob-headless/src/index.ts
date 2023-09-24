@@ -1,1 +1,1 @@
-export {HeadlessKnob} from './HeadlessKnob';
+export {KnobHeadless} from './KnobHeadless';
