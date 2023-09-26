@@ -28,8 +28,8 @@
     "build": "tsup",
     "test:lint": "eslint ./src/**/* --max-warnings=0 --format=compact"
   },
-  "devDependencies": {
-    "@rkh/tsconfig": "*"
+  "dependencies": {
+    "@use-gesture/react": "^10.3.0"
   },
   "peerDependencies": {
     "@types/react": "*",
