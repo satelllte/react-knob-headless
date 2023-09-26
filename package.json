@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "@rkh/eslint-config": "*",
-    "@rkh/tsconfig": "*",
     "eslint": "8.49.0",
     "eslint-plugin-turbo": "1.10.13",
     "prettier": "3.0.3",

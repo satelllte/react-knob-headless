@@ -31,9 +31,6 @@
   "dependencies": {
     "@use-gesture/react": "^10.3.0"
   },
-  "devDependencies": {
-    "@rkh/tsconfig": "*"
-  },
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
