@@ -9,6 +9,7 @@
     "format": "prettier . --write"
   },
   "devDependencies": {
+    "@rkh/eslint-config": "*",
     "@rkh/tsconfig": "*",
     "eslint": "8.49.0",
     "eslint-config-prettier": "9.0.0",

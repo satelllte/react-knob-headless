@@ -1,8 +1,9 @@
 root: true
 
 extends:
-  - xo
-  - xo-typescript
-  - xo-react
-  - prettier
-  - turbo
+  - '@rkh'
+
+settings:
+  next:
+    rootDir:
+      - apps/*/

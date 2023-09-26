@@ -18,8 +18,6 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
-    "eslint": "latest",
-    "eslint-config-next": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
     "typescript": "latest"
