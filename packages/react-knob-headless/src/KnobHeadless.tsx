@@ -1,4 +1,4 @@
-import React, {forwardRef, useState} from 'react';
+import {forwardRef, useState} from 'react';
 import {useDrag} from '@use-gesture/react';
 
 type NativeDivProps = React.ComponentProps<'div'>;
