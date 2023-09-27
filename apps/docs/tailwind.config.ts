@@ -10,6 +10,11 @@ const config: Config = {
         'ableton-gray-light': '#AAAAAA',
         'ableton-white': '#dcdcdc',
         'ableton-blue': '#7BDCF3',
+
+        'ableton-9-gray-dark': '#323232',
+        'ableton-9-gray': '#999999',
+        'ableton-9-white': '#BFBFBF',
+        'ableton-9-orange': '#D5824A',
       },
     },
   },
