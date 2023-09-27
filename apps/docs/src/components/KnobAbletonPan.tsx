@@ -1,7 +1,7 @@
 'use client';
-import {useState} from 'react';
+import {useId, useState} from 'react';
 import clsx from 'clsx';
-import {KnobHeadless} from 'react-knob-headless';
+import {KnobHeadless, KnobHeadlessOutput} from 'react-knob-headless';
 
 const min = -1;
 const max = 1;
@@ -18,6 +18,7 @@ const toText = (valueRaw: number): string => {
 };
 
 export function KnobAbletonPan() {
+  const knobId = useId();
   const [valueRaw, setValueRaw] = useState(valueDefault);
   const value = roundFn(valueRaw);
 
@@ -45,9 +46,12 @@ export function KnobAbletonPan() {
             style={{transform: `translateX(${value * 100}%)`}}
           />
         </div>
-        <output className='relative pointer-events-none select-none text-xs text-ableton-gray'>
+        <KnobHeadlessOutput
+          htmlFor={knobId}
+          className='relative pointer-events-none select-none text-xs text-ableton-gray'
+        >
           {toText(valueRaw)}
-        </output>
+        </KnobHeadlessOutput>
       </KnobHeadless>
     </div>
   );
