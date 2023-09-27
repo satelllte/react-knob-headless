@@ -38,6 +38,7 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
   return (
     <div className='flex flex-col gap-2 items-center'>
       <KnobHeadless
+        id={knobId}
         className={clsx(
           'relative w-12 h-4 border flex items-center justify-center overflow-hidden focus:outline focus:outline-1',
           backgroundColorClass,
