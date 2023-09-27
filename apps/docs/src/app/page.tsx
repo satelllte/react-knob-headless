@@ -33,7 +33,13 @@ function AbletonPanCard({
       <small className='text-stone-800 text-xs italic'>
         Theme: &quot;{theme}&quot;
       </small>
-      <KnobAbletonPan theme={theme} />
+      <div className='flex pt-2 gap-1'>
+        <KnobAbletonPan theme={theme} valueDefault={-1} />
+        <KnobAbletonPan theme={theme} valueDefault={-0.5} />
+        <KnobAbletonPan theme={theme} valueDefault={0} />
+        <KnobAbletonPan theme={theme} valueDefault={0.5} />
+        <KnobAbletonPan theme={theme} valueDefault={1} />
+      </div>
     </div>
   );
 }

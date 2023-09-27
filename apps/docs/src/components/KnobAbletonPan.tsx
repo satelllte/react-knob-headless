@@ -5,9 +5,10 @@ import {KnobHeadless, KnobHeadlessOutput} from 'react-knob-headless';
 
 type KnobAbletonPanProps = {
   readonly theme: 'mid-light' | 'ableton-9';
+  readonly valueDefault?: number;
 };
 
-export function KnobAbletonPan({theme}: KnobAbletonPanProps) {
+export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
   const knobId = useId();
   const [valueRaw, setValueRaw] = useState(valueDefault);
   const value = roundFn(valueRaw);
@@ -81,7 +82,6 @@ export function KnobAbletonPan({theme}: KnobAbletonPanProps) {
 
 const min = -1;
 const max = 1;
-const valueDefault = 0;
 const roundFn = (x: number): number => Math.round(x * 100) / 100;
 const toText = (valueRaw: number): string => {
   const pan = Math.round(roundFn(valueRaw) * 50);
