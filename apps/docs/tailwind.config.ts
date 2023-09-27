@@ -2,7 +2,15 @@ import type {Config} from 'tailwindcss';
 
 const config: Config = {
   content: ['./src/**/*.{ts,tsx}'],
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        'ableton-gray': '#464646',
+        'ableton-white': '#dcdcdc',
+        'ableton-blue': '#7BDCF3',
+      },
+    },
+  },
   plugins: [],
 };
 
