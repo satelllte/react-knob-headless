@@ -5,7 +5,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        'ableton-gray-dark': '#282828',
         'ableton-gray': '#464646',
+        'ableton-gray-light': '#AAAAAA',
         'ableton-white': '#dcdcdc',
         'ableton-blue': '#7BDCF3',
       },

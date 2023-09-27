@@ -25,7 +25,8 @@ export function KnobAbletonPan() {
   return (
     <div className='flex flex-col gap-2 items-center'>
       <KnobHeadless
-        className='relative w-12 h-4 border border-ableton-gray bg-ableton-white flex items-center justify-center overflow-hidden'
+        className='relative w-12 h-4 border border-ableton-gray bg-ableton-white flex items-center justify-center overflow-hidden focus:outline focus:outline-1 focus:outline-ableton-gray-dark'
+        tabIndex={-1}
         min={min}
         max={max}
         valueRaw={valueRaw}
