@@ -8,11 +8,11 @@ type NativeDivProps = React.ComponentProps<'div'>;
 
 type NativeDivPropsToExtend = Omit<
   NativeDivProps,
-  | 'role' // We don't want to allow overriding this
-  | 'aria-valuemin' // This is already set by "min" prop
-  | 'aria-valuemax' // This is already set by "max" prop
-  | 'aria-orientation' // We don't want to allow overriding this
-  | 'tabIndex' // Handed off to "includeIntoTabOrder" prop
+  | 'role' // Constant. We don't want to allow overriding this
+  | 'aria-valuemin' // Handled by "min"
+  | 'aria-valuemax' // Handled by "max"
+  | 'aria-orientation' // Constant. We don't want to allow overriding this
+  | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
 
 const mapTo01Default = mapTo01Linear;

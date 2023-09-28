@@ -34,6 +34,8 @@
     "merge-props": "^6.0.0"
   },
   "devDependencies": {
+    "@testing-library/react": "14.0.0",
+    "jsdom": "22.1.0",
     "vitest": "0.34.5"
   },
   "peerDependencies": {
