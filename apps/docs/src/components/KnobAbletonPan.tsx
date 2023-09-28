@@ -50,6 +50,7 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
         max={max}
         valueRaw={valueRaw}
         valueDefault={valueDefault}
+        dragSensitivity={dragSensitivity}
         valueRawRoundFn={valueRawRoundFn}
         valueRawDisplayFn={valueRawDisplayFn}
         onValueRawChange={setValueRaw}
@@ -82,6 +83,7 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
 
 const min = -1;
 const max = 1;
+const dragSensitivity = 0.005;
 const valueRawRoundFn = (x: number): number => Math.round(x * 100) / 100;
 const valueRawDisplayFn = (valueRaw: number): string => {
   const pan = Math.round(valueRawRoundFn(valueRaw) * 50);
