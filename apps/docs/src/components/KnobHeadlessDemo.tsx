@@ -8,7 +8,8 @@ const valueDefault = 70;
 const angleMin = -145; // The minumum knob position angle, when x = 0
 const angleMax = 145; // The maximum knob position angle, when x = 1
 const valueRawRoundFn = Math.round;
-const toText = (valueRaw: number): string => `${valueRawRoundFn(valueRaw)}%`;
+const valueRawDisplayFn = (valueRaw: number): string =>
+  `${valueRawRoundFn(valueRaw)}%`;
 
 export function KnobHeadlessDemo() {
   const labelId = useId();
@@ -29,7 +30,7 @@ export function KnobHeadlessDemo() {
         valueRaw={valueRaw}
         valueDefault={valueDefault}
         valueRawRoundFn={valueRawRoundFn}
-        toText={toText}
+        valueRawDisplayFn={valueRawDisplayFn}
         onValueRawChange={setValueRaw}
       >
         <div className='absolute h-full w-full rounded-full bg-gray-800'>

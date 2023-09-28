@@ -51,7 +51,7 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
         valueRaw={valueRaw}
         valueDefault={valueDefault}
         valueRawRoundFn={valueRawRoundFn}
-        toText={toText}
+        valueRawDisplayFn={valueRawDisplayFn}
         onValueRawChange={setValueRaw}
       >
         <div
@@ -73,7 +73,7 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
             textColorClass,
           )}
         >
-          {toText(valueRaw)}
+          {valueRawDisplayFn(valueRaw)}
         </KnobHeadlessOutput>
       </KnobHeadless>
     </div>
@@ -83,7 +83,7 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
 const min = -1;
 const max = 1;
 const valueRawRoundFn = (x: number): number => Math.round(x * 100) / 100;
-const toText = (valueRaw: number): string => {
+const valueRawDisplayFn = (valueRaw: number): string => {
   const pan = Math.round(valueRawRoundFn(valueRaw) * 50);
   if (pan === 0) {
     return 'C';

@@ -12,7 +12,7 @@ type NativeDivPropsToExtend = Omit<
   | 'aria-valuemin' // Handled by "min"
   | 'aria-valuemax' // Handled by "max"
   | 'aria-valuenow' // Handled by "value"
-  | 'aria-valuetext' // Handled by "toText"
+  | 'aria-valuetext' // Handled by "valueRawDisplayFn"
   | 'aria-orientation' // Constant. We don't want to allow overriding this
   | 'aria-label' // Handled by "KnobHeadlessLabelProps"
   | 'aria-labelledby' // Handled by "KnobHeadlessLabelProps"
@@ -52,7 +52,7 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
     /**
      * The function for mapping the raw value to human-readable text.
      */
-    readonly toText: (valueRaw: number) => string;
+    readonly valueRawDisplayFn: (valueRaw: number) => string;
     /**
      * Used for mapping the value to the knob position (number from 0 to 1).
      * This is the place for making the interpolation, if non-linear one is required.
@@ -80,7 +80,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       valueDefault,
       onValueRawChange,
       valueRawRoundFn,
-      toText,
+      valueRawDisplayFn,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
       includeIntoTabOrder = includeIntoTabOrderDefault,
@@ -111,7 +111,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         aria-valuemin={min}
         aria-valuemax={max}
         aria-orientation='vertical'
-        aria-valuetext={toText(valueRaw)}
+        aria-valuetext={valueRawDisplayFn(valueRaw)}
         tabIndex={includeIntoTabOrder ? 0 : -1}
         {...mergeProps(
           bindDrag(),

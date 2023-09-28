@@ -13,7 +13,8 @@ const valueRaw = 2.25;
 const valueDefault = 0;
 const onValueRawChange = () => {};
 const valueRawRoundFn = Math.round;
-const toText = (valueRaw: number) => `${valueRawRoundFn(valueRaw)} units`;
+const valueRawDisplayFn = (valueRaw: number) =>
+  `${valueRawRoundFn(valueRaw)} units`;
 
 const props = {
   min,
@@ -22,7 +23,7 @@ const props = {
   valueDefault,
   onValueRawChange,
   valueRawRoundFn,
-  toText,
+  valueRawDisplayFn,
 } as const;
 
 describe('KnobHeadless', () => {
