@@ -11,7 +11,7 @@ type KnobAbletonPanProps = {
 export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
   const knobId = useId();
   const [valueRaw, setValueRaw] = useState(valueDefault);
-  const value = roundFn(valueRaw);
+  const value = valueRawRoundFn(valueRaw);
 
   const backgroundColorClass = clsx(
     theme === 'mid-light' && 'bg-ableton-white',
@@ -50,7 +50,7 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
         max={max}
         valueRaw={valueRaw}
         valueDefault={valueDefault}
-        roundFn={roundFn}
+        valueRawRoundFn={valueRawRoundFn}
         toText={toText}
         onValueRawChange={setValueRaw}
       >
@@ -82,9 +82,9 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
 
 const min = -1;
 const max = 1;
-const roundFn = (x: number): number => Math.round(x * 100) / 100;
+const valueRawRoundFn = (x: number): number => Math.round(x * 100) / 100;
 const toText = (valueRaw: number): string => {
-  const pan = Math.round(roundFn(valueRaw) * 50);
+  const pan = Math.round(valueRawRoundFn(valueRaw) * 50);
   if (pan === 0) {
     return 'C';
   }

@@ -12,8 +12,8 @@ const max = 5;
 const valueRaw = 2.25;
 const valueDefault = 0;
 const onValueRawChange = () => {};
-const roundFn = Math.round;
-const toText = (valueRaw: number) => `${roundFn(valueRaw)} units`;
+const valueRawRoundFn = Math.round;
+const toText = (valueRaw: number) => `${valueRawRoundFn(valueRaw)} units`;
 
 const props = {
   min,
@@ -21,7 +21,7 @@ const props = {
   valueRaw,
   valueDefault,
   onValueRawChange,
-  roundFn,
+  valueRawRoundFn,
   toText,
 } as const;
 

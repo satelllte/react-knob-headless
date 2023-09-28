@@ -42,13 +42,13 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
     readonly valueDefault: number;
     /**
      * Callback for when the raw value changes.
-     * NOTE: you shouldn't round the value here, instead, you have to do it inside `roundFn`.
+     * NOTE: you shouldn't round the value here, instead, you have to do it inside `valueRawRoundFn`.
      */
     readonly onValueRawChange: (newValueRaw: number) => void;
     /**
      * The rounding function for the raw value.
      */
-    readonly roundFn: (valueRaw: number) => number;
+    readonly valueRawRoundFn: (valueRaw: number) => number;
     /**
      * The function for mapping the raw value to human-readable text.
      */
@@ -79,7 +79,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       valueRaw,
       valueDefault,
       onValueRawChange,
-      roundFn,
+      valueRawRoundFn,
       toText,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
@@ -88,7 +88,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
     },
     forwardedRef,
   ) => {
-    const value = roundFn(valueRaw);
+    const value = valueRawRoundFn(valueRaw);
 
     const bindDrag = useDrag(
       ({delta}) => {
