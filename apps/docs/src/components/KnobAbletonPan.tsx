@@ -39,6 +39,7 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
     <div className='flex flex-col gap-2 items-center'>
       <KnobHeadless
         id={knobId}
+        aria-label='Pan'
         className={clsx(
           'relative w-12 h-4 border flex items-center justify-center overflow-hidden focus:outline focus:outline-1',
           backgroundColorClass,
@@ -51,7 +52,6 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
         valueDefault={valueDefault}
         roundFn={roundFn}
         toText={toText}
-        aria-label='Pan'
         onValueRawChange={setValueRaw}
       >
         <div

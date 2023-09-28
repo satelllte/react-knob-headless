@@ -14,6 +14,8 @@ type NativeDivPropsToExtend = Omit<
   | 'aria-valuenow' // Handled by "value"
   | 'aria-valuetext' // Handled by "toText"
   | 'aria-orientation' // Constant. We don't want to allow overriding this
+  | 'aria-label' // Handled by "KnobHeadlessLabelProps"
+  | 'aria-labelledby' // Handled by "KnobHeadlessLabelProps"
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
 
@@ -24,41 +26,50 @@ const styleDefault: React.CSSProperties = {
   touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
 };
 
-type KnobHeadlessProps = NativeDivPropsToExtend & {
-  readonly min: number;
-  readonly max: number;
-  readonly valueRaw: number;
-  readonly valueDefault: number;
-  /**
-   * Callback for when the raw value changes.
-   * NOTE: you shouldn't round the value here, instead, you have to do it inside `roundFn`.
-   */
-  readonly onValueRawChange: (newValueRaw: number) => void;
-  /**
-   * The rounding function for the raw value.
-   */
-  readonly roundFn: (valueRaw: number) => number;
-  /**
-   * The function for mapping the raw value to human-readable text.
-   */
-  readonly toText: (valueRaw: number) => string;
-  /**
-   * Used for mapping the value to the knob position (number from 0 to 1).
-   * This is the place for making the interpolation, if non-linear one is required.
-   * Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).
-   */
-  readonly mapTo01?: (x: number, min: number, max: number) => number;
-  /**
-   * Opposite of `mapTo01`.
-   */
-  readonly mapFrom01?: (x: number, min: number, max: number) => number;
-  /**
-   * Whether to include the element into the sequential tab order.
-   * If true, the element will be focusable via the keyboard by tabbing.
-   * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
-   */
-  readonly includeIntoTabOrder?: boolean;
-};
+type KnobHeadlessLabelProps =
+  | {
+      readonly 'aria-label': string;
+    }
+  | {
+      readonly 'aria-labelledby': string;
+    };
+
+type KnobHeadlessProps = NativeDivPropsToExtend &
+  KnobHeadlessLabelProps & {
+    readonly min: number;
+    readonly max: number;
+    readonly valueRaw: number;
+    readonly valueDefault: number;
+    /**
+     * Callback for when the raw value changes.
+     * NOTE: you shouldn't round the value here, instead, you have to do it inside `roundFn`.
+     */
+    readonly onValueRawChange: (newValueRaw: number) => void;
+    /**
+     * The rounding function for the raw value.
+     */
+    readonly roundFn: (valueRaw: number) => number;
+    /**
+     * The function for mapping the raw value to human-readable text.
+     */
+    readonly toText: (valueRaw: number) => string;
+    /**
+     * Used for mapping the value to the knob position (number from 0 to 1).
+     * This is the place for making the interpolation, if non-linear one is required.
+     * Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).
+     */
+    readonly mapTo01?: (x: number, min: number, max: number) => number;
+    /**
+     * Opposite of `mapTo01`.
+     */
+    readonly mapFrom01?: (x: number, min: number, max: number) => number;
+    /**
+     * Whether to include the element into the sequential tab order.
+     * If true, the element will be focusable via the keyboard by tabbing.
+     * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
+     */
+    readonly includeIntoTabOrder?: boolean;
+  };
 
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
   (
