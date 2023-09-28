@@ -4,6 +4,7 @@
 import React from 'react';
 import {afterEach, describe, expect, it} from 'vitest';
 import {render, screen, cleanup} from '@testing-library/react';
+import {KnobHeadlessLabel} from './KnobHeadlessLabel';
 import {KnobHeadless} from './KnobHeadless';
 
 const min = -5;
@@ -203,6 +204,39 @@ describe('KnobHeadless', () => {
         "_values": {},
         "touchAction": "pan-x",
       }
+    `);
+  });
+
+  it('can be labelled by external label', () => {
+    const labelId = 'label-id';
+
+    render(
+      <>
+        <KnobHeadless
+          {...props}
+          aria-labelledby={labelId}
+          style={{color: 'red'}}
+        />
+        <KnobHeadlessLabel id={labelId}>Knob Name</KnobHeadlessLabel>
+      </>,
+    );
+
+    const knob = screen.getByRole('slider', {
+      name: 'Knob Name',
+    });
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-labelledby="label-id"
+        aria-orientation="vertical"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        role="slider"
+        style="color: red;"
+        tabindex="-1"
+      />
     `);
   });
 });
