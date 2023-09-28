@@ -1,7 +1,7 @@
 /**
  * @vitest-environment jsdom
  */
-import React from 'react';
+import React, {createRef} from 'react';
 import {afterEach, describe, expect, it} from 'vitest';
 import {render, screen, cleanup} from '@testing-library/react';
 import {KnobHeadlessOutput} from './KnobHeadlessOutput';
@@ -15,7 +15,19 @@ describe('KnobHeadlessOutput', () => {
     expect(KnobHeadlessOutput.displayName).toBe('KnobHeadlessOutput');
   });
 
-  it.todo('forwards ref');
+  it('forwards ref', () => {
+    const ref = createRef<HTMLOutputElement>();
+
+    render(
+      <KnobHeadlessOutput ref={ref} htmlFor='knob-id'>
+        245 units
+      </KnobHeadlessOutput>,
+    );
+
+    const output = screen.getByRole('status');
+
+    expect(output).toBe(ref.current);
+  });
 
   it('renders correctly with default props', () => {
     render(

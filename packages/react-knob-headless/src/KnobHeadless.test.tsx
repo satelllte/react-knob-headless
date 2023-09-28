@@ -1,7 +1,7 @@
 /**
  * @vitest-environment jsdom
  */
-import React from 'react';
+import React, {createRef} from 'react';
 import {afterEach, describe, expect, it} from 'vitest';
 import {render, screen, cleanup} from '@testing-library/react';
 import {KnobHeadlessLabel} from './KnobHeadlessLabel';
@@ -35,7 +35,15 @@ describe('KnobHeadless', () => {
     expect(KnobHeadless.displayName).toBe('KnobHeadless');
   });
 
-  it.todo('forwards ref');
+  it('forwards ref', () => {
+    const ref = createRef<HTMLDivElement>();
+
+    render(<KnobHeadless {...props} ref={ref} aria-label='Test Knob' />);
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toBe(ref.current);
+  });
 
   it('has correct attributes by default', () => {
     render(<KnobHeadless {...props} aria-label='Test Knob' />);
