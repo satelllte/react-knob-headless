@@ -29,6 +29,12 @@ describe('KnobHeadless', () => {
     cleanup();
   });
 
+  it('has display name "KnobHeadless"', () => {
+    expect(KnobHeadless.displayName).toBe('KnobHeadless');
+  });
+
+  it.todo('forwards ref');
+
   it('has correct attributes by default', () => {
     render(<KnobHeadless {...props} aria-label='Test Knob' />);
 

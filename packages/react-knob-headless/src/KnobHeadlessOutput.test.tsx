@@ -11,6 +11,12 @@ describe('KnobHeadlessOutput', () => {
     cleanup();
   });
 
+  it('has display name "KnobHeadlessOutput"', () => {
+    expect(KnobHeadlessOutput.displayName).toBe('KnobHeadlessOutput');
+  });
+
+  it.todo('forwards ref');
+
   it('renders correctly with default props', () => {
     render(
       <KnobHeadlessOutput htmlFor='knob-id'>245 units</KnobHeadlessOutput>,
