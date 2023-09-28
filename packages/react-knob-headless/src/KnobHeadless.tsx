@@ -11,6 +11,8 @@ type NativeDivPropsToExtend = Omit<
   | 'role' // Constant. We don't want to allow overriding this
   | 'aria-valuemin' // Handled by "min"
   | 'aria-valuemax' // Handled by "max"
+  | 'aria-valuenow' // Handled by "value"
+  | 'aria-valuetext' // Handled by "toText"
   | 'aria-orientation' // Constant. We don't want to allow overriding this
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
