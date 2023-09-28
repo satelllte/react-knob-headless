@@ -65,13 +65,18 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
   ) => {
     const value = roundFn(valueRaw);
 
-    const bindDrag = useDrag(({delta}) => {
-      const diff01 = delta[1] * -0.006; // Multiplying by negative sensitivity. Vertical axis (Y) direction of the screen is inverted.
-      const value01 = mapTo01(valueRaw, min, max);
-      const newValue01 = clamp01(value01 + diff01);
-      const newValueRaw = clamp(mapFrom01(newValue01, min, max), min, max);
-      onValueRawChange(newValueRaw);
-    });
+    const bindDrag = useDrag(
+      ({delta}) => {
+        const diff01 = delta[1] * -0.006; // Multiplying by negative sensitivity. Vertical axis (Y) direction of the screen is inverted.
+        const value01 = mapTo01(valueRaw, min, max);
+        const newValue01 = clamp01(value01 + diff01);
+        const newValueRaw = clamp(mapFrom01(newValue01, min, max), min, max);
+        onValueRawChange(newValueRaw);
+      },
+      {
+        pointer: {keys: false},
+      },
+    );
 
     return (
       <div
