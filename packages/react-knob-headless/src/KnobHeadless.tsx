@@ -1,5 +1,6 @@
 import {forwardRef} from 'react';
 import {useDrag} from '@use-gesture/react';
+import mergeProps from 'merge-props';
 import {mapFrom01Linear, mapTo01Linear} from './utils/map01Linear';
 import {clamp, clamp01} from './utils/clamp';
 
@@ -11,10 +12,15 @@ type NativeDivPropsToExtend = Omit<
   | 'aria-valuemin' // This is already set by "min" prop
   | 'aria-valuemax' // This is already set by "max" prop
   | 'aria-orientation' // We don't want to allow overriding this
+  | 'tabIndex' // Handed off to "includeIntoTabOrder" prop
 >;
 
 const mapTo01Default = mapTo01Linear;
 const mapFrom01Default = mapFrom01Linear;
+const includeIntoTabOrderDefault = false;
+const styleDefault: React.CSSProperties = {
+  touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
+};
 
 type KnobHeadlessProps = NativeDivPropsToExtend & {
   readonly min: number;
@@ -44,12 +50,17 @@ type KnobHeadlessProps = NativeDivPropsToExtend & {
    * Opposite of `mapTo01`.
    */
   readonly mapFrom01?: (x: number, min: number, max: number) => number;
+  /**
+   * Whether to include the element into the sequential tab order.
+   * If true, the element will be focusable via the keyboard by tabbing.
+   * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
+   */
+  readonly includeIntoTabOrder?: boolean;
 };
 
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
   (
     {
-      style,
       min,
       max,
       valueRaw,
@@ -59,6 +70,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       toText,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
+      includeIntoTabOrder = includeIntoTabOrderDefault,
       ...rest
     },
     forwardedRef,
@@ -87,9 +99,19 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         aria-valuemax={max}
         aria-orientation='vertical'
         aria-valuetext={toText(valueRaw)}
-        style={style ? {...defaultStyle, ...style} : defaultStyle}
-        {...rest}
-        {...bindDrag()}
+        tabIndex={includeIntoTabOrder ? 0 : -1}
+        {...mergeProps(
+          bindDrag(),
+          {
+            style: styleDefault,
+            onPointerDown(event: React.PointerEvent<HTMLElement>) {
+              // Touch devices have a delay before focusing so it won't focus if touch immediately moves away from target (sliding). We want thumb to focus regardless.
+              // See, for reference, Radix UI Slider does the same: https://github.com/radix-ui/primitives/blob/eca6babd188df465f64f23f3584738b85dba610e/packages/react/slider/src/Slider.tsx#L442-L445
+              event.currentTarget.focus();
+            },
+          },
+          rest,
+        )}
       />
     );
   },
@@ -100,8 +122,5 @@ KnobHeadless.displayName = 'KnobHeadless';
 KnobHeadless.defaultProps = {
   mapTo01: mapTo01Default,
   mapFrom01: mapFrom01Default,
-};
-
-const defaultStyle: React.CSSProperties = {
-  touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
+  includeIntoTabOrder: includeIntoTabOrderDefault,
 };

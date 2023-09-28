@@ -45,7 +45,6 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
           borderColorClass,
           focusOutlineClass,
         )}
-        tabIndex={-1}
         min={min}
         max={max}
         valueRaw={valueRaw}

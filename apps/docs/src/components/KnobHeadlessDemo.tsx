@@ -17,7 +17,7 @@ export function KnobHeadlessDemo() {
   return (
     <div className='flex flex-col gap-2 items-center'>
       <KnobHeadless
-        tabIndex={0}
+        includeIntoTabOrder
         className='relative w-12 h-12'
         min={min}
         max={max}
