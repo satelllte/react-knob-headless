@@ -22,6 +22,7 @@ type NativeDivPropsToExtend = Omit<
 const mapTo01Default = mapTo01Linear;
 const mapFrom01Default = mapFrom01Linear;
 const includeIntoTabOrderDefault = false;
+const dragSensitivityDefault = 0.006;
 const styleDefault: React.CSSProperties = {
   touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
 };
@@ -69,6 +70,12 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
      */
     readonly includeIntoTabOrder?: boolean;
+    /**
+     * The sensitivity of the drag gesture. Must be a positive float value.
+     * Play with this value in different browsers to find the best one for your use case.
+     * Default value: 0.006 (quite optimal for most scenarios, so far).
+     */
+    readonly dragSensitivity?: number;
   };
 
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
@@ -84,6 +91,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
       includeIntoTabOrder = includeIntoTabOrderDefault,
+      dragSensitivity = dragSensitivityDefault,
       ...rest
     },
     forwardedRef,
@@ -92,10 +100,17 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
 
     const bindDrag = useDrag(
       ({delta}) => {
-        const diff01 = delta[1] * -0.006; // Multiplying by negative sensitivity. Vertical axis (Y) direction of the screen is inverted.
+        // Negating the sensitivity for vertical axis (Y),
+        // since the direction of it goes top down on computer screens.
+        const diff01 = delta[1] * -dragSensitivity;
+
+        // Conversion of the raw value to 0-1 range
+        // makes the sensitivity to be independent from min-max values range,
+        // as well as it allows to use non-linear mapping functions.
         const value01 = mapTo01(valueRaw, min, max);
         const newValue01 = clamp01(value01 + diff01);
         const newValueRaw = clamp(mapFrom01(newValue01, min, max), min, max);
+
         onValueRawChange(newValueRaw);
       },
       {
@@ -136,4 +151,5 @@ KnobHeadless.defaultProps = {
   mapTo01: mapTo01Default,
   mapFrom01: mapFrom01Default,
   includeIntoTabOrder: includeIntoTabOrderDefault,
+  dragSensitivity: dragSensitivityDefault,
 };
