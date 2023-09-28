@@ -29,7 +29,8 @@
     "test:lint": "eslint ./src/**/* --max-warnings=0 --format=compact"
   },
   "dependencies": {
-    "@use-gesture/react": "^10.3.0"
+    "@use-gesture/react": "^10.3.0",
+    "merge-props": "^6.0.0"
   },
   "peerDependencies": {
     "@types/react": "*",
