@@ -14,7 +14,6 @@ function IndexPage() {
       <div className='flex flex-col px-4 py-8 pt-32 max-w-sm'>
         <h3>Playground</h3>
         <KnobHeadlessDemo />
-        <KnobHeadlessDemo />
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 'use client';
-import {useState} from 'react';
-import {KnobHeadless} from 'react-knob-headless';
+import {useId, useState} from 'react';
+import {KnobHeadless, KnobHeadlessLabel} from 'react-knob-headless';
 
 const min = 0;
 const max = 100;
@@ -11,13 +11,18 @@ const roundFn = Math.round;
 const toText = (valueRaw: number): string => `${roundFn(valueRaw)}%`;
 
 export function KnobHeadlessDemo() {
+  const labelId = useId();
   const [valueRaw, setValueRaw] = useState(valueDefault);
   const value01 = mapTo01Linear(valueRaw, min, max);
   const angle = mapFrom01Linear(value01, angleMin, angleMax);
   return (
     <div className='flex flex-col gap-2 items-center'>
+      <KnobHeadlessLabel id={labelId} className='text-xs'>
+        Demo knob
+      </KnobHeadlessLabel>
       <KnobHeadless
         includeIntoTabOrder
+        aria-labelledby={labelId}
         className='relative w-12 h-12'
         min={min}
         max={max}
