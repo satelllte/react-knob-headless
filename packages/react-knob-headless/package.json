@@ -26,10 +26,17 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
+    "test": "vitest",
     "test:lint": "eslint ./src/**/* --max-warnings=0 --format=compact"
   },
   "dependencies": {
-    "@use-gesture/react": "^10.3.0"
+    "@use-gesture/react": "^10.3.0",
+    "merge-props": "^6.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "14.0.0",
+    "jsdom": "22.1.0",
+    "vitest": "0.34.5"
   },
   "peerDependencies": {
     "@types/react": "*",
