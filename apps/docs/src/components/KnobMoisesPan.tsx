@@ -20,6 +20,8 @@ export function KnobMoisesPan({valueDefault = 0}: KnobMoisesPanProps) {
         className='relative w-9 h-9 bg-moises-gray rounded-full flex items-center justify-center overflow-hidden outline-none'
         min={min}
         max={max}
+        step={step}
+        stepLarge={stepLarge}
         valueRaw={valueRaw}
         valueDefault={valueDefault}
         dragSensitivity={dragSensitivity}
@@ -55,6 +57,8 @@ export function KnobMoisesPan({valueDefault = 0}: KnobMoisesPanProps) {
 
 const min = -1;
 const max = 1;
+const step = 0.05;
+const stepLarge = 0.2;
 const dragSensitivity = 0.007;
 const valueRawRoundFn = (x: number): number => Math.round(x * 20) / 20;
 const valueRawDisplayFn = (valueRaw: number): string => {

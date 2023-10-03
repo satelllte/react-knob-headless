@@ -4,6 +4,8 @@ import {KnobHeadless, KnobHeadlessLabel} from 'react-knob-headless';
 
 const min = 0;
 const max = 100;
+const step = 1;
+const stepLarge = 10;
 const valueDefault = 70;
 const angleMin = -145; // The minumum knob position angle, when x = 0
 const angleMax = 145; // The maximum knob position angle, when x = 1
@@ -27,6 +29,8 @@ export function KnobHeadlessDemo() {
         className='relative w-12 h-12'
         min={min}
         max={max}
+        step={step}
+        stepLarge={stepLarge}
         valueRaw={valueRaw}
         valueDefault={valueDefault}
         valueRawRoundFn={valueRawRoundFn}
