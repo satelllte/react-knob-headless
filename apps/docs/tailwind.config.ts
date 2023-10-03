@@ -15,6 +15,11 @@ const config: Config = {
         'ableton-9-gray': '#999999',
         'ableton-9-white': '#BFBFBF',
         'ableton-9-orange': '#D5824A',
+
+        'moises-gray-dark': '#262626',
+        'moises-gray': '#666666',
+        'moises-green': '#63fb97',
+        'moises-black': '#000000',
       },
     },
   },

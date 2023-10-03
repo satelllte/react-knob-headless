@@ -1,5 +1,6 @@
 import {KnobAbletonPan} from '@/components/KnobAbletonPan';
 import {KnobHeadlessDemo} from '../components/KnobHeadlessDemo';
+import {KnobMoisesPan} from '../components/KnobMoisesPan';
 
 function IndexPage() {
   return (
@@ -9,6 +10,7 @@ function IndexPage() {
         <div className='flex flex-col max-w-lg mx-auto items-center justify-center px-4 py-8 gap-4'>
           <AbletonPanCard title='Ableton: Pan knob' theme='mid-light' />
           <AbletonPanCard title='Ableton: Pan knob' theme='ableton-9' />
+          <MoisesKnobs />
         </div>
       </div>
       <div className='flex flex-col px-4 py-8 pt-32 max-w-sm'>
@@ -38,6 +40,21 @@ function AbletonPanCard({
         <KnobAbletonPan theme={theme} valueDefault={0} />
         <KnobAbletonPan theme={theme} valueDefault={0.5} />
         <KnobAbletonPan theme={theme} valueDefault={1} />
+      </div>
+    </div>
+  );
+}
+
+function MoisesKnobs() {
+  return (
+    <div className='flex-1 p-4 py-8 self-stretch bg-moises-black'>
+      <h3 className='text-white text-sm'>Moises pan knob</h3>
+      <div className='flex pt-2 gap-4'>
+        <KnobMoisesPan valueDefault={-1} />
+        <KnobMoisesPan valueDefault={-0.5} />
+        <KnobMoisesPan valueDefault={0} />
+        <KnobMoisesPan valueDefault={0.5} />
+        <KnobMoisesPan valueDefault={1} />
       </div>
     </div>
   );
