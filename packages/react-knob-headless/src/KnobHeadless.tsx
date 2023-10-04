@@ -22,7 +22,7 @@ type NativeDivPropsToExtend = Omit<
 const mapTo01Default = mapTo01Linear;
 const mapFrom01Default = mapFrom01Linear;
 const includeIntoTabOrderDefault = false;
-const keyboardDisabledDefault = false;
+const disabledKeyboardDefault = false;
 const dragSensitivityDefault = 0.006;
 const styleDefault: React.CSSProperties = {
   touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
@@ -76,7 +76,7 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
     /**
      * Disables the keyboard interaction.
      */
-    readonly keyboardDisabled?: boolean;
+    readonly disabledKeyboard?: boolean;
     /**
      * The sensitivity of the drag gesture. Must be a positive float value.
      * Play with this value in different browsers to find the best one for your use case.
@@ -100,7 +100,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
       includeIntoTabOrder = includeIntoTabOrderDefault,
-      keyboardDisabled = keyboardDisabledDefault,
+      disabledKeyboard = disabledKeyboardDefault,
       dragSensitivity = dragSensitivityDefault,
       ...rest
     },
@@ -109,7 +109,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
     const value = valueRawRoundFn(valueRaw);
 
     const onKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      if (keyboardDisabled) {
+      if (disabledKeyboard) {
         return;
       }
 
@@ -198,6 +198,6 @@ KnobHeadless.defaultProps = {
   mapTo01: mapTo01Default,
   mapFrom01: mapFrom01Default,
   includeIntoTabOrder: includeIntoTabOrderDefault,
-  keyboardDisabled: keyboardDisabledDefault,
+  disabledKeyboard: disabledKeyboardDefault,
   dragSensitivity: dragSensitivityDefault,
 };
