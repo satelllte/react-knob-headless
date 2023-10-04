@@ -32,7 +32,6 @@ export function KnobHeadlessDemo() {
         step={step}
         stepLarge={stepLarge}
         valueRaw={valueRaw}
-        valueDefault={valueDefault}
         valueRawRoundFn={valueRawRoundFn}
         valueRawDisplayFn={valueRawDisplayFn}
         onValueRawChange={setValueRaw}

@@ -12,7 +12,6 @@ const max = 5;
 const step = 1;
 const stepLarge = 2;
 const valueRaw = 2.25;
-const valueDefault = 0;
 const onValueRawChange = () => {};
 const valueRawRoundFn = Math.round;
 const valueRawDisplayFn = (valueRaw: number) =>
@@ -24,7 +23,6 @@ const props = {
   step,
   stepLarge,
   valueRaw,
-  valueDefault,
   onValueRawChange,
   valueRawRoundFn,
   valueRawDisplayFn,

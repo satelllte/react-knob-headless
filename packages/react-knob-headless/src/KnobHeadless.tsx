@@ -38,11 +38,27 @@ type KnobHeadlessLabelProps =
 
 type KnobHeadlessProps = NativeDivPropsToExtend &
   KnobHeadlessLabelProps & {
+    /**
+     * Minimum value.
+     */
     readonly min: number;
+    /**
+     * Maximum value.
+     */
     readonly max: number;
+    /**
+     * Current raw value.
+     * Make sure it's not rounded.
+     */
     readonly valueRaw: number;
-    readonly valueDefault: number;
+    /**
+     * Step value.
+     */
     readonly step: number;
+    /**
+     * Larger step value.
+     * Usually, it's 5-10 times larger than regular step value.
+     */
     readonly stepLarge: number;
     /**
      * Callback for when the raw value changes.
@@ -91,7 +107,6 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       min,
       max,
       valueRaw,
-      valueDefault,
       step,
       stepLarge,
       onValueRawChange,

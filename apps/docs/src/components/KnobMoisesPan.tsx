@@ -23,7 +23,6 @@ export function KnobMoisesPan({valueDefault = 0}: KnobMoisesPanProps) {
         step={step}
         stepLarge={stepLarge}
         valueRaw={valueRaw}
-        valueDefault={valueDefault}
         dragSensitivity={dragSensitivity}
         valueRawRoundFn={valueRawRoundFn}
         valueRawDisplayFn={valueRawDisplayFn}

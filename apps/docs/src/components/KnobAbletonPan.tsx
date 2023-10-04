@@ -51,7 +51,6 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
         step={step}
         stepLarge={stepLarge}
         valueRaw={valueRaw}
-        valueDefault={valueDefault}
         dragSensitivity={dragSensitivity}
         valueRawRoundFn={valueRawRoundFn}
         valueRawDisplayFn={valueRawDisplayFn}
