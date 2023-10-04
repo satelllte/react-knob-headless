@@ -47,7 +47,7 @@ export function KnobMoisesPan({valueDefault = 0}: KnobMoisesPanProps) {
           />
         </div>
       </KnobHeadless>
-      <div className='flex justify-between items-center px-0.5 text-xs text-moises-gray'>
+      <div className='flex justify-between items-center px-0.5 text-xs text-moises-gray select-none'>
         <span>L</span>
         <span>R</span>
       </div>
