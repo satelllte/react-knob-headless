@@ -42,7 +42,7 @@ export function KnobAbletonVolume({
     <div className='flex flex-col gap-2 items-center'>
       <KnobHeadless
         id={knobId}
-        aria-label='Pan'
+        aria-label='Volume'
         className={clsx(
           'relative w-14 h-4 border flex items-center justify-center overflow-hidden focus:outline focus:outline-1',
           backgroundColorClass,
