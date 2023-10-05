@@ -3,15 +3,18 @@ import {useId, useState} from 'react';
 import clsx from 'clsx';
 import {KnobHeadless, KnobHeadlessOutput} from 'react-knob-headless';
 
-type KnobAbletonPanProps = {
+type KnobAbletonVolumeProps = {
   readonly theme: 'mid-light' | 'ableton-9';
   readonly valueDefault?: number;
 };
 
-export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
+export function KnobAbletonVolume({
+  theme,
+  valueDefault = 0,
+}: KnobAbletonVolumeProps) {
   const knobId = useId();
   const [valueRaw, setValueRaw] = useState(valueDefault);
-  const value = valueRawRoundFn(valueRaw);
+  const value01 = mapTo01Linear(valueRaw, min, max);
 
   const backgroundColorClass = clsx(
     theme === 'mid-light' && 'bg-ableton-white',
@@ -58,14 +61,13 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
       >
         <div
           className={clsx(
-            'absolute inset-0 w-1/2',
+            'absolute inset-0 w-full',
             backgroundColorAccentClass,
-            value > 0 && 'left-1/2',
           )}
         >
           <div
             className={clsx('absolute inset-0', backgroundColorClass)}
-            style={{transform: `translateX(${value * 100}%)`}}
+            style={{transform: `translateX(${value01 * 100}%)`}}
           />
         </div>
         <KnobHeadlessOutput
@@ -82,18 +84,20 @@ export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
   );
 }
 
-const min = -1;
-const max = 1;
-const step = 0.02;
-const stepLarge = 0.2;
+const min = -70;
+const max = 6;
+const step = 0.1;
+const stepLarge = 1;
 const dragSensitivity = 0.005;
-const valueRawRoundFn = (x: number): number => Math.round(x * 100) / 100;
+const valueRawRoundFn = (x: number): number => Math.round(x * 10) / 10;
 const valueRawDisplayFn = (valueRaw: number): string => {
-  const pan = Math.round(valueRawRoundFn(valueRaw) * 50);
-  if (pan === 0) {
-    return 'C';
+  const value = valueRawRoundFn(valueRaw);
+  if (value <= min) {
+    return '-inf dB';
   }
 
-  const direction = pan < 0 ? 'L' : 'R';
-  return `${Math.abs(pan)}${direction}`;
+  return `${valueRawRoundFn(valueRaw).toFixed(1)} dB`;
 };
+
+const mapTo01Linear = (x: number, min: number, max: number): number =>
+  (x - min) / (max - min);
