@@ -1,92 +1,44 @@
 'use client';
-import {useId, useState} from 'react';
-import clsx from 'clsx';
-import {KnobHeadless, KnobHeadlessOutput} from 'react-knob-headless';
+import {KnobAbleton} from './KnobAbleton';
 
-type KnobAbletonPanProps = {
-  readonly theme: 'mid-light' | 'ableton-9';
-  readonly valueDefault?: number;
-};
+type KnobAbletonProps = React.ComponentProps<typeof KnobAbleton>;
+type KnobAbletonPanProps = Omit<
+  KnobAbletonProps,
+  | 'fill'
+  | 'valueDefault'
+  | 'min'
+  | 'max'
+  | 'step'
+  | 'stepLarge'
+  | 'valueRawRoundFn'
+  | 'valueRawDisplayFn'
+>;
 
-export function KnobAbletonPan({theme, valueDefault = 0}: KnobAbletonPanProps) {
-  const knobId = useId();
-  const [valueRaw, setValueRaw] = useState(valueDefault);
-  const value = valueRawRoundFn(valueRaw);
-
-  const backgroundColorClass = clsx(
-    theme === 'mid-light' && 'bg-ableton-white',
-    theme === 'ableton-9' && 'bg-ableton-9-white',
-  );
-  const backgroundColorAccentClass = clsx(
-    theme === 'mid-light' && 'bg-ableton-blue',
-    theme === 'ableton-9' && 'bg-ableton-9-orange',
-  );
-  const borderColorClass = clsx(
-    theme === 'mid-light' && 'border-ableton-gray',
-    theme === 'ableton-9' &&
-      'border-ableton-9-gray focus:border-ableton-9-gray-dark',
-  );
-  const focusOutlineClass = clsx(
-    theme === 'mid-light' && 'focus:outline-ableton-gray-dark',
-    theme === 'ableton-9' && 'focus:outline-ableton-9-gray-dark',
-  );
-  const textColorClass = clsx(
-    theme === 'mid-light' && 'text-ableton-gray-dark',
-    theme === 'ableton-9' && 'text-ableton-9-gray-dark',
-  );
-
+export function KnobAbletonPan({
+  theme,
+  'aria-label': ariaLabel,
+}: KnobAbletonPanProps) {
   return (
-    <div className='flex flex-col gap-2 items-center'>
-      <KnobHeadless
-        id={knobId}
-        aria-label='Pan'
-        className={clsx(
-          'relative w-14 h-4 border flex items-center justify-center overflow-hidden focus:outline focus:outline-1',
-          backgroundColorClass,
-          borderColorClass,
-          focusOutlineClass,
-        )}
-        min={min}
-        max={max}
-        step={step}
-        stepLarge={stepLarge}
-        valueRaw={valueRaw}
-        dragSensitivity={dragSensitivity}
-        valueRawRoundFn={valueRawRoundFn}
-        valueRawDisplayFn={valueRawDisplayFn}
-        onValueRawChange={setValueRaw}
-      >
-        <div
-          className={clsx(
-            'absolute inset-0 w-1/2',
-            backgroundColorAccentClass,
-            value > 0 && 'left-1/2',
-          )}
-        >
-          <div
-            className={clsx('absolute inset-0', backgroundColorClass)}
-            style={{transform: `translateX(${value * 100}%)`}}
-          />
-        </div>
-        <KnobHeadlessOutput
-          htmlFor={knobId}
-          className={clsx(
-            'relative pointer-events-none select-none text-xs',
-            textColorClass,
-          )}
-        >
-          {valueRawDisplayFn(valueRaw)}
-        </KnobHeadlessOutput>
-      </KnobHeadless>
-    </div>
+    <KnobAbleton
+      theme={theme}
+      fill='half'
+      aria-label={ariaLabel}
+      valueDefault={valueDefault}
+      min={min}
+      max={max}
+      step={step}
+      stepLarge={stepLarge}
+      valueRawRoundFn={valueRawRoundFn}
+      valueRawDisplayFn={valueRawDisplayFn}
+    />
   );
 }
 
 const min = -1;
 const max = 1;
+const valueDefault = 0;
 const step = 0.02;
 const stepLarge = 0.2;
-const dragSensitivity = 0.005;
 const valueRawRoundFn = (x: number): number => Math.round(x * 100) / 100;
 const valueRawDisplayFn = (valueRaw: number): string => {
   const pan = Math.round(valueRawRoundFn(valueRaw) * 50);
