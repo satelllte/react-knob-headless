@@ -4,7 +4,7 @@ import {KnobAbleton} from './KnobAbleton';
 type KnobAbletonProps = React.ComponentProps<typeof KnobAbleton>;
 type KnobAbletonPanProps = Omit<
   KnobAbletonProps,
-  | 'fill'
+  | 'fillMode'
   | 'valueDefault'
   | 'min'
   | 'max'
@@ -21,7 +21,7 @@ export function KnobAbletonPan({
   return (
     <KnobAbleton
       theme={theme}
-      fill='half'
+      fillMode='split'
       aria-label={ariaLabel}
       valueDefault={valueDefault}
       min={min}

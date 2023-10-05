@@ -4,7 +4,7 @@ import {KnobAbleton} from './KnobAbleton';
 type KnobAbletonProps = React.ComponentProps<typeof KnobAbleton>;
 type KnobAbletonVolumeProps = Omit<
   KnobAbletonProps,
-  | 'fill'
+  | 'fillMode'
   | 'valueDefault'
   | 'min'
   | 'max'
@@ -21,7 +21,7 @@ export function KnobAbletonVolume({
   return (
     <KnobAbleton
       theme={theme}
-      fill='full'
+      fillMode='full'
       aria-label={ariaLabel}
       valueDefault={valueDefault}
       min={min}

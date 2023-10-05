@@ -9,14 +9,14 @@ type KnobAbletonProps = Pick<
   'min' | 'max' | 'step' | 'stepLarge' | 'valueRawRoundFn' | 'valueRawDisplayFn'
 > & {
   readonly theme: 'mid-light' | 'ableton-9';
-  readonly fill: 'full' | 'half';
+  readonly fillMode: 'full' | 'split';
   readonly 'aria-label': string;
   readonly valueDefault: number;
 };
 
 export function KnobAbleton({
   theme,
-  fill,
+  fillMode,
   'aria-label': ariaLabel,
   valueDefault,
   min,
@@ -77,15 +77,15 @@ export function KnobAbleton({
           className={clsx(
             'absolute inset-0',
             backgroundColorAccentClass,
-            fill === 'full' ? 'w-full' : 'w-1/2',
-            fill === 'half' && value01 >= 0.5 && 'left-1/2',
+            fillMode === 'full' ? 'w-full' : 'w-1/2',
+            fillMode === 'split' && value01 >= 0.5 && 'left-1/2',
           )}
         >
           <div
             className={clsx('absolute inset-0', backgroundColorClass)}
             style={{
               transform:
-                fill === 'full'
+                fillMode === 'full'
                   ? `translateX(${value01 * 100}%)`
                   : `translateX(${(value01 * 2 - 1) * 100}%)`,
             }}
