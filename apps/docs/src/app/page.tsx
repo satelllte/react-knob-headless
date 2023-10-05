@@ -1,5 +1,6 @@
 import {KnobAbletonPan} from '@/components/KnobAbletonPan';
 import {KnobAbletonVolume} from '@/components/KnobAbletonVolume';
+import {KnobAbletonPercentage} from '@/components/KnobAbletonPercentage';
 import {KnobHeadlessDemo} from '../components/KnobHeadlessDemo';
 import {KnobMoisesPan} from '../components/KnobMoisesPan';
 
@@ -24,6 +25,18 @@ function IndexPage() {
               <KnobAbletonVolume
                 theme={theme}
                 aria-label={`Ableton volume knob with "${theme}" theme`}
+              />
+            </AbletonCard>
+          ))}
+          {abletonThemes.map((theme) => (
+            <AbletonCard
+              key={theme}
+              title='Ableton: Percentage knob'
+              theme={theme}
+            >
+              <KnobAbletonPercentage
+                theme={theme}
+                aria-label={`Ableton percentage knob with "${theme}" theme`}
               />
             </AbletonCard>
           ))}
