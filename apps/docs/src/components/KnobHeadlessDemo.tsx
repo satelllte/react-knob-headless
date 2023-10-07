@@ -1,6 +1,7 @@
 'use client';
 import {useId, useState} from 'react';
 import {KnobHeadless, KnobHeadlessLabel} from 'react-knob-headless';
+import {mapFrom01Linear, mapTo01Linear} from 'react-knob-headless/utils';
 
 const min = 0;
 const max = 100;
@@ -59,9 +60,3 @@ export function KnobHeadlessDemo() {
     </div>
   );
 }
-
-const mapFrom01Linear = (x: number, min: number, max: number): number =>
-  (max - min) * x + min;
-
-const mapTo01Linear = (x: number, min: number, max: number): number =>
-  (x - min) / (max - min);

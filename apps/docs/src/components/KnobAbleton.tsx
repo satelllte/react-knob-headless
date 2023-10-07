@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import {useId, useState} from 'react';
 import {KnobHeadless, KnobHeadlessOutput} from 'react-knob-headless';
+import {mapTo01Linear} from 'react-knob-headless/utils';
 
 type KnobHeadlessProps = React.ComponentProps<typeof KnobHeadless>;
 
@@ -106,6 +107,3 @@ export function KnobAbleton({
 }
 
 const dragSensitivity = 0.005;
-
-const mapTo01Linear = (x: number, min: number, max: number): number =>
-  (x - min) / (max - min);
