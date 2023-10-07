@@ -19,13 +19,13 @@ type NativeDivPropsToExtend = Omit<
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
 
-const mapTo01Default = mapTo01Linear;
-const mapFrom01Default = mapFrom01Linear;
-const includeIntoTabOrderDefault = false;
-const disabledKeyboardDefault = false;
 const styleDefault: React.CSSProperties = {
   touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
 };
+
+const includeIntoTabOrderDefault = false;
+const mapTo01Default = mapTo01Linear;
+const mapFrom01Default = mapFrom01Linear;
 
 type KnobHeadlessLabelProps =
   | {
@@ -79,6 +79,12 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly valueRawDisplayFn: (valueRaw: number) => string;
     /**
+     * Whether to include the element into the sequential tab order.
+     * If true, the element will be focusable via the keyboard by tabbing.
+     * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
+     */
+    readonly includeIntoTabOrder?: boolean;
+    /**
      * Used for mapping the value to the knob position (number from 0 to 1).
      * This is the place for making the interpolation, if non-linear one is required.
      * Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).
@@ -88,16 +94,6 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      * Opposite of `mapTo01`.
      */
     readonly mapFrom01?: (x: number, min: number, max: number) => number;
-    /**
-     * Whether to include the element into the sequential tab order.
-     * If true, the element will be focusable via the keyboard by tabbing.
-     * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
-     */
-    readonly includeIntoTabOrder?: boolean;
-    /**
-     * Disables the keyboard interaction.
-     */
-    readonly disabledKeyboard?: boolean;
   };
 
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
@@ -112,51 +108,14 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       onValueRawChange,
       valueRawRoundFn,
       valueRawDisplayFn,
+      includeIntoTabOrder = includeIntoTabOrderDefault,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
-      includeIntoTabOrder = includeIntoTabOrderDefault,
-      disabledKeyboard = disabledKeyboardDefault,
       ...rest
     },
     forwardedRef,
   ) => {
     const value = valueRawRoundFn(valueRaw);
-
-    const onKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      if (disabledKeyboard) {
-        return;
-      }
-
-      const updateValue = (newValueRaw: number) => {
-        event.preventDefault(); // Prevent page scrolling
-        onValueRawChange(clamp(newValueRaw, min, max));
-      };
-
-      switch (event.code) {
-        case 'Home':
-          updateValue(min);
-          break;
-        case 'End':
-          updateValue(max);
-          break;
-        case 'ArrowDown':
-        case 'ArrowLeft':
-          updateValue(value - step);
-          break;
-        case 'ArrowUp':
-        case 'ArrowRight':
-          updateValue(value + step);
-          break;
-        case 'PageDown':
-          updateValue(value - stepLarge);
-          break;
-        case 'PageUp':
-          updateValue(value + stepLarge);
-          break;
-        default:
-          break;
-      }
-    };
 
     const bindDrag = useDrag(
       ({delta}) => {
@@ -174,7 +133,11 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         onValueRawChange(newValueRaw);
       },
       {
-        pointer: {keys: false},
+        pointer: {
+          // Disabling default keyboard events provided by @use-gesture:
+          // https://use-gesture.netlify.app/docs/options/#pointerkeys
+          keys: false,
+        },
       },
     );
 
@@ -192,7 +155,6 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
           bindDrag(),
           {
             style: styleDefault,
-            onKeyDown,
             onPointerDown(event: React.PointerEvent<HTMLElement>) {
               // Touch devices have a delay before focusing so it won't focus if touch immediately moves away from target (sliding). We want thumb to focus regardless.
               // See, for reference, Radix UI Slider does the same: https://github.com/radix-ui/primitives/blob/eca6babd188df465f64f23f3584738b85dba610e/packages/react/slider/src/Slider.tsx#L442-L445
@@ -209,8 +171,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
 KnobHeadless.displayName = 'KnobHeadless';
 
 KnobHeadless.defaultProps = {
+  includeIntoTabOrder: includeIntoTabOrderDefault,
   mapTo01: mapTo01Default,
   mapFrom01: mapFrom01Default,
-  includeIntoTabOrder: includeIntoTabOrderDefault,
-  disabledKeyboard: disabledKeyboardDefault,
 };
