@@ -5,23 +5,18 @@ import {KnobHeadless} from 'react-knob-headless';
 import {mapFrom01Linear, mapTo01Linear} from 'react-knob-headless/utils';
 
 type KnobDecorativeProps = {
-  readonly 'aria-label': string;
   readonly valueDefault: number;
   readonly theme: 'stone' | 'pink' | 'green' | 'sky';
 };
 
-export function KnobDecorative({
-  'aria-label': ariaLabel,
-  valueDefault,
-  theme,
-}: KnobDecorativeProps) {
+export function KnobDecorative({valueDefault, theme}: KnobDecorativeProps) {
   const [valueRaw, setValueRaw] = useState<number>(valueDefault);
   const value01 = mapTo01Linear(valueRaw, min, max);
   const angle = mapFrom01Linear(value01, angleMin, angleMax);
   return (
     <KnobHeadless
       className='relative outline-none w-16 h-16'
-      aria-label={ariaLabel}
+      aria-label={`Decorative knob with "${theme}" theme`}
       min={min}
       max={max}
       step={step}

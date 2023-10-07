@@ -12,26 +12,10 @@ function IndexPage() {
           Unstyled & accessible <b>knob</b> primitive for React.
         </p>
         <div className='pt-8 flex flex-wrap gap-3'>
-          <KnobDecorative
-            aria-label='Decorative knob with "stone" theme'
-            theme='stone'
-            valueDefault={0}
-          />
-          <KnobDecorative
-            aria-label='Decorative knob with "pink" theme'
-            theme='pink'
-            valueDefault={40}
-          />
-          <KnobDecorative
-            aria-label='Decorative knob with "green" theme'
-            theme='green'
-            valueDefault={80}
-          />
-          <KnobDecorative
-            aria-label='Decorative knob with "sky" theme'
-            theme='sky'
-            valueDefault={100}
-          />
+          <KnobDecorative theme='stone' valueDefault={0} />
+          <KnobDecorative theme='pink' valueDefault={40} />
+          <KnobDecorative theme='green' valueDefault={80} />
+          <KnobDecorative theme='sky' valueDefault={100} />
         </div>
       </Section>
       <Section>
