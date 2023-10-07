@@ -1,4 +1,5 @@
 import {KnobDecorative} from '@/components/knobs/KnobDecorative';
+import {KnobPercentage} from '@/components/knobs/KnobPercentage';
 
 function IndexPage() {
   return (
@@ -40,7 +41,17 @@ function IndexPage() {
       </SectionContainer>
       <SectionContainer>
         <H2>Examples</H2>
-        <Paragraph>To be done ...</Paragraph>
+        <div className='pt-2'>
+          <H3>Percentage knob</H3>
+          <Paragraph>
+            Represents the percentage. Useful for values like
+            &quot;sustain&quot;, &quot;dry/wet&quot;, macros, etc.
+          </Paragraph>
+          <div className='pt-6 flex gap-4'>
+            <KnobPercentage label='Sustain' theme='stone' />
+            <KnobPercentage label='Dry/Wet' theme='sky' />
+          </div>
+        </div>
       </SectionContainer>
     </div>
   );
@@ -51,7 +62,11 @@ function SectionContainer({children}: {readonly children: React.ReactNode}) {
 }
 
 function H2({children}: {readonly children: React.ReactNode}) {
-  return <h2 className='font-semibold text-lg sm:text-xl'>{children}</h2>;
+  return <h2 className='font-semibold text-xl sm:text-2xl'>{children}</h2>;
+}
+
+function H3({children}: {readonly children: React.ReactNode}) {
+  return <h3 className='font-semibold text-base sm:text-xl'>{children}</h3>;
 }
 
 function Paragraph({children}: {readonly children: React.ReactNode}) {
