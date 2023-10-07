@@ -26,7 +26,7 @@ function IndexPage() {
       <Section>
         <H2>Examples</H2>
         <div className='pt-2'>
-          <H3>Linearly interpolated knob</H3>
+          <H3>Simple linear knob</H3>
           <Paragraph>
             By default, the knob interpolation occurs linearly, which is useful
             for values like &quot;sustain&quot;, &quot;dry/wet&quot;,
