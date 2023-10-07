@@ -1,3 +1,3 @@
-# react-knob-headless
+# 🎛️ React Knob Headless
 
-A headless knob component for React.
+Unstyled & accessible **knob** primitive for React.
