@@ -1,6 +1,10 @@
 import {KnobAbletonPan} from '@/components/KnobAbletonPan';
+import {KnobAbletonVolume} from '@/components/KnobAbletonVolume';
+import {KnobAbletonPercentage} from '@/components/KnobAbletonPercentage';
 import {KnobHeadlessDemo} from '../components/KnobHeadlessDemo';
 import {KnobMoisesPan} from '../components/KnobMoisesPan';
+
+const abletonThemes = ['mid-light', 'ableton-9'] as const;
 
 function IndexPage() {
   return (
@@ -8,8 +12,34 @@ function IndexPage() {
       <h1 className='px-4 py-8 text-center text-4xl'>React Knob Headless</h1>
       <div className='bg-black'>
         <div className='flex flex-col max-w-lg mx-auto items-center justify-center px-4 py-8 gap-4'>
-          <AbletonPanCard title='Ableton: Pan knob' theme='mid-light' />
-          <AbletonPanCard title='Ableton: Pan knob' theme='ableton-9' />
+          {abletonThemes.map((theme) => (
+            <AbletonCard key={theme} title='Ableton: Pan knob' theme={theme}>
+              <KnobAbletonPan
+                theme={theme}
+                aria-label={`Ableton pan knob with "${theme}" theme`}
+              />
+            </AbletonCard>
+          ))}
+          {abletonThemes.map((theme) => (
+            <AbletonCard key={theme} title='Ableton: Volume knob' theme={theme}>
+              <KnobAbletonVolume
+                theme={theme}
+                aria-label={`Ableton volume knob with "${theme}" theme`}
+              />
+            </AbletonCard>
+          ))}
+          {abletonThemes.map((theme) => (
+            <AbletonCard
+              key={theme}
+              title='Ableton: Percentage knob'
+              theme={theme}
+            >
+              <KnobAbletonPercentage
+                theme={theme}
+                aria-label={`Ableton percentage knob with "${theme}" theme`}
+              />
+            </AbletonCard>
+          ))}
           <MoisesKnobs />
         </div>
       </div>
@@ -21,12 +51,14 @@ function IndexPage() {
   );
 }
 
-function AbletonPanCard({
+function AbletonCard({
   title,
   theme,
+  children,
 }: {
   readonly title: string;
   readonly theme: 'mid-light' | 'ableton-9';
+  readonly children: React.ReactNode;
 }) {
   return (
     <div className='flex-1 p-4 py-8 self-stretch bg-ableton-gray-light text-black'>
@@ -34,13 +66,7 @@ function AbletonPanCard({
       <small className='text-stone-800 text-xs italic'>
         Theme: &quot;{theme}&quot;
       </small>
-      <div className='flex pt-2 gap-1'>
-        <KnobAbletonPan theme={theme} valueDefault={-1} />
-        <KnobAbletonPan theme={theme} valueDefault={-0.5} />
-        <KnobAbletonPan theme={theme} valueDefault={0} />
-        <KnobAbletonPan theme={theme} valueDefault={0.5} />
-        <KnobAbletonPan theme={theme} valueDefault={1} />
-      </div>
+      <div className='flex pt-2'>{children}</div>
     </div>
   );
 }

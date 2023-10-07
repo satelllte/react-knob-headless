@@ -2,7 +2,7 @@
 import {KnobAbleton} from './KnobAbleton';
 
 type KnobAbletonProps = React.ComponentProps<typeof KnobAbleton>;
-type KnobAbletonPanProps = Omit<
+type KnobAbletonPercentageProps = Omit<
   KnobAbletonProps,
   | 'fillMode'
   | 'valueDefault'
@@ -14,14 +14,14 @@ type KnobAbletonPanProps = Omit<
   | 'valueRawDisplayFn'
 >;
 
-export function KnobAbletonPan({
+export function KnobAbletonPercentage({
   theme,
   'aria-label': ariaLabel,
-}: KnobAbletonPanProps) {
+}: KnobAbletonPercentageProps) {
   return (
     <KnobAbleton
       theme={theme}
-      fillMode='split'
+      fillMode='full'
       aria-label={ariaLabel}
       valueDefault={valueDefault}
       min={min}
@@ -34,18 +34,13 @@ export function KnobAbletonPan({
   );
 }
 
-const min = -1;
-const max = 1;
-const valueDefault = 0;
-const step = 0.02;
-const stepLarge = 0.2;
-const valueRawRoundFn = (x: number): number => Math.round(x * 100) / 100;
+const min = 0;
+const max = 100;
+const valueDefault = 50;
+const step = 1;
+const stepLarge = 5;
+const valueRawRoundFn = (x: number): number => Math.round(x * 10) / 10;
 const valueRawDisplayFn = (valueRaw: number): string => {
-  const pan = Math.round(valueRawRoundFn(valueRaw) * 50);
-  if (pan === 0) {
-    return 'C';
-  }
-
-  const direction = pan < 0 ? 'L' : 'R';
-  return `${Math.abs(pan)}${direction}`;
+  const value = valueRawRoundFn(valueRaw);
+  return `${value < 10 ? value.toFixed(1) : value.toFixed(0)} %`;
 };

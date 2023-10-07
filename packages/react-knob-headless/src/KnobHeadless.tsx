@@ -23,7 +23,6 @@ const mapTo01Default = mapTo01Linear;
 const mapFrom01Default = mapFrom01Linear;
 const includeIntoTabOrderDefault = false;
 const disabledKeyboardDefault = false;
-const dragSensitivityDefault = 0.006;
 const styleDefault: React.CSSProperties = {
   touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
 };
@@ -61,6 +60,12 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly stepLarge: number;
     /**
+     * The sensitivity of the drag gesture. Must be a positive float value.
+     * Play with this value in different browsers to find the best one for your use case.
+     * Recommended value: 0.006 (quite optimal for most scenarios, so far).
+     */
+    readonly dragSensitivity: number;
+    /**
      * Callback for when the raw value changes.
      * NOTE: you shouldn't round the value here, instead, you have to do it inside `valueRawRoundFn`.
      */
@@ -93,12 +98,6 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      * Disables the keyboard interaction.
      */
     readonly disabledKeyboard?: boolean;
-    /**
-     * The sensitivity of the drag gesture. Must be a positive float value.
-     * Play with this value in different browsers to find the best one for your use case.
-     * Default value: 0.006 (quite optimal for most scenarios, so far).
-     */
-    readonly dragSensitivity?: number;
   };
 
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
@@ -109,6 +108,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       valueRaw,
       step,
       stepLarge,
+      dragSensitivity,
       onValueRawChange,
       valueRawRoundFn,
       valueRawDisplayFn,
@@ -116,7 +116,6 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       mapFrom01 = mapFrom01Default,
       includeIntoTabOrder = includeIntoTabOrderDefault,
       disabledKeyboard = disabledKeyboardDefault,
-      dragSensitivity = dragSensitivityDefault,
       ...rest
     },
     forwardedRef,
@@ -214,5 +213,4 @@ KnobHeadless.defaultProps = {
   mapFrom01: mapFrom01Default,
   includeIntoTabOrder: includeIntoTabOrderDefault,
   disabledKeyboard: disabledKeyboardDefault,
-  dragSensitivity: dragSensitivityDefault,
 };
