@@ -174,7 +174,11 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         onValueRawChange(newValueRaw);
       },
       {
-        pointer: {keys: false},
+        pointer: {
+          // Disabling default keyboard events provided by @use-gesture:
+          // https://use-gesture.netlify.app/docs/options/#pointerkeys
+          keys: false,
+        },
       },
     );
 
