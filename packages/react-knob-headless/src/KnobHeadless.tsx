@@ -19,12 +19,13 @@ type NativeDivPropsToExtend = Omit<
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
 
-const mapTo01Default = mapTo01Linear;
-const mapFrom01Default = mapFrom01Linear;
-const includeIntoTabOrderDefault = false;
 const styleDefault: React.CSSProperties = {
   touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
 };
+
+const includeIntoTabOrderDefault = false;
+const mapTo01Default = mapTo01Linear;
+const mapFrom01Default = mapFrom01Linear;
 
 type KnobHeadlessLabelProps =
   | {
@@ -78,6 +79,12 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly valueRawDisplayFn: (valueRaw: number) => string;
     /**
+     * Whether to include the element into the sequential tab order.
+     * If true, the element will be focusable via the keyboard by tabbing.
+     * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
+     */
+    readonly includeIntoTabOrder?: boolean;
+    /**
      * Used for mapping the value to the knob position (number from 0 to 1).
      * This is the place for making the interpolation, if non-linear one is required.
      * Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).
@@ -87,12 +94,6 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      * Opposite of `mapTo01`.
      */
     readonly mapFrom01?: (x: number, min: number, max: number) => number;
-    /**
-     * Whether to include the element into the sequential tab order.
-     * If true, the element will be focusable via the keyboard by tabbing.
-     * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
-     */
-    readonly includeIntoTabOrder?: boolean;
   };
 
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
@@ -107,9 +108,9 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       onValueRawChange,
       valueRawRoundFn,
       valueRawDisplayFn,
+      includeIntoTabOrder = includeIntoTabOrderDefault,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
-      includeIntoTabOrder = includeIntoTabOrderDefault,
       ...rest
     },
     forwardedRef,
@@ -170,7 +171,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
 KnobHeadless.displayName = 'KnobHeadless';
 
 KnobHeadless.defaultProps = {
+  includeIntoTabOrder: includeIntoTabOrderDefault,
   mapTo01: mapTo01Default,
   mapFrom01: mapFrom01Default,
-  includeIntoTabOrder: includeIntoTabOrderDefault,
 };
