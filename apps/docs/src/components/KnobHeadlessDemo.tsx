@@ -6,6 +6,7 @@ const min = 0;
 const max = 100;
 const step = 1;
 const stepLarge = 10;
+const dragSensitivity = 0.006;
 const valueDefault = 70;
 const angleMin = -145; // The minumum knob position angle, when x = 0
 const angleMax = 145; // The maximum knob position angle, when x = 1
@@ -31,6 +32,7 @@ export function KnobHeadlessDemo() {
         max={max}
         step={step}
         stepLarge={stepLarge}
+        dragSensitivity={dragSensitivity}
         valueRaw={valueRaw}
         valueRawRoundFn={valueRawRoundFn}
         valueRawDisplayFn={valueRawDisplayFn}
