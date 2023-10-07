@@ -4,7 +4,7 @@ import {KnobPercentage} from '@/components/knobs/KnobPercentage';
 function IndexPage() {
   return (
     <div className='max-w-3xl px-4 mx-auto'>
-      <SectionContainer>
+      <Section>
         <h1 className='font-bold text-3xl sm:text-4xl md:text-5xl'>
           React Knob Headless
         </h1>
@@ -33,13 +33,13 @@ function IndexPage() {
             valueDefault={100}
           />
         </div>
-      </SectionContainer>
-      <SectionContainer>
+      </Section>
+      <Section>
         <H2>Installation</H2>
         <Paragraph>Install the component from your command line.</Paragraph>
         <Code>npm install --save-exact react-knob-headless</Code>
-      </SectionContainer>
-      <SectionContainer>
+      </Section>
+      <Section>
         <H2>Examples</H2>
         <div className='pt-2'>
           <H3>Percentage knob</H3>
@@ -52,12 +52,12 @@ function IndexPage() {
             <KnobPercentage label='Dry/Wet' theme='sky' />
           </div>
         </div>
-      </SectionContainer>
+      </Section>
     </div>
   );
 }
 
-function SectionContainer({children}: {readonly children: React.ReactNode}) {
+function Section({children}: {readonly children: React.ReactNode}) {
   return <div className='pt-12 md:pt-16'>{children}</div>;
 }
 
