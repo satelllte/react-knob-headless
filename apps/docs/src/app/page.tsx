@@ -33,7 +33,6 @@ function IndexPage() {
             &quot;pan&quot;, etc.
           </Paragraph>
           <div className='pt-6 flex gap-4'>
-            <KnobPercentage label='Sustain' theme='stone' />
             <KnobPercentage label='Dry/Wet' theme='sky' />
           </div>
         </div>
