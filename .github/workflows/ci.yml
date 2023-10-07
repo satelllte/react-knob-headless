@@ -22,6 +22,8 @@ jobs:
         run: npm ci
       - name: Test
         run: npm run test
+      - name: Test (types)
+        run: npm run test:types
       - name: Test (lint)
         run: npm run test:lint
       - name: Test (format)

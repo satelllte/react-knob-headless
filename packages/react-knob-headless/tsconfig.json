@@ -20,6 +20,6 @@
     "module": "ESNext",
     "target": "es6"
   },
-  "include": ["tsup.config.ts", "src/**/*.ts"],
+  "include": ["tsup.config.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]
 }
