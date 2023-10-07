@@ -1,7 +1,7 @@
 /**
  * @vitest-environment jsdom
  */
-import React, {createRef} from 'react';
+import {createRef} from 'react';
 import {afterEach, describe, expect, it} from 'vitest';
 import {render, screen, cleanup} from '@testing-library/react';
 import {KnobHeadlessLabel} from './KnobHeadlessLabel';
@@ -161,7 +161,7 @@ describe('KnobHeadless', () => {
         {...props}
         aria-label='Test Knob'
         className='test-class-1 test-class-2'
-      ></KnobHeadless>,
+      />,
     );
 
     const knob = screen.getByRole('slider', {name: 'Test Knob'});
@@ -177,11 +177,7 @@ describe('KnobHeadless', () => {
 
   it('merges custom style', () => {
     const {rerender} = render(
-      <KnobHeadless
-        {...props}
-        aria-label='Test Knob'
-        style={{color: 'red'}}
-      ></KnobHeadless>,
+      <KnobHeadless {...props} aria-label='Test Knob' style={{color: 'red'}} />,
     );
 
     const knob = screen.getByRole('slider', {name: 'Test Knob'});
@@ -206,7 +202,7 @@ describe('KnobHeadless', () => {
         {...props}
         aria-label='Test Knob'
         style={{touchAction: 'pan-x'}}
-      ></KnobHeadless>,
+      />,
     );
 
     expect(knob.style).toMatchInlineSnapshot(`

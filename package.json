@@ -4,6 +4,7 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "test": "turbo run test",
+    "test:types": "turbo run test:types",
     "test:lint": "turbo run test:lint",
     "test:format": "prettier . --check",
     "format": "prettier . --write"

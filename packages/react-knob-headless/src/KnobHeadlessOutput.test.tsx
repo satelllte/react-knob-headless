@@ -1,7 +1,7 @@
 /**
  * @vitest-environment jsdom
  */
-import React, {createRef} from 'react';
+import {createRef} from 'react';
 import {afterEach, describe, expect, it} from 'vitest';
 import {render, screen, cleanup} from '@testing-library/react';
 import {KnobHeadlessOutput} from './KnobHeadlessOutput';
