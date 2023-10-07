@@ -26,10 +26,11 @@ function IndexPage() {
       <Section>
         <H2>Examples</H2>
         <div className='pt-2'>
-          <H3>Percentage knob</H3>
+          <H3>Linearly interpolated knob</H3>
           <Paragraph>
-            Represents the percentage. Useful for values like
-            &quot;sustain&quot;, &quot;dry/wet&quot;, macros, etc.
+            By default, the knob interpolation occurs linearly, which is useful
+            for values like &quot;sustain&quot;, &quot;dry/wet&quot;,
+            &quot;pan&quot;, etc.
           </Paragraph>
           <div className='pt-6 flex gap-4'>
             <KnobPercentage label='Sustain' theme='stone' />
