@@ -42,6 +42,12 @@ function IndexPage() {
             <KnobFrequency label='Frequency' theme='green' />
           </Example>
         </div>
+
+        {/* eslint-disable-next-line no-warning-comments */}
+        {/* TODO: add example - "Tab order inclusion" */}
+
+        {/* eslint-disable-next-line no-warning-comments */}
+        {/* TODO: add example - "Keyboard interaction" */}
       </Section>
     </div>
   );
