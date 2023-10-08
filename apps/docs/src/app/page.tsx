@@ -22,30 +22,32 @@ function IndexPage() {
       </Section>
       <Section>
         <H2>Features</H2>
-        <Paragraph>
-          - Knob primitive component. Tailored for audio applications in React.
-        </Paragraph>
-        <Paragraph>
-          - Smooth drag gesture, which supports mouse & touch devices. Powered
-          by{' '}
-          <ExternalLinkUnstyled
-            className='underline'
-            href='https://use-gesture.netlify.app/'
-          >
-            @use-gesture
-          </ExternalLinkUnstyled>
-          .
-        </Paragraph>
-        <Paragraph>
-          - Accessibility support. Follows{' '}
-          <ExternalLinkUnstyled
-            className='underline'
-            href='https://www.w3.org/WAI/ARIA/apg/patterns/slider/'
-          >
-            ARIA Slider
-          </ExternalLinkUnstyled>{' '}
-          pattern.
-        </Paragraph>
+        <Ul>
+          <Li>
+            Knob primitive component. Tailored for audio applications in React.
+          </Li>
+          <Li>
+            Smooth drag gesture, which supports mouse & touch devices. Powered
+            by{' '}
+            <ExternalLinkUnstyled
+              className='underline'
+              href='https://use-gesture.netlify.app/'
+            >
+              @use-gesture
+            </ExternalLinkUnstyled>
+            .
+          </Li>
+          <Li>
+            Accessibility support. Follows{' '}
+            <ExternalLinkUnstyled
+              className='underline'
+              href='https://www.w3.org/WAI/ARIA/apg/patterns/slider/'
+            >
+              ARIA Slider
+            </ExternalLinkUnstyled>{' '}
+            pattern.
+          </Li>
+        </Ul>
       </Section>
       <Section>
         <H2>Installation</H2>
@@ -122,6 +124,14 @@ function Example({
       </div>
     </div>
   );
+}
+
+function Ul({children}: {readonly children: React.ReactNode}) {
+  return <ul className='pl-1 list-disc list-inside'>{children}</ul>;
+}
+
+function Li({children}: {readonly children: React.ReactNode}) {
+  return <li className='pt-2 text-sm sm:text-base'>{children}</li>;
 }
 
 export default IndexPage;
