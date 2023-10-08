@@ -82,106 +82,99 @@ function IndexPage() {
         </Ul>
       </Section>
       <Section title='API'>
-        <H3>KnobHeadless</H3>
-        <div className='pt-2 pb-8'>
-          <Paragraph>
-            The primary knob primitive. This is the place where interaction
-            happens.
-          </Paragraph>
+        <div className='flex flex-col gap-20'>
+          <ComponentDocumentation
+            name='KnobHeadless'
+            about='The primary knob primitive. This is the place where interaction happens.'
+            properties={[
+              {
+                name: 'valueRaw',
+                type: 'number',
+                description: "Current value. Make sure it's not rounded.",
+              },
+              {
+                name: 'valueMin',
+                type: 'number',
+                description: 'Minimum value.',
+              },
+              {
+                name: 'valueMax',
+                type: 'number',
+                description: 'Maximum value.',
+              },
+              {
+                name: 'dragSensitivity',
+                type: 'number',
+                description:
+                  'The sensitivity of the drag gesture. Must be a positive float value. Play with this value in different browsers to find the best one for your use case. Recommended value: 0.006 (quite optimal for most scenarios, so far).',
+              },
+              {
+                name: 'valueRawRoundFn',
+                type: 'function',
+                description: 'The rounding function for the raw value.',
+              },
+              {
+                name: 'valueRawDisplayFn',
+                type: 'function',
+                description:
+                  'The function for mapping raw value to the human-readable text.',
+              },
+              {
+                name: 'onValueRawChange',
+                type: 'function',
+                description:
+                  'Callback for when the raw value changes. Note, that you shouldn\'t round the value here, instead, you have to do it inside "valueRawRoundFn".',
+              },
+              {
+                name: 'includeIntoTabOrder',
+                type: 'boolean',
+                defaultValue: 'false',
+                description:
+                  "Whether to include the element into the sequential tab order. If true, the element will be focusable via the keyboard by tabbing. In most audio applications, the knob is usually controlled by the mouse / touch, so it's not needed.",
+              },
+              {
+                name: 'mapTo01',
+                type: 'function',
+                defaultValue: 'mapTo01Linear()',
+                description:
+                  'Used for mapping the value to the normalized knob position (number from 0 to 1). This is the place for making the interpolation, if non-linear one is required. Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).',
+              },
+              {
+                name: 'mapFrom01',
+                type: 'function',
+                defaultValue: 'mapFrom01Linear()',
+                description: 'Opposite of "mapTo01".',
+              },
+              {
+                name: 'aria-label | aria-labelledby',
+                type: 'string',
+                description: 'Labelling for accesibility purposes.',
+              },
+              {
+                name: '...rest',
+                type: '...',
+                description: 'The rest of HTML "div" element props.',
+              },
+            ]}
+          />
+          <ComponentDocumentation
+            name='KnobHeadlessLabel'
+            about='The optional primitive for visual accessive labelling of the knob.'
+            properties={[
+              {
+                name: 'id',
+                type: 'string',
+                description:
+                  'Unique identifier for HTML "label" element. Must be provided to the knob via "aria-labelledby".',
+              },
+              {
+                name: '...rest',
+                type: '...',
+                description: 'The rest of HTML "label" element props.',
+              },
+            ]}
+          />
         </div>
-        <TableApi
-          properties={[
-            {
-              name: 'valueRaw',
-              type: 'number',
-              description: "Current value. Make sure it's not rounded.",
-            },
-            {
-              name: 'valueMin',
-              type: 'number',
-              description: 'Minimum value.',
-            },
-            {
-              name: 'valueMax',
-              type: 'number',
-              description: 'Maximum value.',
-            },
-            {
-              name: 'dragSensitivity',
-              type: 'number',
-              description:
-                'The sensitivity of the drag gesture. Must be a positive float value. Play with this value in different browsers to find the best one for your use case. Recommended value: 0.006 (quite optimal for most scenarios, so far).',
-            },
-            {
-              name: 'valueRawRoundFn',
-              type: 'function',
-              description: 'The rounding function for the raw value.',
-            },
-            {
-              name: 'valueRawDisplayFn',
-              type: 'function',
-              description:
-                'The function for mapping raw value to the human-readable text.',
-            },
-            {
-              name: 'onValueRawChange',
-              type: 'function',
-              description:
-                'Callback for when the raw value changes. Note, that you shouldn\'t round the value here, instead, you have to do it inside "valueRawRoundFn".',
-            },
-            {
-              name: 'includeIntoTabOrder',
-              type: 'boolean',
-              defaultValue: 'false',
-              description:
-                "Whether to include the element into the sequential tab order. If true, the element will be focusable via the keyboard by tabbing. In most audio applications, the knob is usually controlled by the mouse / touch, so it's not needed.",
-            },
-            {
-              name: 'mapTo01',
-              type: 'function',
-              defaultValue: 'mapTo01Linear()',
-              description:
-                'Used for mapping the value to the normalized knob position (number from 0 to 1). This is the place for making the interpolation, if non-linear one is required. Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).',
-            },
-            {
-              name: 'mapFrom01',
-              type: 'function',
-              defaultValue: 'mapFrom01Linear()',
-              description: 'Opposite of "mapTo01".',
-            },
-            {
-              name: 'aria-label | aria-labelledby',
-              type: 'string',
-              description: 'Labelling for accesibility purposes.',
-            },
-            {
-              name: '...rest',
-              type: '...',
-              description: 'The rest of HTML "div" element props.',
-            },
-          ]}
-        />
-        <H3>KnobHeadlessLabel</H3>
-        <div className='pt-2 pb-8'>
-          <Paragraph>
-            The optional primitive for visual accessive labelling of the knob.
-          </Paragraph>
-        </div>
-        <TableApi
-          properties={[
-            {
-              name: 'id',
-              type: 'string',
-              description:
-                'Unique identifier for HTML "label" element. Must be provided to the knob via "aria-labelledby".',
-            },
-            {
-              name: '...rest',
-              type: '...',
-              description: 'The rest of HTML "label" element props.',
-            },
-          ]}
-        />
       </Section>
     </div>
   );
@@ -263,6 +256,26 @@ function Ul({children}: {readonly children: React.ReactNode}) {
 
 function Li({children}: {readonly children: React.ReactNode}) {
   return <li className='text-sm sm:text-base'>{children}</li>;
+}
+
+function ComponentDocumentation({
+  name,
+  about,
+  properties,
+}: {
+  readonly name: string;
+  readonly about: string;
+  readonly properties: React.ComponentProps<typeof TableApi>['properties'];
+}) {
+  return (
+    <div>
+      <H3>{name}</H3>
+      <div className='pt-2 pb-8'>
+        <Paragraph>{about}</Paragraph>
+      </div>
+      <TableApi properties={properties} />
+    </div>
+  );
 }
 
 export default IndexPage;
