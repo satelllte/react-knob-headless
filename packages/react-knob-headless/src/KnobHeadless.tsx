@@ -9,19 +9,15 @@ type NativeDivProps = React.ComponentProps<'div'>;
 type NativeDivPropsToExtend = Omit<
   NativeDivProps,
   | 'role' // Constant. We don't want to allow overriding this
-  | 'aria-valuemin' // Handled by "min"
-  | 'aria-valuemax' // Handled by "max"
-  | 'aria-valuenow' // Handled by "value"
+  | 'aria-valuemin' // Handled by "valueMin"
+  | 'aria-valuemax' // Handled by "valueMin"
+  | 'aria-valuenow' // Handled by "valueRaw" and "valueRawRoundFn"
   | 'aria-valuetext' // Handled by "valueRawDisplayFn"
   | 'aria-orientation' // Constant. We don't want to allow overriding this
   | 'aria-label' // Handled by "KnobHeadlessLabelProps"
   | 'aria-labelledby' // Handled by "KnobHeadlessLabelProps"
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
-
-const styleDefault: React.CSSProperties = {
-  touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
-};
 
 const includeIntoTabOrderDefault = false;
 const mapTo01Default = mapTo01Linear;
@@ -40,25 +36,16 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
     /**
      * Minimum value.
      */
-    readonly min: number;
+    readonly valueMin: number;
     /**
      * Maximum value.
      */
-    readonly max: number;
+    readonly valueMax: number;
     /**
      * Current raw value.
      * Make sure it's not rounded.
      */
     readonly valueRaw: number;
-    /**
-     * Step value.
-     */
-    readonly step: number;
-    /**
-     * Larger step value.
-     * Usually, it's 5-10 times larger than regular step value.
-     */
-    readonly stepLarge: number;
     /**
      * The sensitivity of the drag gesture. Must be a positive float value.
      * Play with this value in different browsers to find the best one for your use case.
@@ -99,11 +86,9 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
   (
     {
-      min,
-      max,
+      valueMin,
+      valueMax,
       valueRaw,
-      step,
-      stepLarge,
       dragSensitivity,
       onValueRawChange,
       valueRawRoundFn,
@@ -126,9 +111,13 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         // Conversion of the raw value to 0-1 range
         // makes the sensitivity to be independent from min-max values range,
         // as well as it allows to use non-linear mapping functions.
-        const value01 = mapTo01(valueRaw, min, max);
+        const value01 = mapTo01(valueRaw, valueMin, valueMax);
         const newValue01 = clamp01(value01 + diff01);
-        const newValueRaw = clamp(mapFrom01(newValue01, min, max), min, max);
+        const newValueRaw = clamp(
+          mapFrom01(newValue01, valueMin, valueMax),
+          valueMin,
+          valueMax,
+        );
 
         onValueRawChange(newValueRaw);
       },
@@ -146,15 +135,17 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         ref={forwardedRef}
         role='slider'
         aria-valuenow={value}
-        aria-valuemin={min}
-        aria-valuemax={max}
+        aria-valuemin={valueMin}
+        aria-valuemax={valueMax}
         aria-orientation='vertical'
         aria-valuetext={valueRawDisplayFn(valueRaw)}
         tabIndex={includeIntoTabOrder ? 0 : -1}
         {...mergeProps(
           bindDrag(),
           {
-            style: styleDefault,
+            style: {
+              touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
+            },
             onPointerDown(event: React.PointerEvent<HTMLElement>) {
               // Touch devices have a delay before focusing so it won't focus if touch immediately moves away from target (sliding). We want thumb to focus regardless.
               // See, for reference, Radix UI Slider does the same: https://github.com/radix-ui/primitives/blob/eca6babd188df465f64f23f3584738b85dba610e/packages/react/slider/src/Slider.tsx#L442-L445

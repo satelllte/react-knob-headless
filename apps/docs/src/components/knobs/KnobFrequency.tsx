@@ -11,10 +11,8 @@ export function KnobFrequency({theme, label}: KnobFrequencyProps) {
       theme={theme}
       label={label}
       valueDefault={valueDefault}
-      min={min}
-      max={max}
-      step={step}
-      stepLarge={stepLarge}
+      valueMin={valueMin}
+      valueMax={valueMax}
       valueRawRoundFn={valueRawRoundFn}
       valueRawDisplayFn={valueRawDisplayFn}
       mapTo01={mapTo01}
@@ -23,11 +21,9 @@ export function KnobFrequency({theme, label}: KnobFrequencyProps) {
   );
 }
 
-const min = 20;
-const max = 20000;
+const valueMin = 20;
+const valueMax = 20000;
 const valueDefault = 440;
-const step = 1;
-const stepLarge = 10;
 const valueRawRoundFn = (x: number): number => x;
 const valueRawDisplayFn = (hz: number): string => {
   if (hz < 100) {
@@ -47,6 +43,6 @@ const valueRawDisplayFn = (hz: number): string => {
   return `${kHz.toFixed(1)} kHz`;
 };
 
-const normalisableRange = new NormalisableRange(min, max, 1000);
+const normalisableRange = new NormalisableRange(valueMin, valueMax, 1000);
 const mapTo01 = (x: number) => normalisableRange.mapTo01(x);
 const mapFrom01 = (x: number) => normalisableRange.mapFrom01(x);

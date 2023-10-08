@@ -13,10 +13,8 @@ type KnobHeadlessProps = React.ComponentProps<typeof KnobHeadless>;
 type KnobBaseThumbProps = React.ComponentProps<typeof KnobBaseThumb>;
 type KnobBaseProps = Pick<
   KnobHeadlessProps,
-  | 'min'
-  | 'max'
-  | 'step'
-  | 'stepLarge'
+  | 'valueMin'
+  | 'valueMax'
   | 'valueRawRoundFn'
   | 'valueRawDisplayFn'
   | 'mapTo01'
@@ -31,10 +29,8 @@ export function KnobBase({
   theme,
   label,
   valueDefault,
-  min,
-  max,
-  step,
-  stepLarge,
+  valueMin,
+  valueMax,
   valueRawRoundFn,
   valueRawDisplayFn,
   mapTo01 = mapTo01Linear,
@@ -43,7 +39,7 @@ export function KnobBase({
   const knobId = useId();
   const labelId = useId();
   const [valueRaw, setValueRaw] = useState<number>(valueDefault);
-  const value01 = mapTo01(valueRaw, min, max);
+  const value01 = mapTo01(valueRaw, valueMin, valueMax);
   const dragSensitivity = 0.006;
   return (
     <div
@@ -57,14 +53,12 @@ export function KnobBase({
         id={knobId}
         aria-labelledby={labelId}
         className='relative w-16 h-16 outline-none'
-        min={min}
-        max={max}
-        step={step}
-        stepLarge={stepLarge}
-        dragSensitivity={dragSensitivity}
+        valueMin={valueMin}
+        valueMax={valueMax}
         valueRaw={valueRaw}
         valueRawRoundFn={valueRawRoundFn}
         valueRawDisplayFn={valueRawDisplayFn}
+        dragSensitivity={dragSensitivity}
         mapTo01={mapTo01}
         mapFrom01={mapFrom01}
         onValueRawChange={setValueRaw}
