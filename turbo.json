@@ -12,7 +12,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "test": {},
+    "test": {
+      "dependsOn": ["^build"]
+    },
     "test:types": {},
     "test:lint": {
       "dependsOn": ["^build"]
