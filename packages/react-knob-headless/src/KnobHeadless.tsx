@@ -19,10 +19,6 @@ type NativeDivPropsToExtend = Omit<
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
 
-const styleDefault: React.CSSProperties = {
-  touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
-};
-
 const includeIntoTabOrderDefault = false;
 const mapTo01Default = mapTo01Linear;
 const mapFrom01Default = mapFrom01Linear;
@@ -154,7 +150,9 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         {...mergeProps(
           bindDrag(),
           {
-            style: styleDefault,
+            style: {
+              touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
+            },
             onPointerDown(event: React.PointerEvent<HTMLElement>) {
               // Touch devices have a delay before focusing so it won't focus if touch immediately moves away from target (sliding). We want thumb to focus regardless.
               // See, for reference, Radix UI Slider does the same: https://github.com/radix-ui/primitives/blob/eca6babd188df465f64f23f3584738b85dba610e/packages/react/slider/src/Slider.tsx#L442-L445
