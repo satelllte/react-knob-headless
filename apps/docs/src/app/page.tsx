@@ -1,9 +1,10 @@
 import {KnobDecorative} from '@/components/knobs/KnobDecorative';
+import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
 
 function IndexPage() {
   return (
-    <div className='max-w-3xl px-4 mx-auto'>
+    <div className='max-w-3xl px-4 mx-auto pb-12 sm:pb-16'>
       <Section>
         <h1 className='font-bold text-3xl sm:text-4xl md:text-5xl'>
           React Knob Headless
@@ -26,15 +27,20 @@ function IndexPage() {
       <Section>
         <H2>Examples</H2>
         <div className='pt-2'>
-          <H3>Simple linear knob</H3>
-          <Paragraph>
-            By default, the knob interpolation occurs linearly, which is useful
-            for values like &quot;sustain&quot;, &quot;dry/wet&quot;,
-            &quot;pan&quot;, etc.
-          </Paragraph>
-          <div className='pt-6 flex gap-4'>
+          <Example
+            title='Simple linear knob'
+            description='By default, the knob interpolation occurs linearly, which is useful for values like "sustain", "dry/wet", "pan", etc.'
+          >
             <KnobPercentage label='Dry/Wet' theme='sky' />
-          </div>
+          </Example>
+        </div>
+        <div className='pt-10'>
+          <Example
+            title='Custom interpolation'
+            description='A custom interpolation can be made whenever knob values should distribute non-linearly. This is useful for values like "frequency", "attack", "release", etc.'
+          >
+            <KnobFrequency label='Frequency' theme='green' />
+          </Example>
         </div>
       </Section>
     </div>
@@ -62,6 +68,24 @@ function Code({children}: {readonly children: React.ReactNode}) {
     <pre className='mt-4 py-3 px-4 border border-stone-400 text-stone-400 rounded-md text-xs sm:text-sm overflow-auto'>
       <code>{children}</code>
     </pre>
+  );
+}
+
+function Example({
+  title,
+  description,
+  children,
+}: {
+  readonly title: string;
+  readonly description: string;
+  readonly children: React.ReactNode;
+}) {
+  return (
+    <>
+      <H3>{title}</H3>
+      <Paragraph>{description}</Paragraph>
+      <div className='pt-6 flex gap-4'>{children}</div>
+    </>
   );
 }
 
