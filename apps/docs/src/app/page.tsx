@@ -65,7 +65,7 @@ function IndexPage() {
             <KnobPercentage label='Dry/Wet' theme='sky' />
           </Example>
           <Example
-            title='Custom interpolation'
+            title='Interpolated knob'
             description='A custom interpolation can be made whenever knob values should distribute non-linearly. This is useful for values like "frequency", "attack", "release", etc.'
             source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobFrequency.tsx'
           >
@@ -116,7 +116,7 @@ function Example({
     <div>
       <H3>{title}</H3>
       <Paragraph>{description}</Paragraph>
-      <div className='pt-6 flex gap-4'>{children}</div>
+      <div className='pt-4 flex gap-4'>{children}</div>
       <div className='pt-2'>
         <ExternalLinkUnstyled className='text-sm underline' href={source}>
           View source
