@@ -2,6 +2,24 @@
   "name": "react-knob-headless",
   "version": "0.1.0",
   "license": "MIT",
+  "author": "@satelllte (https://github.com/satelllte)",
+  "description": "Unstyled & accessible knob primitive for React",
+  "keywords": [
+    "knob",
+    "knobs",
+    "knob-control",
+    "unstyled",
+    "unstyled-components",
+    "headless",
+    "headless-ui",
+    "react",
+    "react-audio",
+    "headless-react",
+    "audio",
+    "audio-applications",
+    "ui",
+    "ui-design"
+  ],
   "exports": {
     ".": {
       "import": {
