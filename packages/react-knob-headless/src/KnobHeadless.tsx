@@ -34,6 +34,11 @@ type KnobHeadlessLabelProps =
 type KnobHeadlessProps = NativeDivPropsToExtend &
   KnobHeadlessLabelProps & {
     /**
+     * Current raw value.
+     * Make sure it's not rounded.
+     */
+    readonly valueRaw: number;
+    /**
      * Minimum value.
      */
     readonly valueMin: number;
@@ -42,37 +47,32 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly valueMax: number;
     /**
-     * Current raw value.
-     * Make sure it's not rounded.
-     */
-    readonly valueRaw: number;
-    /**
      * The sensitivity of the drag gesture. Must be a positive float value.
      * Play with this value in different browsers to find the best one for your use case.
      * Recommended value: 0.006 (quite optimal for most scenarios, so far).
      */
     readonly dragSensitivity: number;
     /**
-     * Callback for when the raw value changes.
-     * NOTE: you shouldn't round the value here, instead, you have to do it inside `valueRawRoundFn`.
-     */
-    readonly onValueRawChange: (newValueRaw: number) => void;
-    /**
      * The rounding function for the raw value.
      */
     readonly valueRawRoundFn: (valueRaw: number) => number;
     /**
-     * The function for mapping the raw value to human-readable text.
+     * The function for mapping raw value to the human-readable text.
      */
     readonly valueRawDisplayFn: (valueRaw: number) => string;
     /**
+     * Callback for when the raw value changes.
+     * Note, that you shouldn't round the value here, instead, you have to do it inside "valueRawRoundFn".
+     */
+    readonly onValueRawChange: (newValueRaw: number) => void;
+    /**
      * Whether to include the element into the sequential tab order.
      * If true, the element will be focusable via the keyboard by tabbing.
-     * In most audio applications, usually the knob is controlled by the mouse / touch, so it's not needed.
+     * In most audio applications, the knob is usually controlled by the mouse / touch, so it's not needed.
      */
     readonly includeIntoTabOrder?: boolean;
     /**
-     * Used for mapping the value to the knob position (number from 0 to 1).
+     * Used for mapping the value to the normalized knob position (number from 0 to 1).
      * This is the place for making the interpolation, if non-linear one is required.
      * Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).
      */
@@ -86,13 +86,13 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
   (
     {
+      valueRaw,
       valueMin,
       valueMax,
-      valueRaw,
       dragSensitivity,
-      onValueRawChange,
       valueRawRoundFn,
       valueRawDisplayFn,
+      onValueRawChange,
       includeIntoTabOrder = includeIntoTabOrderDefault,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,

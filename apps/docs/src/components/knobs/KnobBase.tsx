@@ -44,7 +44,7 @@ export function KnobBase({
   return (
     <div
       className={clsx(
-        'w-16 flex flex-col justify-center items-center text-sm select-none',
+        'w-16 flex flex-col gap-0.5 justify-center items-center text-xs select-none',
         'outline-none focus-within:outline-1 focus-within:outline-offset-4 focus-within:outline-stone-300',
       )}
     >
