@@ -2,6 +2,7 @@ import {KnobDecorative} from '@/components/knobs/KnobDecorative';
 import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
 import {ExternalLinkUnstyled} from '@/components/ui/ExternalLinkUnstyled';
+import {TableApi} from '@/components/ui/TableApi';
 
 function IndexPage() {
   return (
@@ -83,6 +84,82 @@ function IndexPage() {
             your own &quot;onKeyDown&quot; listener.
           </Li>
         </Ul>
+      </Section>
+      <Section>
+        <H2>API</H2>
+        <H3>KnobHeadless</H3>
+        <TableApi
+          properties={[
+            {
+              name: 'valueRaw',
+              type: 'number',
+              description: "Current value. Make sure it's not rounded.",
+            },
+            {
+              name: 'valueMin',
+              type: 'number',
+              description: 'Minimum value.',
+            },
+            {
+              name: 'valueMax',
+              type: 'number',
+              description: 'Maximum value.',
+            },
+            {
+              name: 'dragSensitivity',
+              type: 'number',
+              description:
+                'The sensitivity of the drag gesture. Must be a positive float value. Play with this value in different browsers to find the best one for your use case. Recommended value: 0.006 (quite optimal for most scenarios, so far).',
+            },
+            {
+              name: 'valueRawRoundFn',
+              type: 'function',
+              description: 'The rounding function for the raw value.',
+            },
+            {
+              name: 'valueRawDisplayFn',
+              type: 'function',
+              description:
+                'The function for mapping raw value to the human-readable text.',
+            },
+            {
+              name: 'onValueRawChange',
+              type: 'function',
+              description:
+                'Callback for when the raw value changes. Note, that you shouldn\'t round the value here, instead, you have to do it inside "valueRawRoundFn".',
+            },
+            {
+              name: 'includeIntoTabOrder',
+              type: 'boolean',
+              defaultValue: 'false',
+              description:
+                "Whether to include the element into the sequential tab order. If true, the element will be focusable via the keyboard by tabbing. In most audio applications, the knob is usually controlled by the mouse / touch, so it's not needed.",
+            },
+            {
+              name: 'mapTo01',
+              type: 'function',
+              defaultValue: 'mapTo01Linear()',
+              description:
+                'Used for mapping the value to the normalized knob position (number from 0 to 1). This is the place for making the interpolation, if non-linear one is required. Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).',
+            },
+            {
+              name: 'mapFrom01',
+              type: 'function',
+              defaultValue: 'mapFrom01Linear()',
+              description: 'Opposite of "mapTo01".',
+            },
+            {
+              name: 'aria-label | aria-labelledby',
+              type: 'string',
+              description: 'Labelling for accesibility purposes.',
+            },
+            {
+              name: '...rest',
+              type: '...',
+              description: 'The rest of native "div" element props.',
+            },
+          ]}
+        />
       </Section>
     </div>
   );
