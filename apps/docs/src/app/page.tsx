@@ -1,7 +1,7 @@
 import {KnobDecorative} from '@/components/knobs/KnobDecorative';
 import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
-import Link from 'next/link';
+import {ExternalLinkUnstyled} from '@/components/ui/ExternalLinkUnstyled';
 
 function IndexPage() {
   return (
@@ -19,6 +19,33 @@ function IndexPage() {
           <KnobDecorative theme='green' valueDefault={80} />
           <KnobDecorative theme='sky' valueDefault={100} />
         </div>
+      </Section>
+      <Section>
+        <H2>Features</H2>
+        <Paragraph>
+          - Knob primitive component. Tailored for audio applications in React.
+        </Paragraph>
+        <Paragraph>
+          - Smooth drag gesture, which supports mouse & touch devices. Powered
+          by{' '}
+          <ExternalLinkUnstyled
+            className='underline'
+            href='https://use-gesture.netlify.app/'
+          >
+            @use-gesture
+          </ExternalLinkUnstyled>
+          .
+        </Paragraph>
+        <Paragraph>
+          - Accessibility support. Follows{' '}
+          <ExternalLinkUnstyled
+            className='underline'
+            href='https://www.w3.org/WAI/ARIA/apg/patterns/slider/'
+          >
+            ARIA Slider
+          </ExternalLinkUnstyled>{' '}
+          pattern.
+        </Paragraph>
       </Section>
       <Section>
         <H2>Installation</H2>
@@ -89,14 +116,9 @@ function Example({
       <Paragraph>{description}</Paragraph>
       <div className='pt-6 flex gap-4'>{children}</div>
       <div className='pt-2'>
-        <Link
-          className='text-sm underline'
-          href={source}
-          target='_blank'
-          rel='noreferrer'
-        >
+        <ExternalLinkUnstyled className='text-sm underline' href={source}>
           View source
-        </Link>
+        </ExternalLinkUnstyled>
       </div>
     </div>
   );
