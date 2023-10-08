@@ -26,15 +26,13 @@ function IndexPage() {
       </Section>
       <Section>
         <H2>Examples</H2>
-        <div className='pt-2'>
+        <div className='pt-2 flex flex-col gap-10'>
           <Example
             title='Simple linear knob'
             description='By default, the knob interpolation occurs linearly, which is useful for values like "sustain", "dry/wet", "pan", etc.'
           >
             <KnobPercentage label='Dry/Wet' theme='sky' />
           </Example>
-        </div>
-        <div className='pt-10'>
           <Example
             title='Custom interpolation'
             description='A custom interpolation can be made whenever knob values should distribute non-linearly. This is useful for values like "frequency", "attack", "release", etc.'
@@ -87,11 +85,11 @@ function Example({
   readonly children: React.ReactNode;
 }) {
   return (
-    <>
+    <div>
       <H3>{title}</H3>
       <Paragraph>{description}</Paragraph>
       <div className='pt-6 flex gap-4'>{children}</div>
-    </>
+    </div>
   );
 }
 
