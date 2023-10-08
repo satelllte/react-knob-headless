@@ -1,5 +1,8 @@
 # 🎛️ React Knob Headless
 
+[![Version](https://img.shields.io/npm/v/react-knob-headless?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/react-knob-headless)
+[![docs](https://img.shields.io/badge/docs-f5f5f5?style=flat&colorA=000000&colorB=000000)](https://react-knob-headless.vercel.app)
+
 Unstyled & accessible **knob** primitive for React.
 
 <img src="./knobs.png" width="400">
