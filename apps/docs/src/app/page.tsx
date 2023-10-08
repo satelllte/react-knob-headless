@@ -1,6 +1,7 @@
 import {KnobDecorative} from '@/components/knobs/KnobDecorative';
 import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
+import Link from 'next/link';
 
 function IndexPage() {
   return (
@@ -30,12 +31,14 @@ function IndexPage() {
           <Example
             title='Simple linear knob'
             description='By default, the knob interpolation occurs linearly, which is useful for values like "sustain", "dry/wet", "pan", etc.'
+            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentage.tsx'
           >
             <KnobPercentage label='Dry/Wet' theme='sky' />
           </Example>
           <Example
             title='Custom interpolation'
             description='A custom interpolation can be made whenever knob values should distribute non-linearly. This is useful for values like "frequency", "attack", "release", etc.'
+            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobFrequency.tsx'
           >
             <KnobFrequency label='Frequency' theme='green' />
           </Example>
@@ -72,10 +75,12 @@ function Code({children}: {readonly children: React.ReactNode}) {
 function Example({
   title,
   description,
+  source,
   children,
 }: {
   readonly title: string;
   readonly description: string;
+  readonly source: string;
   readonly children: React.ReactNode;
 }) {
   return (
@@ -83,6 +88,16 @@ function Example({
       <H3>{title}</H3>
       <Paragraph>{description}</Paragraph>
       <div className='pt-6 flex gap-4'>{children}</div>
+      <div className='pt-2'>
+        <Link
+          className='text-sm underline'
+          href={source}
+          target='_blank'
+          rel='noreferrer'
+        >
+          View source
+        </Link>
+      </div>
     </div>
   );
 }
