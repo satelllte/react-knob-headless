@@ -1,15 +1,9 @@
-name: CI
+name: Publish
 
-on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
-  ci:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,13 +14,13 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install dependencies
         run: npm ci
-      - name: Test
-        run: npm run test
-      - name: Test (types)
-        run: npm run test:types
-      - name: Test (lint)
-        run: npm run test:lint
-      - name: Test (format)
-        run: npm run test:format
       - name: Build
         run: npm run build
+      - name: Publish to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          pushd ./packages/react-knob-headless
+          echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" > .npmrc
+          npm publish
+          popd
