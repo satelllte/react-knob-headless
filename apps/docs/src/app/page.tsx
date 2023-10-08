@@ -157,7 +157,28 @@ function IndexPage() {
             {
               name: '...rest',
               type: '...',
-              description: 'The rest of native "div" element props.',
+              description: 'The rest of HTML "div" element props.',
+            },
+          ]}
+        />
+        <H3>KnobHeadlessLabel</H3>
+        <div className='pt-2 pb-8'>
+          <Paragraph>
+            The optional primitive for visual accessive labelling of the knob.
+          </Paragraph>
+        </div>
+        <TableApi
+          properties={[
+            {
+              name: 'id',
+              type: 'string',
+              description:
+                'Unique identifier for HTML "label" element. Must be provided to the knob via "aria-labelledby".',
+            },
+            {
+              name: '...rest',
+              type: '...',
+              description: 'The rest of HTML "label" element props.',
             },
           ]}
         />
