@@ -38,7 +38,7 @@ export function TableApi({properties}: TableApiProps) {
               {property.defaultValue ? (
                 <code className='text-orange-500'>{property.defaultValue}</code>
               ) : (
-                <span>—</span>
+                <span className='text-stone-300'>—</span>
               )}
             </td>
             <td className='text-left align-baseline font-normal pb-1 md:pb-4'>

@@ -7,7 +7,7 @@ import {TableApi} from '@/components/ui/TableApi';
 function IndexPage() {
   return (
     <div className='max-w-3xl px-4 mx-auto pb-12 sm:pb-16'>
-      <Section>
+      <SectionContainer>
         <h1 className='font-bold text-3xl sm:text-4xl md:text-5xl'>
           React Knob Headless
         </h1>
@@ -20,9 +20,8 @@ function IndexPage() {
           <KnobDecorative theme='green' valueDefault={80} />
           <KnobDecorative theme='sky' valueDefault={100} />
         </div>
-      </Section>
-      <Section>
-        <H2>Features</H2>
+      </SectionContainer>
+      <Section title='Features'>
         <Ul>
           <Li>
             Knob primitive component. Tailored for audio applications in React.
@@ -50,13 +49,11 @@ function IndexPage() {
           </Li>
         </Ul>
       </Section>
-      <Section>
-        <H2>Installation</H2>
+      <Section title='Installation'>
         <Paragraph>Install the component from your command line.</Paragraph>
         <Code>npm install --save-exact react-knob-headless</Code>
       </Section>
-      <Section>
-        <H2>Examples</H2>
+      <Section title='Examples'>
         <div className='pt-2 flex flex-col gap-10'>
           <Example
             title='Simple linear knob'
@@ -74,8 +71,7 @@ function IndexPage() {
           </Example>
         </div>
       </Section>
-      <Section>
-        <H2>Gotchas</H2>
+      <Section title='Gotchas'>
         <Ul>
           <Li>
             There is no keyboard interaction provided by default. This is
@@ -85,9 +81,14 @@ function IndexPage() {
           </Li>
         </Ul>
       </Section>
-      <Section>
-        <H2>API</H2>
+      <Section title='API'>
         <H3>KnobHeadless</H3>
+        <div className='pt-2 pb-8'>
+          <Paragraph>
+            The primary knob primitive. This is the place where interaction
+            happens.
+          </Paragraph>
+        </div>
         <TableApi
           properties={[
             {
@@ -165,8 +166,23 @@ function IndexPage() {
   );
 }
 
-function Section({children}: {readonly children: React.ReactNode}) {
+function SectionContainer({children}: {readonly children: React.ReactNode}) {
   return <div className='pt-12 md:pt-16'>{children}</div>;
+}
+
+function Section({
+  title,
+  children,
+}: {
+  readonly title: string;
+  readonly children: React.ReactNode;
+}) {
+  return (
+    <SectionContainer>
+      <H2>{title}</H2>
+      <div className='pt-2'>{children}</div>
+    </SectionContainer>
+  );
 }
 
 function H2({children}: {readonly children: React.ReactNode}) {
@@ -178,7 +194,7 @@ function H3({children}: {readonly children: React.ReactNode}) {
 }
 
 function Paragraph({children}: {readonly children: React.ReactNode}) {
-  return <p className='pt-2 text-sm sm:text-base'>{children}</p>;
+  return <p className='text-sm sm:text-base'>{children}</p>;
 }
 
 function Code({children}: {readonly children: React.ReactNode}) {
@@ -203,7 +219,9 @@ function Example({
   return (
     <div>
       <H3>{title}</H3>
-      <Paragraph>{description}</Paragraph>
+      <div className='pt-1'>
+        <Paragraph>{description}</Paragraph>
+      </div>
       <div className='pt-4 flex gap-4'>{children}</div>
       <div className='pt-2'>
         <ExternalLinkUnstyled className='text-sm underline' href={source}>
@@ -215,11 +233,15 @@ function Example({
 }
 
 function Ul({children}: {readonly children: React.ReactNode}) {
-  return <ul className='pl-1 list-disc list-inside'>{children}</ul>;
+  return (
+    <ul className='pl-1 list-disc list-inside flex flex-col gap-2'>
+      {children}
+    </ul>
+  );
 }
 
 function Li({children}: {readonly children: React.ReactNode}) {
-  return <li className='pt-2 text-sm sm:text-base'>{children}</li>;
+  return <li className='text-sm sm:text-base'>{children}</li>;
 }
 
 export default IndexPage;
