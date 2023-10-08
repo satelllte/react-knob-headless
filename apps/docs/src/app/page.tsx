@@ -66,7 +66,7 @@ function IndexPage() {
           </Example>
           <Example
             title='Interpolated knob'
-            description='A custom interpolation can be made whenever knob values should distribute non-linearly. This is useful for values like "frequency", "attack", "release", etc.'
+            description='A custom interpolation can be made whenever knob values should distribute non-linearly. It achieved by consuming a pair of "mapTo01" & "mapFrom01" props. This is useful for values like "frequency", "attack", "release", etc.'
             source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobFrequency.tsx'
           >
             <KnobFrequency label='Frequency' theme='green' />
