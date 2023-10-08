@@ -47,15 +47,6 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly valueRaw: number;
     /**
-     * Step value.
-     */
-    readonly step: number;
-    /**
-     * Larger step value.
-     * Usually, it's 5-10 times larger than regular step value.
-     */
-    readonly stepLarge: number;
-    /**
      * The sensitivity of the drag gesture. Must be a positive float value.
      * Play with this value in different browsers to find the best one for your use case.
      * Recommended value: 0.006 (quite optimal for most scenarios, so far).
@@ -98,8 +89,6 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       min,
       max,
       valueRaw,
-      step,
-      stepLarge,
       dragSensitivity,
       onValueRawChange,
       valueRawRoundFn,

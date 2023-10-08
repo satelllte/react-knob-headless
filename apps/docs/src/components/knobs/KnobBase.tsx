@@ -15,8 +15,6 @@ type KnobBaseProps = Pick<
   KnobHeadlessProps,
   | 'min'
   | 'max'
-  | 'step'
-  | 'stepLarge'
   | 'valueRawRoundFn'
   | 'valueRawDisplayFn'
   | 'mapTo01'
@@ -33,8 +31,6 @@ export function KnobBase({
   valueDefault,
   min,
   max,
-  step,
-  stepLarge,
   valueRawRoundFn,
   valueRawDisplayFn,
   mapTo01 = mapTo01Linear,
@@ -59,8 +55,6 @@ export function KnobBase({
         className='relative w-16 h-16 outline-none'
         min={min}
         max={max}
-        step={step}
-        stepLarge={stepLarge}
         dragSensitivity={dragSensitivity}
         valueRaw={valueRaw}
         valueRawRoundFn={valueRawRoundFn}

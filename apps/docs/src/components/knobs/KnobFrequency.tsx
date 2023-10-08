@@ -13,8 +13,6 @@ export function KnobFrequency({theme, label}: KnobFrequencyProps) {
       valueDefault={valueDefault}
       min={min}
       max={max}
-      step={step}
-      stepLarge={stepLarge}
       valueRawRoundFn={valueRawRoundFn}
       valueRawDisplayFn={valueRawDisplayFn}
       mapTo01={mapTo01}
@@ -26,8 +24,6 @@ export function KnobFrequency({theme, label}: KnobFrequencyProps) {
 const min = 20;
 const max = 20000;
 const valueDefault = 440;
-const step = 1;
-const stepLarge = 10;
 const valueRawRoundFn = (x: number): number => x;
 const valueRawDisplayFn = (hz: number): string => {
   if (hz < 100) {

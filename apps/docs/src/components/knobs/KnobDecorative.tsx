@@ -18,8 +18,6 @@ export function KnobDecorative({theme, valueDefault}: KnobDecorativeProps) {
       aria-label={`Decorative knob with "${theme}" theme`}
       min={min}
       max={max}
-      step={step}
-      stepLarge={stepLarge}
       dragSensitivity={dragSensitivity}
       valueRaw={valueRaw}
       valueRawRoundFn={valueRawRoundFn}
@@ -33,8 +31,6 @@ export function KnobDecorative({theme, valueDefault}: KnobDecorativeProps) {
 
 const min = 0;
 const max = 100;
-const step = 1;
-const stepLarge = 10;
 const dragSensitivity = 0.006;
 const valueRawRoundFn = Math.round;
 const valueRawDisplayFn = (valueRaw: number): string =>

@@ -12,8 +12,6 @@ export function KnobPercentage({theme, label}: KnobPercentageProps) {
       valueDefault={valueDefault}
       min={min}
       max={max}
-      step={step}
-      stepLarge={stepLarge}
       valueRawRoundFn={valueRawRoundFn}
       valueRawDisplayFn={valueRawDisplayFn}
     />
@@ -23,8 +21,6 @@ export function KnobPercentage({theme, label}: KnobPercentageProps) {
 const min = 0;
 const max = 100;
 const valueDefault = 50;
-const step = 1;
-const stepLarge = 10;
 const valueRawRoundFn = Math.round;
 const valueRawDisplayFn = (valueRaw: number): string =>
   `${valueRawRoundFn(valueRaw)}%`;

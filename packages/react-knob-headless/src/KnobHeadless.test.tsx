@@ -9,8 +9,6 @@ import {KnobHeadless} from './KnobHeadless';
 
 const min = -5;
 const max = 5;
-const step = 1;
-const stepLarge = 2;
 const dragSensitivity = 0.006;
 const valueRaw = 2.25;
 const onValueRawChange = () => {};
@@ -21,8 +19,6 @@ const valueRawDisplayFn = (valueRaw: number) =>
 const props = {
   min,
   max,
-  step,
-  stepLarge,
   dragSensitivity,
   valueRaw,
   onValueRawChange,
