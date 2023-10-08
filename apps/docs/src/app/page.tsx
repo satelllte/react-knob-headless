@@ -88,6 +88,12 @@ function IndexPage() {
       <Section title='Gotchas'>
         <Ul>
           <Li>
+            The package is not in stable version yet. So, just in case,
+            it&apos;s recommended to lock its version in your
+            &quot;package.json&quot; file by installing it via
+            &quot;--save-exact&quot; flag.
+          </Li>
+          <Li>
             There is no keyboard interaction provided by default. This is
             intentional, as knob behaviours might differ significantly between
             use cases. To achieve keyboard interaction, you can just provide
