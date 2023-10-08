@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "build:package": "turbo run build --filter=react-knob-headless",
     "test": "turbo run test",
     "test:types": "turbo run test:types",
     "test:lint": "turbo run test:lint",
