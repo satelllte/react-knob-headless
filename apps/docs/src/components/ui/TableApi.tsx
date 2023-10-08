@@ -41,7 +41,7 @@ export function TableApi({properties}: TableApiProps) {
                 <span className='text-stone-300'>—</span>
               )}
             </td>
-            <td className='text-left align-baseline font-normal pb-1 md:pb-4'>
+            <td className='text-left align-baseline font-normal pb-1 md:pb-4 md:w-1/3'>
               <span className='text-stone-300'>{property.description}</span>
             </td>
           </tr>

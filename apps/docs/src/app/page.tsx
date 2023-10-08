@@ -174,6 +174,23 @@ function IndexPage() {
               },
             ]}
           />
+          <ComponentDocumentation
+            name='KnobHeadlessOutput'
+            about='The optional primitive for visual accessive output display of the knob.'
+            properties={[
+              {
+                name: 'htmlFor',
+                type: 'string',
+                description:
+                  'Unique identifier of the knob to relate the output with. Must be provided to the knob via "id".',
+              },
+              {
+                name: '...rest',
+                type: '...',
+                description: 'The rest of HTML "output" element props.',
+              },
+            ]}
+          />
         </div>
       </Section>
     </div>
