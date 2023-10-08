@@ -11,13 +11,13 @@ type KnobDecorativeProps = Pick<KnobBaseThumbProps, 'theme'> & {
 
 export function KnobDecorative({theme, valueDefault}: KnobDecorativeProps) {
   const [valueRaw, setValueRaw] = useState<number>(valueDefault);
-  const value01 = mapTo01Linear(valueRaw, min, max);
+  const value01 = mapTo01Linear(valueRaw, valueMin, valueMax);
   return (
     <KnobHeadless
       className='relative outline-none w-16 h-16'
       aria-label={`Decorative knob with "${theme}" theme`}
-      min={min}
-      max={max}
+      valueMin={valueMin}
+      valueMax={valueMax}
       dragSensitivity={dragSensitivity}
       valueRaw={valueRaw}
       valueRawRoundFn={valueRawRoundFn}
@@ -29,8 +29,8 @@ export function KnobDecorative({theme, valueDefault}: KnobDecorativeProps) {
   );
 }
 
-const min = 0;
-const max = 100;
+const valueMin = 0;
+const valueMax = 100;
 const dragSensitivity = 0.006;
 const valueRawRoundFn = Math.round;
 const valueRawDisplayFn = (valueRaw: number): string =>

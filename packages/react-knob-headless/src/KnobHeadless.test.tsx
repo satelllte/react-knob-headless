@@ -7,20 +7,20 @@ import {render, screen, cleanup} from '@testing-library/react';
 import {KnobHeadlessLabel} from './KnobHeadlessLabel';
 import {KnobHeadless} from './KnobHeadless';
 
-const min = -5;
-const max = 5;
-const dragSensitivity = 0.006;
+const valueMin = -5;
+const valueMax = 5;
 const valueRaw = 2.25;
+const dragSensitivity = 0.006;
 const onValueRawChange = () => {};
 const valueRawRoundFn = Math.round;
 const valueRawDisplayFn = (valueRaw: number) =>
   `${valueRawRoundFn(valueRaw)} units`;
 
 const props = {
-  min,
-  max,
-  dragSensitivity,
+  valueMin,
+  valueMax,
   valueRaw,
+  dragSensitivity,
   onValueRawChange,
   valueRawRoundFn,
   valueRawDisplayFn,

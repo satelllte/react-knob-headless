@@ -9,9 +9,9 @@ type NativeDivProps = React.ComponentProps<'div'>;
 type NativeDivPropsToExtend = Omit<
   NativeDivProps,
   | 'role' // Constant. We don't want to allow overriding this
-  | 'aria-valuemin' // Handled by "min"
-  | 'aria-valuemax' // Handled by "max"
-  | 'aria-valuenow' // Handled by "value"
+  | 'aria-valuemin' // Handled by "valueMin"
+  | 'aria-valuemax' // Handled by "valueMin"
+  | 'aria-valuenow' // Handled by "valueRaw" and "valueRawRoundFn"
   | 'aria-valuetext' // Handled by "valueRawDisplayFn"
   | 'aria-orientation' // Constant. We don't want to allow overriding this
   | 'aria-label' // Handled by "KnobHeadlessLabelProps"
@@ -36,11 +36,11 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
     /**
      * Minimum value.
      */
-    readonly min: number;
+    readonly valueMin: number;
     /**
      * Maximum value.
      */
-    readonly max: number;
+    readonly valueMax: number;
     /**
      * Current raw value.
      * Make sure it's not rounded.
@@ -86,8 +86,8 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
   (
     {
-      min,
-      max,
+      valueMin,
+      valueMax,
       valueRaw,
       dragSensitivity,
       onValueRawChange,
@@ -111,9 +111,13 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         // Conversion of the raw value to 0-1 range
         // makes the sensitivity to be independent from min-max values range,
         // as well as it allows to use non-linear mapping functions.
-        const value01 = mapTo01(valueRaw, min, max);
+        const value01 = mapTo01(valueRaw, valueMin, valueMax);
         const newValue01 = clamp01(value01 + diff01);
-        const newValueRaw = clamp(mapFrom01(newValue01, min, max), min, max);
+        const newValueRaw = clamp(
+          mapFrom01(newValue01, valueMin, valueMax),
+          valueMin,
+          valueMax,
+        );
 
         onValueRawChange(newValueRaw);
       },
@@ -131,8 +135,8 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         ref={forwardedRef}
         role='slider'
         aria-valuenow={value}
-        aria-valuemin={min}
-        aria-valuemax={max}
+        aria-valuemin={valueMin}
+        aria-valuemax={valueMax}
         aria-orientation='vertical'
         aria-valuetext={valueRawDisplayFn(valueRaw)}
         tabIndex={includeIntoTabOrder ? 0 : -1}

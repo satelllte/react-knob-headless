@@ -10,16 +10,16 @@ export function KnobPercentage({theme, label}: KnobPercentageProps) {
       theme={theme}
       label={label}
       valueDefault={valueDefault}
-      min={min}
-      max={max}
+      valueMin={valueMin}
+      valueMax={valueMax}
       valueRawRoundFn={valueRawRoundFn}
       valueRawDisplayFn={valueRawDisplayFn}
     />
   );
 }
 
-const min = 0;
-const max = 100;
+const valueMin = 0;
+const valueMax = 100;
 const valueDefault = 50;
 const valueRawRoundFn = Math.round;
 const valueRawDisplayFn = (valueRaw: number): string =>
