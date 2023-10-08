@@ -1,3 +1,4 @@
+import {GitHubLogoIcon} from '@radix-ui/react-icons';
 import {KnobDecorative} from '@/components/knobs/KnobDecorative';
 import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
@@ -7,20 +8,33 @@ import {TableApi} from '@/components/ui/TableApi';
 function IndexPage() {
   return (
     <div className='max-w-3xl px-4 mx-auto pb-12 sm:pb-16'>
-      <SectionContainer>
+      <div className='absolute inset-x-4 top-4 flex justify-center sm:justify-end'>
+        <ExternalLinkUnstyled
+          className='inline-flex items-center gap-2 font-semibold text-sm sm:text-lg text-stone-400 rounded-md'
+          href='https://github.com/satelllte/react-knob-headless'
+        >
+          <GitHubLogoIcon
+            aria-label='GitHub repository'
+            width={20}
+            height={20}
+          />
+          <span>satelllte/react-knob-headless</span>
+        </ExternalLinkUnstyled>
+      </div>
+      <div className='pt-20'>
         <h1 className='font-bold text-3xl sm:text-4xl md:text-5xl'>
           React Knob Headless
         </h1>
         <p className='font-semibold text-xl sm:text-2xl pt-3 text-stone-400'>
           Unstyled & accessible <b>knob</b> primitive for React.
         </p>
-        <div className='pt-8 flex flex-wrap gap-3'>
+        <div className='pt-6 flex flex-wrap gap-3'>
           <KnobDecorative theme='stone' valueDefault={0} />
           <KnobDecorative theme='pink' valueDefault={40} />
           <KnobDecorative theme='green' valueDefault={80} />
           <KnobDecorative theme='sky' valueDefault={100} />
         </div>
-      </SectionContainer>
+      </div>
       <Section title='Features'>
         <Ul>
           <Li>
