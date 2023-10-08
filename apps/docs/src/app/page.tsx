@@ -73,6 +73,17 @@ function IndexPage() {
           </Example>
         </div>
       </Section>
+      <Section>
+        <H2>Gotchas</H2>
+        <Ul>
+          <Li>
+            There is no keyboard interaction provided by default. This is
+            intentional, as knob behaviours might differ significantly between
+            use cases. To achieve keyboard interaction, you can just provide
+            your own &quot;onKeyDown&quot; listener.
+          </Li>
+        </Ul>
+      </Section>
     </div>
   );
 }
