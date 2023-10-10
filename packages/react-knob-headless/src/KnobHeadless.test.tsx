@@ -11,7 +11,7 @@ const valueMin = -5;
 const valueMax = 5;
 const valueRaw = 2.25;
 const dragSensitivity = 0.006;
-const onValueRawChange = () => {};
+const onValueRawChange = () => {}; // eslint-disable-line @typescript-eslint/no-empty-function
 const valueRawRoundFn = Math.round;
 const valueRawDisplayFn = (valueRaw: number) =>
   `${valueRawRoundFn(valueRaw)} units`;
@@ -136,15 +136,15 @@ describe('KnobHeadless', () => {
   it('can render children', () => {
     render(
       <KnobHeadless {...props} aria-label='Test Knob'>
-        <div className='child'>Child</div>
+        <div className='absolute'>Child</div>
       </KnobHeadless>,
     );
 
     const knob = screen.getByRole('slider', {name: 'Test Knob'});
 
-    expect(knob.querySelector('.child')).toMatchInlineSnapshot(`
+    expect(knob.querySelector('.absolute')).toMatchInlineSnapshot(`
       <div
-        class="child"
+        class="absolute"
       >
         Child
       </div>
@@ -156,17 +156,17 @@ describe('KnobHeadless', () => {
       <KnobHeadless
         {...props}
         aria-label='Test Knob'
-        className='test-class-1 test-class-2'
+        className='mx-auto p-8'
       />,
     );
 
     const knob = screen.getByRole('slider', {name: 'Test Knob'});
 
-    expect(knob.className).toMatchInlineSnapshot('"test-class-1 test-class-2"');
+    expect(knob.className).toMatchInlineSnapshot('"mx-auto p-8"');
     expect(knob.classList).toMatchInlineSnapshot(`
       DOMTokenList {
-        "0": "test-class-1",
-        "1": "test-class-2",
+        "0": "mx-auto",
+        "1": "p-8",
       }
     `);
   });
