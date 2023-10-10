@@ -6,19 +6,15 @@
   "description": "Unstyled & accessible knob primitive for React",
   "keywords": [
     "knob",
-    "knobs",
-    "knob-control",
-    "unstyled",
-    "unstyled-components",
-    "headless",
+    "slider",
+    "rotary",
+    "rotary-knob",
     "headless-ui",
-    "react",
-    "react-audio",
-    "headless-react",
-    "audio",
-    "audio-applications",
-    "ui",
-    "ui-design"
+    "headlessui-react",
+    "react-knob",
+    "dial-knob",
+    "react-dial-knob",
+    "react-rotary-knob"
   ],
   "exports": {
     ".": {
