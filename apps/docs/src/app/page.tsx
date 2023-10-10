@@ -41,6 +41,10 @@ function IndexPage() {
             Knob primitive component. Tailored for audio applications in React.
           </Li>
           <Li>
+            Unstyled. Can be styled with any styling solution: Vanilla CSS,
+            Tailwind, Emotion, anything.
+          </Li>
+          <Li>
             Smooth drag gesture, which supports mouse & touch devices. Powered
             by{' '}
             <ExternalLinkUnstyled
