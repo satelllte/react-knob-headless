@@ -1,4 +1,4 @@
-import {clamp01} from 'react-knob-headless/utils';
+import {clamp01} from '@dsp-ts/math';
 
 /**
  * Partial implementation of the "NormalisableRange" class from JUCE Framework.

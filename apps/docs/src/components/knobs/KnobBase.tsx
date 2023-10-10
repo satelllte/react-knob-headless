@@ -6,7 +6,7 @@ import {
   KnobHeadlessLabel,
   KnobHeadlessOutput,
 } from 'react-knob-headless';
-import {mapFrom01Linear, mapTo01Linear} from 'react-knob-headless/utils';
+import {mapFrom01Linear, mapTo01Linear} from '@dsp-ts/math';
 import {KnobBaseThumb} from './KnobBaseThumb';
 
 type KnobHeadlessProps = React.ComponentProps<typeof KnobHeadless>;
