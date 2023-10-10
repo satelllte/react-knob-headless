@@ -1,7 +1,7 @@
 'use client';
 import {useState} from 'react';
 import {KnobHeadless} from 'react-knob-headless';
-import {mapTo01Linear} from 'react-knob-headless/utils';
+import {mapTo01Linear} from '@dsp-ts/math';
 import {KnobBaseThumb} from './KnobBaseThumb';
 
 type KnobBaseThumbProps = React.ComponentProps<typeof KnobBaseThumb>;

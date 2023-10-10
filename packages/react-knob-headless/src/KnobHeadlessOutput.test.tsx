@@ -49,7 +49,7 @@ describe('KnobHeadlessOutput', () => {
     render(
       <KnobHeadlessOutput
         htmlFor='knob-id'
-        className='test-class-1 test-class-2'
+        className='mx-auto p-12'
         style={{color: 'red'}}
         aria-live='off'
       >
@@ -62,7 +62,7 @@ describe('KnobHeadlessOutput', () => {
     expect(output).toMatchInlineSnapshot(`
       <output
         aria-live="off"
-        class="test-class-1 test-class-2"
+        class="mx-auto p-12"
         for="knob-id"
         style="color: red;"
       >

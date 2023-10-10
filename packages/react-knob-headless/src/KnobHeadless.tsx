@@ -1,8 +1,7 @@
 import {forwardRef} from 'react';
 import {useDrag} from '@use-gesture/react';
 import mergeProps from 'merge-props';
-import {mapFrom01Linear, mapTo01Linear} from './utils/map01Linear';
-import {clamp, clamp01} from './utils/clamp';
+import {clamp, clamp01, mapFrom01Linear, mapTo01Linear} from '@dsp-ts/math';
 
 type NativeDivProps = React.ComponentProps<'div'>;
 

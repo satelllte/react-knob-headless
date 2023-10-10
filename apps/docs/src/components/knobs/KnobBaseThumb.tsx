@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import {mapFrom01Linear} from 'react-knob-headless/utils';
+import {mapFrom01Linear} from '@dsp-ts/math';
 
 type KnobBaseThumbProps = {
   readonly theme: 'stone' | 'pink' | 'green' | 'sky';
