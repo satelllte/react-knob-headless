@@ -12,12 +12,15 @@
   },
   "devDependencies": {
     "@rkh/eslint-config": "*",
+    "@testing-library/react": "14.0.0",
     "eslint": "8.49.0",
     "eslint-plugin-turbo": "1.10.13",
+    "jsdom": "22.1.0",
     "prettier": "3.0.3",
     "tsup": "7.2.0",
     "turbo": "1.10.13",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "vitest": "0.34.6"
   },
   "packageManager": "npm@9.5.1",
   "workspaces": [
