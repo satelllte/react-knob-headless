@@ -1,6 +1,6 @@
 {
   "name": "react-knob-headless",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "author": "@satelllte (https://github.com/satelllte)",
   "description": "Unstyled & accessible knob primitive for React",
