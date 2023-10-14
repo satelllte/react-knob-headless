@@ -40,11 +40,10 @@ export default defineConfig({
       name: 'chrome-desktop',
       use: {...devices['Desktop Chrome']},
     },
-    // TODO: fix GitHub Actions CI issue with Firefox
-    // {
-    //   name: 'firefox',
-    //   use: {...devices['Desktop Firefox']},
-    // },
+    {
+      name: 'firefox-desktop',
+      use: {...devices['Desktop Firefox']},
+    },
     {
       name: 'safari-desktop',
       use: {...devices['Desktop Safari']},
