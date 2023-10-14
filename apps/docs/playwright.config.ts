@@ -38,7 +38,7 @@ export default defineConfig({
   projects: [
     {
       name: 'Chrome (desktop)',
-      use: {...devices['Desktop Chrome'], channel: 'chrome'},
+      use: {...devices['Desktop Chrome']},
     },
     // TODO: fix GitHub Actions CI issue with Firefox
     // {
