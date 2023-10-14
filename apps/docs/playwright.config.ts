@@ -37,7 +37,7 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'Chrome (desktop)',
+      name: 'chrome-desktop',
       use: {...devices['Desktop Chrome']},
     },
     // TODO: fix GitHub Actions CI issue with Firefox
@@ -46,15 +46,15 @@ export default defineConfig({
     //   use: {...devices['Desktop Firefox']},
     // },
     {
-      name: 'Safari (desktop)',
+      name: 'safari-desktop',
       use: {...devices['Desktop Safari']},
     },
     {
-      name: 'Chrome (mobile)',
+      name: 'chrome-mobile',
       use: {...devices['Pixel 5']},
     },
     {
-      name: 'Safari (mobile)',
+      name: 'safari-mobile',
       use: {...devices['iPhone 12']},
     },
   ],
