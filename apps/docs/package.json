@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "test": "vitest",
-    "test:lint": "next lint --max-warnings=0 --format=compact"
+    "test:lint": "next lint --max-warnings=0 --format=compact",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@radix-ui/react-icons": "1.3.0",

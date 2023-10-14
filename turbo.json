@@ -18,6 +18,9 @@
     "test:types": {},
     "test:lint": {
       "dependsOn": ["^build"]
+    },
+    "test:e2e": {
+      "dependsOn": ["build", "^build"]
     }
   }
 }
