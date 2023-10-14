@@ -37,38 +37,25 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: {...devices['Desktop Chrome']},
+      name: 'Chrome (desktop)',
+      use: {...devices['Desktop Chrome'], channel: 'chrome'},
     },
-
+    // TODO: fix GitHub Actions CI issue with Firefox
+    // {
+    //   name: 'firefox',
+    //   use: {...devices['Desktop Firefox']},
+    // },
     {
-      name: 'firefox',
-      use: {...devices['Desktop Firefox']},
-    },
-
-    {
-      name: 'webkit',
+      name: 'Safari (desktop)',
       use: {...devices['Desktop Safari']},
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: 'Chrome (mobile)',
+      use: {...devices['Pixel 5']},
+    },
+    {
+      name: 'Safari (mobile)',
+      use: {...devices['iPhone 12']},
+    },
   ],
 });
