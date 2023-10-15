@@ -45,18 +45,15 @@ test('has decorative knobs behaving correctly', async ({page}) => {
 
   await expectKnobValueEqual(knobPink, {valueNow: 40});
   await expectKnobValueText(knobPink, {valueText: '40 units'});
-  ///
-  // await expectKnobDraggingDown(knobPink, {valueNow: 40, page});
+  await expectKnobDraggingDown(knobPink, {valueNow: 40, page});
 
   await expectKnobValueEqual(knobGreen, {valueNow: 80});
   await expectKnobValueText(knobGreen, {valueText: '80 units'});
-  ///
-  // await expectKnobDraggingUp(knobGreen, {valueNow: 80, page});
+  await expectKnobDraggingUp(knobGreen, {valueNow: 80, page});
 
   await expectKnobValueEqual(knobSky, {valueNow: 100});
   await expectKnobValueText(knobSky, {valueText: '100 units'});
-  ///
-  // await expectKnobDraggingDown(knobSky, {valueNow: 100, page});
+  await expectKnobDraggingDown(knobSky, {valueNow: 100, page});
 });
 
 test.describe('"Simple linear knob" example', () => {
@@ -194,9 +191,11 @@ const expectKnobDraggingUp = async (
     multiplier?: number;
   },
 ) => {
-  const {x, y} = await knob.evaluate((element) =>
+  const bounds = await knob.evaluate((element) =>
     element.getBoundingClientRect(),
   );
+  const x = bounds.x + bounds.width / 2;
+  const y = bounds.y + bounds.height / 2;
   await knob.hover();
   await page.mouse.down();
   await page.mouse.move(x, y - dragAmplitude * multiplier, {steps: dragSteps});
@@ -216,10 +215,11 @@ const expectKnobDraggingDown = async (
     multiplier?: number;
   },
 ) => {
-  const {x, y} = await knob.evaluate((element) =>
+  const bounds = await knob.evaluate((element) =>
     element.getBoundingClientRect(),
   );
-  await page.mouse.move(x, y);
+  const x = bounds.x + bounds.width / 2;
+  const y = bounds.y + bounds.height / 2;
   await knob.hover();
   await page.mouse.down();
   await page.mouse.move(x, y + dragAmplitude * multiplier, {steps: dragSteps});
