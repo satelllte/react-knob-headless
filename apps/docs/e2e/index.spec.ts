@@ -192,6 +192,7 @@ const expectKnobDraggingUp = async (
   const {x, y} = await knob.evaluate((element) =>
     element.getBoundingClientRect(),
   );
+  await page.mouse.move(x, y);
   await knob.hover();
   await page.mouse.down();
   await page.mouse.move(x, y - dragAmplitude * multiplier, {steps: dragSteps});
@@ -214,6 +215,7 @@ const expectKnobDraggingDown = async (
   const {x, y} = await knob.evaluate((element) =>
     element.getBoundingClientRect(),
   );
+  await page.mouse.move(x, y);
   await knob.hover();
   await page.mouse.down();
   await page.mouse.move(x, y + dragAmplitude * multiplier, {steps: dragSteps});
