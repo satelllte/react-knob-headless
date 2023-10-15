@@ -212,11 +212,9 @@ const expectKnobDraggingUp = async (
   {
     valueNow,
     page,
-    multiplier = 1,
   }: {
     valueNow: number;
     page: Page;
-    multiplier?: number;
   },
 ) => {
   // It's necessary to hover over the knob and scroll it into view,
@@ -228,7 +226,7 @@ const expectKnobDraggingUp = async (
   const y = bounds.y + bounds.height / 2;
 
   await page.mouse.down();
-  await page.mouse.move(x, y - dragAmplitude * multiplier, {steps: dragSteps});
+  await page.mouse.move(x, y - dragAmplitude, {steps: dragSteps});
   await page.mouse.up();
   await expectKnobValueMoreThan(knob, {value: valueNow});
 };
@@ -238,11 +236,9 @@ const expectKnobDraggingDown = async (
   {
     valueNow,
     page,
-    multiplier = 1,
   }: {
     valueNow: number;
     page: Page;
-    multiplier?: number;
   },
 ) => {
   // It's necessary to hover over the knob and scroll it into view,
@@ -254,7 +250,7 @@ const expectKnobDraggingDown = async (
   const y = bounds.y + bounds.height / 2;
 
   await page.mouse.down();
-  await page.mouse.move(x, y + dragAmplitude * multiplier, {steps: dragSteps});
+  await page.mouse.move(x, y + dragAmplitude, {steps: dragSteps});
   await page.mouse.up();
   await expectKnobValueLessThan(knob, {value: valueNow});
 };
