@@ -15,7 +15,7 @@ export function KnobDecorative({theme, valueDefault}: KnobDecorativeProps) {
   return (
     <KnobHeadless
       className='relative outline-none w-16 h-16'
-      aria-label={`Decorative knob with "${theme}" theme`}
+      aria-label={`Decorative knob with '${theme}' theme`}
       valueMin={valueMin}
       valueMax={valueMax}
       dragSensitivity={dragSensitivity}
