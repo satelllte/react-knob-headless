@@ -206,7 +206,7 @@ const expectKnobDragging = async (
     page: Page;
   },
 ) => {
-  const steps = 10;
+  const steps = 50;
   const amplitude = 1000;
 
   const {x, y} = await knob.evaluate((element) =>
