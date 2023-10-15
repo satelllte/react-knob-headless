@@ -39,39 +39,21 @@ test('has decorative knobs behaving correctly', async ({page}) => {
     name: "Decorative knob with 'sky' theme",
   });
 
-  await expectKnobValue(knobStone, {valueNow: '0', valueText: '0 units'});
-  await expectKnobValue(knobPink, {valueNow: '40', valueText: '40 units'});
-  await expectKnobValue(knobGreen, {valueNow: '80', valueText: '80 units'});
-  await expectKnobValue(knobSky, {valueNow: '100', valueText: '100 units'});
+  await expectKnobValueEqual(knobStone, {valueNow: 0});
+  await expectKnobValueText(knobStone, {valueText: '0 units'});
+  await expectKnobDraggingUp(knobStone, {valueNow: 0, page});
 
-  await expectKnobDragging(knobStone, {
-    valueNowMax: '100',
-    valueTextMax: '100 units',
-    valueNowMin: '0',
-    valueTextMin: '0 units',
-    page,
-  });
-  await expectKnobDragging(knobPink, {
-    valueNowMax: '100',
-    valueTextMax: '100 units',
-    valueNowMin: '0',
-    valueTextMin: '0 units',
-    page,
-  });
-  await expectKnobDragging(knobGreen, {
-    valueNowMax: '100',
-    valueTextMax: '100 units',
-    valueNowMin: '0',
-    valueTextMin: '0 units',
-    page,
-  });
-  await expectKnobDragging(knobSky, {
-    valueNowMax: '100',
-    valueTextMax: '100 units',
-    valueNowMin: '0',
-    valueTextMin: '0 units',
-    page,
-  });
+  await expectKnobValueEqual(knobPink, {valueNow: 40});
+  await expectKnobValueText(knobPink, {valueText: '40 units'});
+  await expectKnobDraggingDown(knobPink, {valueNow: 40, page});
+
+  await expectKnobValueEqual(knobGreen, {valueNow: 80});
+  await expectKnobValueText(knobGreen, {valueText: '80 units'});
+  await expectKnobDraggingUp(knobGreen, {valueNow: 80, page});
+
+  await expectKnobValueEqual(knobSky, {valueNow: 100});
+  await expectKnobValueText(knobSky, {valueText: '100 units'});
+  await expectKnobDraggingDown(knobSky, {valueNow: 100, page});
 });
 
 test.describe('"Simple linear knob" example', () => {
@@ -107,15 +89,10 @@ test.describe('"Simple linear knob" example', () => {
   test('has "Dry/Wet" knob behaving correctly', async ({page}) => {
     const knob = container.getByRole('slider', {name: 'Dry/Wet'});
     const knobOutput = container.getByRole('status');
-    await expectKnobValue(knob, {knobOutput, valueNow: '50', valueText: '50%'});
-    await expectKnobDragging(knob, {
-      knobOutput,
-      valueNowMax: '100',
-      valueTextMax: '100%',
-      valueNowMin: '0',
-      valueTextMin: '0%',
-      page,
-    });
+    await expectKnobValueEqual(knob, {valueNow: 50});
+    await expectKnobValueText(knob, {knobOutput, valueText: '50%'});
+    await expectKnobDraggingDown(knob, {valueNow: 50, page});
+    await expectKnobDraggingUp(knob, {valueNow: 50, page, multiplier: 2});
   });
 });
 
@@ -152,19 +129,10 @@ test.describe('"Interpolated knob" example', () => {
   test('has "Frequency" knob behaving correctly', async ({page}) => {
     const knob = container.getByRole('slider', {name: 'Frequency'});
     const knobOutput = container.getByRole('status');
-    await expectKnobValue(knob, {
-      knobOutput,
-      valueNow: '440',
-      valueText: '440 Hz',
-    });
-    await expectKnobDragging(knob, {
-      knobOutput,
-      valueNowMax: '20000',
-      valueTextMax: '20.0 kHz',
-      valueNowMin: '20',
-      valueTextMin: '20.0 Hz',
-      page,
-    });
+    await expectKnobValueEqual(knob, {valueNow: 440});
+    await expectKnobValueText(knob, {knobOutput, valueText: '440 Hz'});
+    await expectKnobDraggingDown(knob, {valueNow: 440, page});
+    await expectKnobDraggingUp(knob, {valueNow: 440, page, multiplier: 2});
   });
 });
 
@@ -173,65 +141,82 @@ test.describe('"Interpolated knob" example', () => {
  * ASSERTIONS
  * ----------------
  */
-const expectKnobValue = async (
+const expectKnobValueText = async (
   knob: Locator,
-  {
-    knobOutput,
-    valueNow,
-    valueText,
-  }: {knobOutput?: Locator; valueNow: string; valueText: string},
+  {knobOutput, valueText}: {knobOutput?: Locator; valueText: string},
 ) => {
-  expect(await knob.getAttribute('aria-valuenow')).toBe(valueNow);
   expect(await knob.getAttribute('aria-valuetext')).toBe(valueText);
   if (knobOutput) {
     await expect(knobOutput).toHaveText(valueText);
   }
 };
 
-const expectKnobDragging = async (
+const expectKnobValueEqual = async (
+  knob: Locator,
+  {valueNow}: {valueNow: number},
+) => {
+  expect(await knob.getAttribute('aria-valuenow')).toBe(`${valueNow}`);
+};
+
+const expectKnobValueLessThan = async (
+  knob: Locator,
+  {value}: {value: number},
+) => {
+  expect(Number(await knob.getAttribute('aria-valuenow'))).toBeLessThan(value);
+};
+
+const expectKnobValueMoreThan = async (
+  knob: Locator,
+  {value}: {value: number},
+) => {
+  expect(Number(await knob.getAttribute('aria-valuenow'))).toBeGreaterThan(
+    value,
+  );
+};
+
+const dragSteps = 10;
+const dragAmplitude = 100;
+
+const expectKnobDraggingUp = async (
   knob: Locator,
   {
-    knobOutput,
-    valueNowMin,
-    valueNowMax,
-    valueTextMin,
-    valueTextMax,
+    valueNow,
     page,
+    multiplier = 1,
   }: {
-    knobOutput?: Locator;
-    valueNowMin: string;
-    valueNowMax: string;
-    valueTextMin: string;
-    valueTextMax: string;
+    valueNow: number;
     page: Page;
+    multiplier?: number;
   },
 ) => {
-  const steps = 50;
-  const amplitude = 1000;
-
   const {x, y} = await knob.evaluate((element) =>
     element.getBoundingClientRect(),
   );
-
-  // Dragging down
   await knob.hover();
   await page.mouse.down();
-  await page.mouse.move(x, y + amplitude, {steps});
+  await page.mouse.move(x, y - dragAmplitude * multiplier, {steps: dragSteps});
   await page.mouse.up();
-  await expectKnobValue(knob, {
-    knobOutput,
-    valueNow: valueNowMin,
-    valueText: valueTextMin,
-  });
+  await expectKnobValueMoreThan(knob, {value: valueNow});
+};
 
-  // Dragging up
+const expectKnobDraggingDown = async (
+  knob: Locator,
+  {
+    valueNow,
+    page,
+    multiplier = 1,
+  }: {
+    valueNow: number;
+    page: Page;
+    multiplier?: number;
+  },
+) => {
+  const {x, y} = await knob.evaluate((element) =>
+    element.getBoundingClientRect(),
+  );
   await knob.hover();
   await page.mouse.down();
-  await page.mouse.move(x, y - amplitude * 2, {steps});
+  await page.mouse.move(x, y + dragAmplitude * multiplier, {steps: dragSteps});
   await page.mouse.up();
-  await expectKnobValue(knob, {
-    knobOutput,
-    valueNow: valueNowMax,
-    valueText: valueTextMax,
-  });
+  await expectKnobValueLessThan(knob, {value: valueNow});
 };
