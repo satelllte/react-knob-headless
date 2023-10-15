@@ -41,8 +41,7 @@ test('has decorative knobs behaving correctly', async ({page}) => {
 
   await expectKnobValueEqual(knobStone, {valueNow: 0});
   await expectKnobValueText(knobStone, {valueText: '0 units'});
-  ///
-  // await expectKnobDraggingUp(knobStone, {valueNow: 0, page});
+  await expectKnobDraggingUp(knobStone, {valueNow: 0, page});
 
   await expectKnobValueEqual(knobPink, {valueNow: 40});
   await expectKnobValueText(knobPink, {valueText: '40 units'});
@@ -180,8 +179,8 @@ const expectKnobValueMoreThan = async (
   );
 };
 
-const dragSteps = 10;
-const dragAmplitude = 100;
+const dragSteps = 50;
+const dragAmplitude = 200;
 
 const expectKnobDraggingUp = async (
   knob: Locator,
@@ -198,7 +197,6 @@ const expectKnobDraggingUp = async (
   const {x, y} = await knob.evaluate((element) =>
     element.getBoundingClientRect(),
   );
-  await page.mouse.move(x, y);
   await knob.hover();
   await page.mouse.down();
   await page.mouse.move(x, y - dragAmplitude * multiplier, {steps: dragSteps});
