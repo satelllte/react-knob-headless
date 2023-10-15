@@ -69,19 +69,11 @@ test.describe('"Simple linear knob" example', () => {
     page,
   }) => {
     const viewSourceLink = locators.exampleViewSourceLink(container);
-    await expect(viewSourceLink).toHaveAttribute(
-      'href',
-      'https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentage.tsx',
-    );
-    await viewSourceLink.click();
-
-    const githubPage = await page.waitForEvent('popup');
-    // eslint-disable-next-line no-warning-comments
-    // TODO: Came up with a better way to assert that the correct file is opened
-    const githubHeading = githubPage.getByRole('heading', {
-      name: 'KnobPercentage.tsx',
+    await expects.sourceCodeLinkIsValid({
+      link: viewSourceLink,
+      page,
+      filePath: 'apps/docs/src/components/knobs/KnobPercentage.tsx',
     });
-    await expect(githubHeading).toBeVisible();
   });
 
   test.describe('"Dry/Wet" knob', () => {
@@ -118,19 +110,11 @@ test.describe('"Interpolated knob" example', () => {
     page,
   }) => {
     const viewSourceLink = locators.exampleViewSourceLink(container);
-    await expect(viewSourceLink).toHaveAttribute(
-      'href',
-      'https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobFrequency.tsx',
-    );
-    await viewSourceLink.click();
-
-    const githubPage = await page.waitForEvent('popup');
-    // eslint-disable-next-line no-warning-comments
-    // TODO: Came up with a better way to assert that the correct file is opened
-    const githubHeading = githubPage.getByRole('heading', {
-      name: 'KnobFrequency.tsx',
+    await expects.sourceCodeLinkIsValid({
+      link: viewSourceLink,
+      page,
+      filePath: 'apps/docs/src/components/knobs/KnobFrequency.tsx',
     });
-    await expect(githubHeading).toBeVisible();
   });
 
   test.describe('"Frequency" knob', () => {

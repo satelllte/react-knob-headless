@@ -87,6 +87,26 @@ export const knobDragsDownCorrectly = async (
   await knobValueIsLessThan(knob, {value: valueNow});
 };
 
+export const sourceCodeLinkIsValid = async ({
+  link,
+  page,
+  filePath,
+}: {
+  link: Locator;
+  page: Page;
+  filePath: string;
+}) => {
+  const url = `https://github.com/satelllte/react-knob-headless/blob/main/${filePath}`;
+  await expect(link).toHaveAttribute('href', url);
+  await link.click();
+
+  const githubPage = await page.waitForEvent('popup');
+  await expect(githubPage).toHaveURL(url);
+  await expect(githubPage).toHaveTitle(
+    `react-knob-headless/${filePath} at main · satelllte/react-knob-headless · GitHub`,
+  );
+};
+
 export const expects = {
   knobValueTextIs,
   knobValueIsEqualTo,
@@ -94,4 +114,5 @@ export const expects = {
   knobValueIsMoreThan,
   knobDragsUpCorrectly,
   knobDragsDownCorrectly,
+  sourceCodeLinkIsValid,
 } as const;
