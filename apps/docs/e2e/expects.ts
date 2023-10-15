@@ -1,7 +1,7 @@
 import {expect, type Page, type Locator} from '@playwright/test';
 
 const _dragSteps = 10;
-const _dragAmplitude = 20.0;
+const _dragAmplitude = 40.0;
 
 const _calculateElementCenter = async (element: Locator) => {
   const bounds = await element.evaluate((el) => el.getBoundingClientRect());
