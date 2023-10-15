@@ -91,9 +91,8 @@ test.describe('"Simple linear knob" example', () => {
     const knobOutput = container.getByRole('status');
     await expectKnobValueEqual(knob, {valueNow: 50});
     await expectKnobValueText(knob, {knobOutput, valueText: '50%'});
-    ///
-    // await expectKnobDraggingDown(knob, {valueNow: 50, page});
-    // await expectKnobDraggingUp(knob, {valueNow: 50, page, multiplier: 2});
+    await expectKnobDraggingDown(knob, {valueNow: 50, page});
+    await expectKnobDraggingUp(knob, {valueNow: 50, page, multiplier: 2});
   });
 });
 
@@ -132,9 +131,8 @@ test.describe('"Interpolated knob" example', () => {
     const knobOutput = container.getByRole('status');
     await expectKnobValueEqual(knob, {valueNow: 440});
     await expectKnobValueText(knob, {knobOutput, valueText: '440 Hz'});
-    ///
-    // await expectKnobDraggingDown(knob, {valueNow: 440, page});
-    // await expectKnobDraggingUp(knob, {valueNow: 440, page, multiplier: 2});
+    await expectKnobDraggingDown(knob, {valueNow: 440, page});
+    await expectKnobDraggingUp(knob, {valueNow: 440, page, multiplier: 2});
   });
 });
 
