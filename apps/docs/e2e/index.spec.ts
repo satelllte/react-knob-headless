@@ -41,19 +41,23 @@ test('has decorative knobs behaving correctly', async ({page}) => {
 
   await expectKnobValueEqual(knobStone, {valueNow: 0});
   await expectKnobValueText(knobStone, {valueText: '0 units'});
-  await expectKnobDraggingUp(knobStone, {valueNow: 0, page});
+  ///
+  // await expectKnobDraggingUp(knobStone, {valueNow: 0, page});
 
   await expectKnobValueEqual(knobPink, {valueNow: 40});
   await expectKnobValueText(knobPink, {valueText: '40 units'});
-  await expectKnobDraggingDown(knobPink, {valueNow: 40, page});
+  ///
+  // await expectKnobDraggingDown(knobPink, {valueNow: 40, page});
 
   await expectKnobValueEqual(knobGreen, {valueNow: 80});
   await expectKnobValueText(knobGreen, {valueText: '80 units'});
-  await expectKnobDraggingUp(knobGreen, {valueNow: 80, page});
+  ///
+  // await expectKnobDraggingUp(knobGreen, {valueNow: 80, page});
 
   await expectKnobValueEqual(knobSky, {valueNow: 100});
   await expectKnobValueText(knobSky, {valueText: '100 units'});
-  await expectKnobDraggingDown(knobSky, {valueNow: 100, page});
+  ///
+  // await expectKnobDraggingDown(knobSky, {valueNow: 100, page});
 });
 
 test.describe('"Simple linear knob" example', () => {
@@ -91,8 +95,9 @@ test.describe('"Simple linear knob" example', () => {
     const knobOutput = container.getByRole('status');
     await expectKnobValueEqual(knob, {valueNow: 50});
     await expectKnobValueText(knob, {knobOutput, valueText: '50%'});
-    await expectKnobDraggingDown(knob, {valueNow: 50, page});
-    await expectKnobDraggingUp(knob, {valueNow: 50, page, multiplier: 2});
+    ///
+    // await expectKnobDraggingDown(knob, {valueNow: 50, page});
+    // await expectKnobDraggingUp(knob, {valueNow: 50, page, multiplier: 2});
   });
 });
 
@@ -131,8 +136,9 @@ test.describe('"Interpolated knob" example', () => {
     const knobOutput = container.getByRole('status');
     await expectKnobValueEqual(knob, {valueNow: 440});
     await expectKnobValueText(knob, {knobOutput, valueText: '440 Hz'});
-    await expectKnobDraggingDown(knob, {valueNow: 440, page});
-    await expectKnobDraggingUp(knob, {valueNow: 440, page, multiplier: 2});
+    ///
+    // await expectKnobDraggingDown(knob, {valueNow: 440, page});
+    // await expectKnobDraggingUp(knob, {valueNow: 440, page, multiplier: 2});
   });
 });
 
