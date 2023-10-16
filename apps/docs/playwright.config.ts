@@ -11,7 +11,7 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  forbidOnly: Boolean(process.env.CI),
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
@@ -40,14 +40,13 @@ export default defineConfig({
       name: 'chrome-desktop',
       use: {...devices['Desktop Chrome']},
     },
-    // TODO: fix it in GitHub Actions, for some reason it doesn't run there properly
-    // {
-    //   name: 'firefox-desktop',
-    //   use: {...devices['Desktop Firefox']},
-    // },
     {
       name: 'safari-desktop',
       use: {...devices['Desktop Safari']},
+    },
+    {
+      name: 'firefox-desktop',
+      use: {...devices['Desktop Firefox']},
     },
     {
       name: 'chrome-mobile',
