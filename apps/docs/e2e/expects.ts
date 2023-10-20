@@ -43,6 +43,28 @@ export const knobValueIsMoreThan = async (
   );
 };
 
+export const knobDragsDownCorrectly = async (
+  knob: Locator,
+  {
+    valueNow,
+    page,
+  }: {
+    valueNow: number;
+    page: Page;
+  },
+) => {
+  // It's necessary to hover over the knob and scroll it into view,
+  // so then we can calculate its bounds in the viewport properly
+  await knob.hover();
+
+  const {x, y} = await _calculateElementCenter(knob);
+
+  await page.mouse.down();
+  await page.mouse.move(x, y + _dragAmplitude, {steps: _dragSteps});
+  await page.mouse.up();
+  await knobValueIsLessThan(knob, {value: valueNow});
+};
+
 export const knobDragsUpCorrectly = async (
   knob: Locator,
   {
@@ -65,7 +87,7 @@ export const knobDragsUpCorrectly = async (
   await knobValueIsMoreThan(knob, {value: valueNow});
 };
 
-export const knobDragsDownCorrectly = async (
+export const knobDragsLeftCorrectly = async (
   knob: Locator,
   {
     valueNow,
@@ -82,9 +104,31 @@ export const knobDragsDownCorrectly = async (
   const {x, y} = await _calculateElementCenter(knob);
 
   await page.mouse.down();
-  await page.mouse.move(x, y + _dragAmplitude, {steps: _dragSteps});
+  await page.mouse.move(x - _dragAmplitude, y, {steps: _dragSteps});
   await page.mouse.up();
   await knobValueIsLessThan(knob, {value: valueNow});
+};
+
+export const knobDragsRightCorrectly = async (
+  knob: Locator,
+  {
+    valueNow,
+    page,
+  }: {
+    valueNow: number;
+    page: Page;
+  },
+) => {
+  // It's necessary to hover over the knob and scroll it into view,
+  // so then we can calculate its bounds in the viewport properly
+  await knob.hover();
+
+  const {x, y} = await _calculateElementCenter(knob);
+
+  await page.mouse.down();
+  await page.mouse.move(x + _dragAmplitude, y, {steps: _dragSteps});
+  await page.mouse.up();
+  await knobValueIsMoreThan(knob, {value: valueNow});
 };
 
 export const sourceCodeLinkIsValid = async ({
@@ -112,7 +156,9 @@ export const expects = {
   knobValueIsEqualTo,
   knobValueIsLessThan,
   knobValueIsMoreThan,
-  knobDragsUpCorrectly,
   knobDragsDownCorrectly,
+  knobDragsUpCorrectly,
+  knobDragsLeftCorrectly,
+  knobDragsRightCorrectly,
   sourceCodeLinkIsValid,
 } as const;
