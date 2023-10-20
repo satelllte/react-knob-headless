@@ -139,3 +139,44 @@ test.describe('"Interpolated knob" example', () => {
     });
   });
 });
+
+test.describe('"Horizontal orientation" example', () => {
+  let container: Locator;
+
+  test.beforeEach(({page}) => {
+    container = locators.exampleContainer(page, 'Horizontal orientation');
+  });
+
+  test('has "View source" link leading to "KnobPercentageHorizontal.tsx" source code file', async ({
+    page,
+  }) => {
+    const viewSourceLink = locators.exampleViewSourceLink(container);
+    await expects.sourceCodeLinkIsValid({
+      link: viewSourceLink,
+      page,
+      filePath: 'apps/docs/src/components/knobs/KnobPercentageHorizontal.tsx',
+    });
+  });
+
+  test.describe('"X" knob', () => {
+    let knob: Locator;
+
+    test.beforeEach(() => {
+      knob = locators.exampleKnob(container, 'X');
+    });
+
+    test('has correct default value', async () => {
+      const knobOutput = locators.exampleKnobOutput(container);
+      await expects.knobValueIsEqualTo(knob, {valueNow: 50});
+      await expects.knobValueTextIs(knob, {knobOutput, valueText: '50%'});
+    });
+
+    test('has correct drag left behaviour', async ({page}) => {
+      await expects.knobDragsLeftCorrectly(knob, {valueNow: 50, page});
+    });
+
+    test('has correct drag right behaviour', async ({page}) => {
+      await expects.knobDragsRightCorrectly(knob, {valueNow: 50, page});
+    });
+  });
+});
