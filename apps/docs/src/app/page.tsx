@@ -158,6 +158,13 @@ function IndexPage() {
                   'Callback for when the raw value changes. Note, that you shouldn\'t round the value here, instead, you have to do it inside "valueRawRoundFn".',
               },
               {
+                name: 'orientation',
+                type: 'union',
+                defaultValue: 'vertical',
+                description:
+                  'Orientation of the knob and its gesture. Can be "vertical" or "horizontal".',
+              },
+              {
                 name: 'includeIntoTabOrder',
                 type: 'boolean',
                 defaultValue: 'false',

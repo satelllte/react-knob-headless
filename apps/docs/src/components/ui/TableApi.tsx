@@ -1,6 +1,6 @@
 type Property = {
   name: string;
-  type: 'number' | 'boolean' | 'function' | 'string' | '...';
+  type: string;
   defaultValue?: string;
   description: string;
 };

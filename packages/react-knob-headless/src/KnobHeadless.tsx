@@ -66,8 +66,8 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly onValueRawChange: (newValueRaw: number) => void;
     /**
-     * Orientation of the knob.
-     * Vertical by default.
+     * Orientation of the knob and its gesture.
+     * Default: "vertical".
      */
     readonly orientation?: 'horizontal' | 'vertical';
     /**
