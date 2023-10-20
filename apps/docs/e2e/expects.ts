@@ -44,7 +44,7 @@ const _knobDragsCorrectly =
         : y;
 
     await page.mouse.down();
-    await page.mouse.move(x, y + _dragAmplitude, {steps: _dragSteps});
+    await page.mouse.move(x, y, {steps: _dragSteps});
     await page.mouse.up();
 
     if (direction === 'up' || direction === 'right') {
