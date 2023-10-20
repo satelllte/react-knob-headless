@@ -12,12 +12,13 @@ type NativeDivPropsToExtend = Omit<
   | 'aria-valuemax' // Handled by "valueMin"
   | 'aria-valuenow' // Handled by "valueRaw" and "valueRawRoundFn"
   | 'aria-valuetext' // Handled by "valueRawDisplayFn"
-  | 'aria-orientation' // Constant. We don't want to allow overriding this
+  | 'aria-orientation' // Handled by "orientation"
   | 'aria-label' // Handled by "KnobHeadlessLabelProps"
   | 'aria-labelledby' // Handled by "KnobHeadlessLabelProps"
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
 
+const orientationDefault = 'vertical';
 const includeIntoTabOrderDefault = false;
 const mapTo01Default = mapTo01Linear;
 const mapFrom01Default = mapFrom01Linear;
@@ -65,6 +66,11 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly onValueRawChange: (newValueRaw: number) => void;
     /**
+     * Orientation of the knob.
+     * Vertical by default.
+     */
+    readonly orientation?: 'horizontal' | 'vertical';
+    /**
      * Whether to include the element into the sequential tab order.
      * If true, the element will be focusable via the keyboard by tabbing.
      * In most audio applications, the knob is usually controlled by the mouse / touch, so it's not needed.
@@ -92,6 +98,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       valueRawRoundFn,
       valueRawDisplayFn,
       onValueRawChange,
+      orientation = orientationDefault,
       includeIntoTabOrder = includeIntoTabOrderDefault,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
@@ -103,9 +110,10 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
 
     const bindDrag = useDrag(
       ({delta}) => {
-        // Negating the sensitivity for vertical axis (Y),
-        // since the direction of it goes top down on computer screens.
-        const diff01 = delta[1] * -dragSensitivity;
+        const diff01 =
+          orientation === 'horizontal'
+            ? delta[0] * dragSensitivity
+            : delta[1] * -dragSensitivity; // Negating the sensitivity for vertical axis (Y), since the direction of it goes top down on computer screens.
 
         // Conversion of the raw value to 0-1 range
         // makes the sensitivity to be independent from min-max values range,
@@ -136,7 +144,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         aria-valuenow={value}
         aria-valuemin={valueMin}
         aria-valuemax={valueMax}
-        aria-orientation='vertical'
+        aria-orientation={orientation}
         aria-valuetext={valueRawDisplayFn(valueRaw)}
         tabIndex={includeIntoTabOrder ? 0 : -1}
         {...mergeProps(
@@ -161,6 +169,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
 KnobHeadless.displayName = 'KnobHeadless';
 
 KnobHeadless.defaultProps = {
+  orientation: orientationDefault,
   includeIntoTabOrder: includeIntoTabOrderDefault,
   mapTo01: mapTo01Default,
   mapFrom01: mapFrom01Default,
