@@ -17,6 +17,7 @@ type KnobBaseProps = Pick<
   | 'valueMax'
   | 'valueRawRoundFn'
   | 'valueRawDisplayFn'
+  | 'orientation'
   | 'mapTo01'
   | 'mapFrom01'
 > &
@@ -33,6 +34,7 @@ export function KnobBase({
   valueMax,
   valueRawRoundFn,
   valueRawDisplayFn,
+  orientation,
   mapTo01 = mapTo01Linear,
   mapFrom01 = mapFrom01Linear,
 }: KnobBaseProps) {
@@ -59,6 +61,7 @@ export function KnobBase({
         valueRawRoundFn={valueRawRoundFn}
         valueRawDisplayFn={valueRawDisplayFn}
         dragSensitivity={dragSensitivity}
+        orientation={orientation}
         mapTo01={mapTo01}
         mapFrom01={mapFrom01}
         onValueRawChange={setValueRaw}

@@ -2,6 +2,7 @@ import {GitHubLogoIcon} from '@radix-ui/react-icons';
 import {KnobDecorative} from '@/components/knobs/KnobDecorative';
 import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
+import {KnobPercentageHorizontal} from '@/components/knobs/KnobPercentageHorizontal';
 import {ExternalLinkUnstyled} from '@/components/ui/ExternalLinkUnstyled';
 import {TableApi} from '@/components/ui/TableApi';
 
@@ -86,6 +87,13 @@ function IndexPage() {
             source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobFrequency.tsx'
           >
             <KnobFrequency label='Frequency' theme='green' />
+          </Example>
+          <Example
+            title='Horizontal orientation'
+            description="The knob gesture can occur along horizontal (X) axis instead of vertical (Y) one, but it's not common in audio applications."
+            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageHorizontal.tsx'
+          >
+            <KnobPercentageHorizontal label='X' theme='stone' />
           </Example>
         </div>
       </Section>
