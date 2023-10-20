@@ -2,18 +2,20 @@
 import {KnobBase} from './KnobBase';
 
 type KnobBaseProps = React.ComponentProps<typeof KnobBase>;
-type KnobPercentageProps = Pick<KnobBaseProps, 'theme' | 'label'>;
+type KnobPercentageProps = Pick<
+  KnobBaseProps,
+  'theme' | 'label' | 'orientation'
+>;
 
-export function KnobPercentage({theme, label}: KnobPercentageProps) {
+export function KnobPercentage(props: KnobPercentageProps) {
   return (
     <KnobBase
-      theme={theme}
-      label={label}
       valueDefault={valueDefault}
       valueMin={valueMin}
       valueMax={valueMax}
       valueRawRoundFn={valueRawRoundFn}
       valueRawDisplayFn={valueRawDisplayFn}
+      {...props}
     />
   );
 }

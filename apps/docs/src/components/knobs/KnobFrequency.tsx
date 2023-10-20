@@ -3,13 +3,14 @@ import {NormalisableRange} from '@/utils/math/NormalisableRange';
 import {KnobBase} from './KnobBase';
 
 type KnobBaseProps = React.ComponentProps<typeof KnobBase>;
-type KnobFrequencyProps = Pick<KnobBaseProps, 'theme' | 'label'>;
+type KnobFrequencyProps = Pick<
+  KnobBaseProps,
+  'theme' | 'label' | 'orientation'
+>;
 
-export function KnobFrequency({theme, label}: KnobFrequencyProps) {
+export function KnobFrequency(props: KnobFrequencyProps) {
   return (
     <KnobBase
-      theme={theme}
-      label={label}
       valueDefault={valueDefault}
       valueMin={valueMin}
       valueMax={valueMax}
@@ -17,6 +18,7 @@ export function KnobFrequency({theme, label}: KnobFrequencyProps) {
       valueRawDisplayFn={valueRawDisplayFn}
       mapTo01={mapTo01}
       mapFrom01={mapFrom01}
+      {...props}
     />
   );
 }
