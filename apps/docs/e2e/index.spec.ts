@@ -14,7 +14,7 @@ test.describe('Page title', () => {
 
 test.describe('Repository link', () => {
   test('has correct reference', async ({page}) => {
-    const repositoryLink = locators.repositoryLink(page);
+    const repositoryLink = locators.repositoryLink({page});
     await expect(repositoryLink).toBeVisible();
     await expect(repositoryLink).toHaveAttribute(
       'href',
@@ -23,7 +23,7 @@ test.describe('Repository link', () => {
   });
 
   test('opens GitHub repository page', async ({page}) => {
-    const repositoryLink = locators.repositoryLink(page);
+    const repositoryLink = locators.repositoryLink({page});
     await repositoryLink.click();
 
     const repositoryPage = await page.waitForEvent('popup');
@@ -35,10 +35,10 @@ test.describe('Repository link', () => {
 
 test.describe('Decorative knobs', () => {
   test('have correct default values and drag behaviour', async ({page}) => {
-    const knobStone = locators.decorativeKnobStone(page);
-    const knobPink = locators.decorativeKnobPink(page);
-    const knobGreen = locators.decorativeKnobGreen(page);
-    const knobSky = locators.decorativeKnobSky(page);
+    const knobStone = locators.decorativeKnobStone({page});
+    const knobPink = locators.decorativeKnobPink({page});
+    const knobGreen = locators.decorativeKnobGreen({page});
+    const knobSky = locators.decorativeKnobSky({page});
 
     await expects.knobValueIsEqualTo(knobStone, {valueNow: 0});
     await expects.knobValueTextIs(knobStone, {valueText: '0 units'});
@@ -62,13 +62,13 @@ test.describe('"Simple linear knob" example', () => {
   let container: Locator;
 
   test.beforeEach(({page}) => {
-    container = locators.exampleContainer(page, 'Simple linear knob');
+    container = locators.exampleContainer({page, name: 'Simple linear knob'});
   });
 
   test('has "View source" link leading to "KnobPercentage.tsx" source code file', async ({
     page,
   }) => {
-    const viewSourceLink = locators.exampleViewSourceLink(container);
+    const viewSourceLink = locators.exampleViewSourceLink({container});
     await expects.sourceCodeLinkIsValid({
       link: viewSourceLink,
       page,
@@ -80,11 +80,11 @@ test.describe('"Simple linear knob" example', () => {
     let knob: Locator;
 
     test.beforeEach(() => {
-      knob = locators.exampleKnob(container, 'Dry/Wet');
+      knob = locators.exampleKnob({container, name: 'Dry/Wet'});
     });
 
     test('has correct default value', async () => {
-      const knobOutput = locators.exampleKnobOutput(container);
+      const knobOutput = locators.exampleKnobOutput({container});
       await expects.knobValueIsEqualTo(knob, {valueNow: 50});
       await expects.knobValueTextIs(knob, {knobOutput, valueText: '50%'});
     });
@@ -103,13 +103,13 @@ test.describe('"Interpolated knob" example', () => {
   let container: Locator;
 
   test.beforeEach(({page}) => {
-    container = locators.exampleContainer(page, 'Interpolated knob');
+    container = locators.exampleContainer({page, name: 'Interpolated knob'});
   });
 
   test('has "View source" link leading to "KnobFrequency.tsx" source code file', async ({
     page,
   }) => {
-    const viewSourceLink = locators.exampleViewSourceLink(container);
+    const viewSourceLink = locators.exampleViewSourceLink({container});
     await expects.sourceCodeLinkIsValid({
       link: viewSourceLink,
       page,
@@ -121,11 +121,11 @@ test.describe('"Interpolated knob" example', () => {
     let knob: Locator;
 
     test.beforeEach(() => {
-      knob = locators.exampleKnob(container, 'Frequency');
+      knob = locators.exampleKnob({container, name: 'Frequency'});
     });
 
     test('has correct default value', async () => {
-      const knobOutput = locators.exampleKnobOutput(container);
+      const knobOutput = locators.exampleKnobOutput({container});
       await expects.knobValueIsEqualTo(knob, {valueNow: 440});
       await expects.knobValueTextIs(knob, {knobOutput, valueText: '440 Hz'});
     });
@@ -144,13 +144,16 @@ test.describe('"Horizontal orientation" example', () => {
   let container: Locator;
 
   test.beforeEach(({page}) => {
-    container = locators.exampleContainer(page, 'Horizontal orientation');
+    container = locators.exampleContainer({
+      page,
+      name: 'Horizontal orientation',
+    });
   });
 
   test('has "View source" link leading to "KnobPercentageHorizontal.tsx" source code file', async ({
     page,
   }) => {
-    const viewSourceLink = locators.exampleViewSourceLink(container);
+    const viewSourceLink = locators.exampleViewSourceLink({container});
     await expects.sourceCodeLinkIsValid({
       link: viewSourceLink,
       page,
@@ -162,11 +165,11 @@ test.describe('"Horizontal orientation" example', () => {
     let knob: Locator;
 
     test.beforeEach(() => {
-      knob = locators.exampleKnob(container, 'X');
+      knob = locators.exampleKnob({container, name: 'X'});
     });
 
     test('has correct default value', async () => {
-      const knobOutput = locators.exampleKnobOutput(container);
+      const knobOutput = locators.exampleKnobOutput({container});
       await expects.knobValueIsEqualTo(knob, {valueNow: 50});
       await expects.knobValueTextIs(knob, {knobOutput, valueText: '50%'});
     });
