@@ -1,8 +1,5 @@
 import {expect, type Page, type Locator} from '@playwright/test';
 
-const _dragSteps = 10;
-const _dragAmplitude = 40.0;
-
 const _calculateElementCenter = async (element: Locator) => {
   const bounds = await element.evaluate((el) => el.getBoundingClientRect());
   const x = bounds.x + bounds.width / 2;
@@ -10,20 +7,13 @@ const _calculateElementCenter = async (element: Locator) => {
   return {x, y};
 };
 
-type KnobDragAssertionArgs = [Locator, {valueNow: number; page: Page}];
-
+type KnobDragAssertionProps = {knob: Locator; valueNow: number; page: Page};
 const _knobDragsCorrectly =
   (direction: 'up' | 'down' | 'left' | 'right') =>
-  async (
-    knob: Locator,
-    {
-      valueNow,
-      page,
-    }: {
-      valueNow: number;
-      page: Page;
-    },
-  ) => {
+  async ({knob, valueNow, page}: KnobDragAssertionProps) => {
+    const dragSteps = 10;
+    const dragAmplitude = 40.0;
+
     // It's necessary to hover over the knob and scroll it into view,
     // so then we can calculate its bounds in the viewport properly
     await knob.hover();
@@ -32,72 +22,86 @@ const _knobDragsCorrectly =
 
     x =
       direction === 'right'
-        ? x + _dragAmplitude
+        ? x + dragAmplitude
         : direction === 'left'
-        ? x - _dragAmplitude
+        ? x - dragAmplitude
         : x;
     y =
       direction === 'down'
-        ? y + _dragAmplitude
+        ? y + dragAmplitude
         : direction === 'up'
-        ? y - _dragAmplitude
+        ? y - dragAmplitude
         : y;
 
     await page.mouse.down();
-    await page.mouse.move(x, y, {steps: _dragSteps});
+    await page.mouse.move(x, y, {steps: dragSteps});
     await page.mouse.up();
 
     if (direction === 'up' || direction === 'right') {
-      await knobValueIsMoreThan(knob, {value: valueNow});
+      await knobValueIsMoreThan({knob, value: valueNow});
     } else {
-      await knobValueIsLessThan(knob, {value: valueNow});
+      await knobValueIsLessThan({knob, value: valueNow});
     }
   };
 
-export const knobValueTextIs = async (
-  knob: Locator,
-  {knobOutput, valueText}: {knobOutput?: Locator; valueText: string},
-) => {
+export const knobValueTextIs = async ({
+  knob,
+  knobOutput,
+  valueText,
+}: {
+  knob: Locator;
+  knobOutput?: Locator;
+  valueText: string;
+}) => {
   expect(await knob.getAttribute('aria-valuetext')).toBe(valueText);
   if (knobOutput) {
     await expect(knobOutput).toHaveText(valueText);
   }
 };
 
-export const knobValueIsEqualTo = async (
-  knob: Locator,
-  {valueNow}: {valueNow: number},
-) => {
+export const knobValueIsEqualTo = async ({
+  knob,
+  valueNow,
+}: {
+  knob: Locator;
+  valueNow: number;
+}) => {
   expect(await knob.getAttribute('aria-valuenow')).toBe(`${valueNow}`);
 };
 
-export const knobValueIsLessThan = async (
-  knob: Locator,
-  {value}: {value: number},
-) => {
+export const knobValueIsLessThan = async ({
+  knob,
+  value,
+}: {
+  knob: Locator;
+  value: number;
+}) => {
   expect(Number(await knob.getAttribute('aria-valuenow'))).toBeLessThan(value);
 };
 
-export const knobValueIsMoreThan = async (
-  knob: Locator,
-  {value}: {value: number},
-) => {
+export const knobValueIsMoreThan = async ({
+  knob,
+  value,
+}: {
+  knob: Locator;
+  value: number;
+}) => {
   expect(Number(await knob.getAttribute('aria-valuenow'))).toBeGreaterThan(
     value,
   );
 };
 
-export const knobDragsDownCorrectly = async (...args: KnobDragAssertionArgs) =>
-  _knobDragsCorrectly('down')(...args);
+export const knobDragsDownCorrectly = async (props: KnobDragAssertionProps) =>
+  _knobDragsCorrectly('down')(props);
 
-export const knobDragsUpCorrectly = async (...args: KnobDragAssertionArgs) =>
-  _knobDragsCorrectly('up')(...args);
+export const knobDragsUpCorrectly = async (props: KnobDragAssertionProps) =>
+  _knobDragsCorrectly('up')(props);
 
-export const knobDragsLeftCorrectly = async (...args: KnobDragAssertionArgs) =>
-  _knobDragsCorrectly('left')(...args);
+export const knobDragsLeftCorrectly = async (props: KnobDragAssertionProps) =>
+  _knobDragsCorrectly('left')(props);
 
-export const knobDragsRightCorrectly = async (...args: KnobDragAssertionArgs) =>
-  _knobDragsCorrectly('right')(...args);
+export const knobDragsRightCorrectly = async (props: KnobDragAssertionProps) =>
+  _knobDragsCorrectly('right')(props);
 
 export const sourceCodeLinkIsValid = async ({
   link,
