@@ -40,21 +40,21 @@ test.describe('Decorative knobs', () => {
     const knobGreen = locators.decorativeKnobGreen({page});
     const knobSky = locators.decorativeKnobSky({page});
 
-    await expects.knobValueIsEqualTo(knobStone, {valueNow: 0});
-    await expects.knobValueTextIs(knobStone, {valueText: '0 units'});
-    await expects.knobDragsUpCorrectly(knobStone, {valueNow: 0, page});
+    await expects.knobValueIsEqualTo({knob: knobStone, valueNow: 0});
+    await expects.knobValueTextIs({knob: knobStone, valueText: '0 units'});
+    await expects.knobDragsUpCorrectly({knob: knobStone, valueNow: 0, page});
 
-    await expects.knobValueIsEqualTo(knobPink, {valueNow: 40});
-    await expects.knobValueTextIs(knobPink, {valueText: '40 units'});
-    await expects.knobDragsDownCorrectly(knobPink, {valueNow: 40, page});
+    await expects.knobValueIsEqualTo({knob: knobPink, valueNow: 40});
+    await expects.knobValueTextIs({knob: knobPink, valueText: '40 units'});
+    await expects.knobDragsDownCorrectly({knob: knobPink, valueNow: 40, page});
 
-    await expects.knobValueIsEqualTo(knobGreen, {valueNow: 80});
-    await expects.knobValueTextIs(knobGreen, {valueText: '80 units'});
-    await expects.knobDragsUpCorrectly(knobGreen, {valueNow: 80, page});
+    await expects.knobValueIsEqualTo({knob: knobGreen, valueNow: 80});
+    await expects.knobValueTextIs({knob: knobGreen, valueText: '80 units'});
+    await expects.knobDragsUpCorrectly({knob: knobGreen, valueNow: 80, page});
 
-    await expects.knobValueIsEqualTo(knobSky, {valueNow: 100});
-    await expects.knobValueTextIs(knobSky, {valueText: '100 units'});
-    await expects.knobDragsDownCorrectly(knobSky, {valueNow: 100, page});
+    await expects.knobValueIsEqualTo({knob: knobSky, valueNow: 100});
+    await expects.knobValueTextIs({knob: knobSky, valueText: '100 units'});
+    await expects.knobDragsDownCorrectly({knob: knobSky, valueNow: 100, page});
   });
 });
 
@@ -85,16 +85,16 @@ test.describe('"Simple linear knob" example', () => {
 
     test('has correct default value', async () => {
       const knobOutput = locators.exampleKnobOutput({container});
-      await expects.knobValueIsEqualTo(knob, {valueNow: 50});
-      await expects.knobValueTextIs(knob, {knobOutput, valueText: '50%'});
+      await expects.knobValueIsEqualTo({knob, valueNow: 50});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '50%'});
     });
 
     test('has correct drag down behaviour', async ({page}) => {
-      await expects.knobDragsDownCorrectly(knob, {valueNow: 50, page});
+      await expects.knobDragsDownCorrectly({knob, valueNow: 50, page});
     });
 
     test('has correct drag up behaviour', async ({page}) => {
-      await expects.knobDragsUpCorrectly(knob, {valueNow: 50, page});
+      await expects.knobDragsUpCorrectly({knob, valueNow: 50, page});
     });
   });
 });
@@ -126,16 +126,16 @@ test.describe('"Interpolated knob" example', () => {
 
     test('has correct default value', async () => {
       const knobOutput = locators.exampleKnobOutput({container});
-      await expects.knobValueIsEqualTo(knob, {valueNow: 440});
-      await expects.knobValueTextIs(knob, {knobOutput, valueText: '440 Hz'});
+      await expects.knobValueIsEqualTo({knob, valueNow: 440});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
     });
 
     test('has correct drag down behaviour', async ({page}) => {
-      await expects.knobDragsDownCorrectly(knob, {valueNow: 440, page});
+      await expects.knobDragsDownCorrectly({knob, valueNow: 440, page});
     });
 
     test('has correct drag up behaviour', async ({page}) => {
-      await expects.knobDragsUpCorrectly(knob, {valueNow: 440, page});
+      await expects.knobDragsUpCorrectly({knob, valueNow: 440, page});
     });
   });
 });
@@ -170,16 +170,16 @@ test.describe('"Horizontal orientation" example', () => {
 
     test('has correct default value', async () => {
       const knobOutput = locators.exampleKnobOutput({container});
-      await expects.knobValueIsEqualTo(knob, {valueNow: 50});
-      await expects.knobValueTextIs(knob, {knobOutput, valueText: '50%'});
+      await expects.knobValueIsEqualTo({knob, valueNow: 50});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '50%'});
     });
 
     test('has correct drag left behaviour', async ({page}) => {
-      await expects.knobDragsLeftCorrectly(knob, {valueNow: 50, page});
+      await expects.knobDragsLeftCorrectly({knob, valueNow: 50, page});
     });
 
     test('has correct drag right behaviour', async ({page}) => {
-      await expects.knobDragsRightCorrectly(knob, {valueNow: 50, page});
+      await expects.knobDragsRightCorrectly({knob, valueNow: 50, page});
     });
   });
 });
