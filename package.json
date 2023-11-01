@@ -14,12 +14,12 @@
   "devDependencies": {
     "@rkh/eslint-config": "*",
     "@testing-library/react": "14.0.0",
-    "eslint": "8.51.0",
-    "eslint-plugin-turbo": "1.10.15",
+    "eslint": "8.52.0",
+    "eslint-plugin-turbo": "1.10.16",
     "jsdom": "22.1.0",
     "prettier": "3.0.3",
     "tsup": "7.2.0",
-    "turbo": "1.10.15",
+    "turbo": "1.10.16",
     "typescript": "5.2.2",
     "vitest": "0.34.6"
   },
