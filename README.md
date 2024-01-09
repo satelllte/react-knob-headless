@@ -5,7 +5,7 @@
 
 Unstyled & accessible **knob** primitive for React.
 
-<img src="./knobs.png" width="400">
+<a href="https://react-knob-headless.vercel.app" target="_blank"><img src="./knobs.png" width="400"/></a>
 
 ## Features
 
