@@ -1,10 +1,10 @@
-'use client';
 import clsx from 'clsx';
 import {useId, useState} from 'react';
 import {
   KnobHeadless,
   KnobHeadlessLabel,
   KnobHeadlessOutput,
+  useKnobKeyboardControl,
 } from 'react-knob-headless';
 import {mapFrom01Linear, mapTo01Linear} from '@dsp-ts/math';
 import {KnobBaseThumb} from './KnobBaseThumb';
@@ -24,6 +24,8 @@ type KnobBaseProps = Pick<
   Pick<KnobBaseThumbProps, 'theme'> & {
     readonly label: string;
     readonly valueDefault: number;
+    readonly stepFn: (valueRaw: number) => number;
+    readonly stepLargerFn: (valueRaw: number) => number;
   };
 
 export function KnobBase({
@@ -35,6 +37,8 @@ export function KnobBase({
   valueRawRoundFn,
   valueRawDisplayFn,
   orientation,
+  stepFn,
+  stepLargerFn,
   mapTo01 = mapTo01Linear,
   mapFrom01 = mapFrom01Linear,
 }: KnobBaseProps) {
@@ -42,7 +46,19 @@ export function KnobBase({
   const labelId = useId();
   const [valueRaw, setValueRaw] = useState<number>(valueDefault);
   const value01 = mapTo01(valueRaw, valueMin, valueMax);
+  const step = stepFn(valueRaw);
+  const stepLarger = stepLargerFn(valueRaw);
   const dragSensitivity = 0.006;
+
+  const onKeyDown = useKnobKeyboardControl({
+    valueRaw,
+    valueMin,
+    valueMax,
+    step,
+    stepLarger,
+    onValueRawChange: setValueRaw,
+  });
+
   return (
     <div
       className={clsx(
@@ -65,6 +81,7 @@ export function KnobBase({
         mapTo01={mapTo01}
         mapFrom01={mapFrom01}
         onValueRawChange={setValueRaw}
+        onKeyDown={onKeyDown}
       >
         <KnobBaseThumb theme={theme} value01={value01} />
       </KnobHeadless>
