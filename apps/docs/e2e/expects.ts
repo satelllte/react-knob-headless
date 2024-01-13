@@ -24,14 +24,14 @@ const _knobDragsCorrectly =
       direction === 'right'
         ? x + dragAmplitude
         : direction === 'left'
-        ? x - dragAmplitude
-        : x;
+          ? x - dragAmplitude
+          : x;
     y =
       direction === 'down'
         ? y + dragAmplitude
         : direction === 'up'
-        ? y - dragAmplitude
-        : y;
+          ? y - dragAmplitude
+          : y;
 
     await page.mouse.down();
     await page.mouse.move(x, y, {steps: dragSteps});
