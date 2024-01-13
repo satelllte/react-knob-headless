@@ -96,6 +96,13 @@ test.describe('"Simple linear knob" example', () => {
     test('has correct drag up behaviour', async ({page}) => {
       await expects.knobDragsUpCorrectly({knob, valueNow: 50, page});
     });
+
+    test.fixme('has correct keyboard controls behaviour', async ({page}) => {
+      // To be implemented
+      // ...
+      // ...
+      // ...
+    });
   });
 });
 
@@ -136,6 +143,13 @@ test.describe('"Interpolated knob" example', () => {
 
     test('has correct drag up behaviour', async ({page}) => {
       await expects.knobDragsUpCorrectly({knob, valueNow: 440, page});
+    });
+
+    test.fixme('has correct keyboard controls behaviour', async ({page}) => {
+      // To be implemented
+      // ...
+      // ...
+      // ...
     });
   });
 });
@@ -180,6 +194,13 @@ test.describe('"Horizontal orientation" example', () => {
 
     test('has correct drag right behaviour', async ({page}) => {
       await expects.knobDragsRightCorrectly({knob, valueNow: 50, page});
+    });
+
+    test.fixme('has correct keyboard controls behaviour', async ({page}) => {
+      // To be implemented
+      // ...
+      // ...
+      // ...
     });
   });
 });
