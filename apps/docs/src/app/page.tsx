@@ -265,7 +265,7 @@ function IndexPage() {
                 type: 'boolean',
                 defaultValue: 'false',
                 description:
-                  'To prevent scrolling, "event.preventDefault()" is called when the value changes, so for most cases you don\'t need to change this behaviour. However, if your application needs some more customized behaviour, you can set this prop to true and handle it on its own.',
+                  'To prevent scrolling, "event.preventDefault()" is called when the value changes, but for most cases you don\'t need to change this behaviour. However, if your application needs some more customized one, you can set this prop to true and handle scroll prevention on your own.',
               },
             ]}
           />
