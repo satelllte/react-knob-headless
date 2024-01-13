@@ -50,7 +50,7 @@ export function KnobBase({
   const stepLarger = stepLargerFn(valueRaw);
   const dragSensitivity = 0.006;
 
-  const onKeyDown = useKnobKeyboardControl({
+  const keyboardControlHandlers = useKnobKeyboardControl({
     valueRaw,
     valueMin,
     valueMax,
@@ -81,7 +81,7 @@ export function KnobBase({
         mapTo01={mapTo01}
         mapFrom01={mapFrom01}
         onValueRawChange={setValueRaw}
-        onKeyDown={onKeyDown}
+        {...keyboardControlHandlers}
       >
         <KnobBaseThumb theme={theme} value01={value01} />
       </KnobHeadless>

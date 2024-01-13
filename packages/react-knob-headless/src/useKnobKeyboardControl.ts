@@ -36,17 +36,16 @@ type UseKnobKeyboardControlProps = {
   readonly noDefaultPrevention?: boolean;
 };
 
-export const useKnobKeyboardControl =
-  ({
-    valueRaw,
-    valueMin,
-    valueMax,
-    step,
-    stepLarger,
-    onValueRawChange,
-    noDefaultPrevention = false,
-  }: UseKnobKeyboardControlProps): React.KeyboardEventHandler =>
-  (event) => {
+export const useKnobKeyboardControl = ({
+  valueRaw,
+  valueMin,
+  valueMax,
+  step,
+  stepLarger,
+  onValueRawChange,
+  noDefaultPrevention = false,
+}: UseKnobKeyboardControlProps): {onKeyDown: React.KeyboardEventHandler} => {
+  const onKeyDown: React.KeyboardEventHandler = (event) => {
     const {code} = event;
     switch (code) {
       case 'ArrowUp':
@@ -85,6 +84,9 @@ export const useKnobKeyboardControl =
         break;
     }
   };
+
+  return {onKeyDown};
+};
 
 const maybePreventDefault = ({
   event,
