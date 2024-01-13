@@ -225,7 +225,7 @@ function IndexPage() {
             ]}
           />
           <ComponentDocumentation
-            name='useKnobKeyboardControl'
+            name='useKnobKeyboardControls'
             about='A primitive for enabling keyboard controls.'
             properties={[
               {

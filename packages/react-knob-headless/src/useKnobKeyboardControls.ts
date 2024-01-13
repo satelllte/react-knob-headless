@@ -1,6 +1,6 @@
 import {clamp} from '@dsp-ts/math';
 
-type UseKnobKeyboardControlProps = {
+type UseKnobKeyboardControlsProps = {
   /**
    * Same as `valueRaw` prop of `KnobHeadless`.
    */
@@ -36,7 +36,7 @@ type UseKnobKeyboardControlProps = {
   readonly noDefaultPrevention?: boolean;
 };
 
-export const useKnobKeyboardControl = ({
+export const useKnobKeyboardControls = ({
   valueRaw,
   valueMin,
   valueMax,
@@ -44,7 +44,7 @@ export const useKnobKeyboardControl = ({
   stepLarger,
   onValueRawChange,
   noDefaultPrevention = false,
-}: UseKnobKeyboardControlProps): {onKeyDown: React.KeyboardEventHandler} => {
+}: UseKnobKeyboardControlsProps): {onKeyDown: React.KeyboardEventHandler} => {
   const onKeyDown: React.KeyboardEventHandler = (event) => {
     const {code} = event;
     switch (code) {

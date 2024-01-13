@@ -4,7 +4,7 @@ import {
   KnobHeadless,
   KnobHeadlessLabel,
   KnobHeadlessOutput,
-  useKnobKeyboardControl,
+  useKnobKeyboardControls,
 } from 'react-knob-headless';
 import {mapFrom01Linear, mapTo01Linear} from '@dsp-ts/math';
 import {KnobBaseThumb} from './KnobBaseThumb';
@@ -50,7 +50,7 @@ export function KnobBase({
   const stepLarger = stepLargerFn(valueRaw);
   const dragSensitivity = 0.006;
 
-  const keyboardControlHandlers = useKnobKeyboardControl({
+  const keyboardControlHandlers = useKnobKeyboardControls({
     valueRaw,
     valueMin,
     valueMax,
