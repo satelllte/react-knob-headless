@@ -1,6 +1,6 @@
 {
   "name": "react-knob-headless",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "author": "@satelllte (https://github.com/satelllte)",
   "description": "Unstyled & accessible knob primitive for React",
@@ -40,7 +40,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "test": "vitest",
+    "test": "vitest --coverage",
     "test:types": "tsc --noEmit",
     "test:lint": "eslint ./src/**/* --max-warnings=0 --format=compact"
   },

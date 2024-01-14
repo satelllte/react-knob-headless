@@ -105,12 +105,6 @@ function IndexPage() {
             &quot;package.json&quot; file by installing it via
             &quot;--save-exact&quot; flag.
           </Li>
-          <Li>
-            There is no keyboard interaction provided by default. This is
-            intentional, as knob behaviours might differ significantly between
-            use cases. To achieve keyboard interaction, you can just provide
-            your own &quot;onKeyDown&quot; listener.
-          </Li>
         </Ul>
       </Section>
       <Section title='API'>
@@ -227,6 +221,51 @@ function IndexPage() {
                 name: '...rest',
                 type: '...',
                 description: 'The rest of HTML "output" element props.',
+              },
+            ]}
+          />
+          <ComponentDocumentation
+            name='useKnobKeyboardControls'
+            about='A primitive for enabling keyboard controls.'
+            properties={[
+              {
+                name: 'valueRaw',
+                type: 'number',
+                description: 'Same as "valueRaw" prop of "KnobHeadless".',
+              },
+              {
+                name: 'valueMin',
+                type: 'number',
+                description: 'Same as "valueMin" prop of "KnobHeadless".',
+              },
+              {
+                name: 'valueMax',
+                type: 'number',
+                description: 'Same as "valueMax" prop of "KnobHeadless".',
+              },
+              {
+                name: 'step',
+                type: 'number',
+                description: "Step value. Typically it's 1% of the range.",
+              },
+              {
+                name: 'stepLarger',
+                type: 'number',
+                description:
+                  "Larger step value. Typically it's 10% of the range.",
+              },
+              {
+                name: 'onValueRawChange',
+                type: 'function',
+                description:
+                  'Same callback as "KnobHeadless" has, with "event" in 2nd argument.',
+              },
+              {
+                name: 'noDefaultPrevention',
+                type: 'boolean',
+                defaultValue: 'false',
+                description:
+                  'To prevent scrolling, "event.preventDefault()" is called when the value changes, but for most cases you don\'t need to change this behaviour. However, if your application needs some more customized one, you can set this prop to true and handle scroll prevention on your own.',
               },
             ]}
           />
