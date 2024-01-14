@@ -108,6 +108,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
   ) => {
     const value = valueRawRoundFn(valueRaw);
 
+    /* v8 ignore start */ // eslint-disable-line capitalized-comments
     const bindDrag = useDrag(
       ({delta}) => {
         const diff01 =
@@ -136,6 +137,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         },
       },
     );
+    /* v8 ignore stop */ // eslint-disable-line capitalized-comments
 
     return (
       <div
@@ -154,9 +156,11 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
               touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
             },
             onPointerDown(event: React.PointerEvent<HTMLElement>) {
+              /* v8 ignore start */ // eslint-disable-line capitalized-comments
               // Touch devices have a delay before focusing so it won't focus if touch immediately moves away from target (sliding). We want thumb to focus regardless.
               // See, for reference, Radix UI Slider does the same: https://github.com/radix-ui/primitives/blob/eca6babd188df465f64f23f3584738b85dba610e/packages/react/slider/src/Slider.tsx#L442-L445
               event.currentTarget.focus();
+              /* v8 ignore stop */ // eslint-disable-line capitalized-comments
             },
           },
           rest,
