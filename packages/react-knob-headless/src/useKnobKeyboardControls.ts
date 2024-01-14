@@ -80,8 +80,10 @@ export const useKnobKeyboardControls = ({
         onValueRawChange(valueMax, event);
         maybePreventDefault({event, noDefaultPrevention});
         break;
+      /* v8 ignore start */ // eslint-disable-line capitalized-comments
       default:
         break;
+      /* v8 ignore stop */ // eslint-disable-line capitalized-comments
     }
   };
 
