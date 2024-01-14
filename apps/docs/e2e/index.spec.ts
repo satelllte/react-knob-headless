@@ -78,13 +78,14 @@ test.describe('"Simple linear knob" example', () => {
 
   test.describe('"Dry/Wet" knob', () => {
     let knob: Locator;
+    let knobOutput: Locator;
 
     test.beforeEach(() => {
       knob = locators.exampleKnob({container, name: 'Dry/Wet'});
+      knobOutput = locators.exampleKnobOutput({container});
     });
 
     test('has correct default value', async () => {
-      const knobOutput = locators.exampleKnobOutput({container});
       await expects.knobValueIsEqualTo({knob, valueNow: 50});
       await expects.knobValueTextIs({knob, knobOutput, valueText: '50%'});
     });
@@ -97,11 +98,40 @@ test.describe('"Simple linear knob" example', () => {
       await expects.knobDragsUpCorrectly({knob, valueNow: 50, page});
     });
 
-    test.fixme('has correct keyboard controls behaviour', async ({page}) => {
-      // To be implemented
-      // ...
-      // ...
-      // ...
+    test('has correct keyboard controls behaviour', async ({page}) => {
+      await knob.click();
+
+      await page.keyboard.press('ArrowDown');
+      await expects.knobValueIsEqualTo({knob, valueNow: 49});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '49%'});
+
+      await page.keyboard.press('ArrowLeft');
+      await expects.knobValueIsEqualTo({knob, valueNow: 48});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '48%'});
+
+      await page.keyboard.press('ArrowUp');
+      await expects.knobValueIsEqualTo({knob, valueNow: 49});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '49%'});
+
+      await page.keyboard.press('ArrowRight');
+      await expects.knobValueIsEqualTo({knob, valueNow: 50});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '50%'});
+
+      await page.keyboard.press('PageUp');
+      await expects.knobValueIsEqualTo({knob, valueNow: 60});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '60%'});
+
+      await page.keyboard.press('PageDown');
+      await expects.knobValueIsEqualTo({knob, valueNow: 50});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '50%'});
+
+      await page.keyboard.press('Home');
+      await expects.knobValueIsEqualTo({knob, valueNow: 0});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '0%'});
+
+      await page.keyboard.press('End');
+      await expects.knobValueIsEqualTo({knob, valueNow: 100});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '100%'});
     });
   });
 });
@@ -126,13 +156,14 @@ test.describe('"Interpolated knob" example', () => {
 
   test.describe('"Frequency" knob', () => {
     let knob: Locator;
+    let knobOutput: Locator;
 
     test.beforeEach(() => {
       knob = locators.exampleKnob({container, name: 'Frequency'});
+      knobOutput = locators.exampleKnobOutput({container});
     });
 
     test('has correct default value', async () => {
-      const knobOutput = locators.exampleKnobOutput({container});
       await expects.knobValueIsEqualTo({knob, valueNow: 440});
       await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
     });
@@ -145,11 +176,34 @@ test.describe('"Interpolated knob" example', () => {
       await expects.knobDragsUpCorrectly({knob, valueNow: 440, page});
     });
 
-    test.fixme('has correct keyboard controls behaviour', async ({page}) => {
-      // To be implemented
-      // ...
-      // ...
-      // ...
+    test('has correct keyboard controls behaviour', async ({page}) => {
+      await knob.click();
+
+      // NOTE: we don't check `knobValueIsEqualTo` because there's no rounding in the frequency knob
+
+      await page.keyboard.press('ArrowDown');
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '430 Hz'});
+
+      await page.keyboard.press('ArrowLeft');
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '420 Hz'});
+
+      await page.keyboard.press('ArrowUp');
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '430 Hz'});
+
+      await page.keyboard.press('ArrowRight');
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+      await page.keyboard.press('PageUp');
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '540 Hz'});
+
+      await page.keyboard.press('PageDown');
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+      await page.keyboard.press('Home');
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '20.0 Hz'});
+
+      await page.keyboard.press('End');
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '20.0 kHz'});
     });
   });
 });
@@ -177,13 +231,14 @@ test.describe('"Horizontal orientation" example', () => {
 
   test.describe('"X" knob', () => {
     let knob: Locator;
+    let knobOutput: Locator;
 
     test.beforeEach(() => {
       knob = locators.exampleKnob({container, name: 'X'});
+      knobOutput = locators.exampleKnobOutput({container});
     });
 
     test('has correct default value', async () => {
-      const knobOutput = locators.exampleKnobOutput({container});
       await expects.knobValueIsEqualTo({knob, valueNow: 50});
       await expects.knobValueTextIs({knob, knobOutput, valueText: '50%'});
     });
@@ -194,13 +249,6 @@ test.describe('"Horizontal orientation" example', () => {
 
     test('has correct drag right behaviour', async ({page}) => {
       await expects.knobDragsRightCorrectly({knob, valueNow: 50, page});
-    });
-
-    test.fixme('has correct keyboard controls behaviour', async ({page}) => {
-      // To be implemented
-      // ...
-      // ...
-      // ...
     });
   });
 });
