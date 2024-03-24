@@ -17,7 +17,7 @@ env:
   ARTIFACT_PATH__PACKAGE_BUILD: ./packages/react-knob-headless/dist
 
 jobs:
-  ci:
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
