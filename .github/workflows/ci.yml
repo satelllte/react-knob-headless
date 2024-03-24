@@ -39,16 +39,16 @@ jobs:
         run: npm run test:format
       - name: Build
         run: npm run build
-      - name: Upload ${{ ARTIFACT_NAME__DOCS_BUILD }} artifact
+      - name: Upload ${{ env.ARTIFACT_NAME__DOCS_BUILD }} artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ ARTIFACT_NAME__DOCS_BUILD }}
-          path: ${{ ARTIFACT_PATH__DOCS_BUILD }}
-      - name: Upload ${{ ARTIFACT_NAME__PACKAGE_BUILD }} artifact
+          name: ${{ env.ARTIFACT_NAME__DOCS_BUILD }}
+          path: ${{ env.ARTIFACT_PATH__DOCS_BUILD }}
+      - name: Upload ${{ env.ARTIFACT_NAME__PACKAGE_BUILD }} artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ ARTIFACT_NAME__PACKAGE_BUILD }}
-          path: ${{ ARTIFACT_PATH__PACKAGE_BUILD }}
+          name: ${{ env.ARTIFACT_NAME__PACKAGE_BUILD }}
+          path: ${{ env.ARTIFACT_PATH__PACKAGE_BUILD }}
   test-e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -69,12 +69,12 @@ jobs:
           # Details: https://github.com/microsoft/playwright/issues/6500#issuecomment-838515115
           HOME: /root
         run: npm run test:e2e
-      - name: Upload ${{ ARTIFACT_NAME__DOCS_PLAYWRIGHT_REPORT }} artifact
+      - name: Upload ${{ env.ARTIFACT_NAME__DOCS_PLAYWRIGHT_REPORT }} artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ${{ ARTIFACT_NAME__DOCS_PLAYWRIGHT_REPORT }}
-          path: ${{ ARTIFACT_PATH__DOCS_PLAYWRIGHT_REPORT }}
+          name: ${{ env.ARTIFACT_NAME__DOCS_PLAYWRIGHT_REPORT }}
+          path: ${{ env.ARTIFACT_PATH__DOCS_PLAYWRIGHT_REPORT }}
           retention-days: 30
   deploy:
     runs-on: ubuntu-latest
@@ -83,16 +83,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Download ${{ ARTIFACT_NAME__DOCS_BUILD }} artifact
+      - name: Download ${{ env.ARTIFACT_NAME__DOCS_BUILD }} artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ ARTIFACT_NAME__DOCS_BUILD }}
-          path: ${{ ARTIFACT_PATH__DOCS_BUILD }}
+          name: ${{ env.ARTIFACT_NAME__DOCS_BUILD }}
+          path: ${{ env.ARTIFACT_PATH__DOCS_BUILD }}
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: react-knob-headless
-          directory: ${{ ARTIFACT_PATH__DOCS_BUILD }}
+          directory: ${{ env.ARTIFACT_PATH__DOCS_BUILD }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
