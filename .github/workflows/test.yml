@@ -1,4 +1,4 @@
-name: Test
+name: CI/CD
 
 on:
   pull_request:
@@ -8,9 +8,18 @@ on:
     branches:
       - main
 
+env:
+  ARTIFACT_NAME__DOCS_BUILD: docs-build
+  ARTIFACT_PATH__DOCS_BUILD: ./apps/docs/out
+  ARTIFACT_NAME__DOCS_PLAYWRIGHT_REPORT: docs-playwright-report
+  ARTIFACT_PATH__DOCS_PLAYWRIGHT_REPORT: ./apps/docs/playwright-report
+  ARTIFACT_NAME__PACKAGE_BUILD: package-build
+  ARTIFACT_PATH__PACKAGE_BUILD: ./packages/react-knob-headless/dist
+
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,8 +37,18 @@ jobs:
         run: npm run test:lint
       - name: Test (format)
         run: npm run test:format
-      - name: Build package
-        run: npm run build:package
+      - name: Build
+        run: npm run build
+      - name: Upload ${{ ARTIFACT_NAME__DOCS_BUILD }} artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ ARTIFACT_NAME__DOCS_BUILD }}
+          path: ${{ ARTIFACT_PATH__DOCS_BUILD }}
+      - name: Upload ${{ ARTIFACT_NAME__PACKAGE_BUILD }} artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ ARTIFACT_NAME__PACKAGE_BUILD }}
+          path: ${{ ARTIFACT_PATH__PACKAGE_BUILD }}
   test-e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -50,9 +69,30 @@ jobs:
           # Details: https://github.com/microsoft/playwright/issues/6500#issuecomment-838515115
           HOME: /root
         run: npm run test:e2e
-      - uses: actions/upload-artifact@v4
+      - name: Upload ${{ ARTIFACT_NAME__DOCS_PLAYWRIGHT_REPORT }} artifact
+        uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report-docs
-          path: apps/docs/playwright-report/
+          name: ${{ ARTIFACT_NAME__DOCS_PLAYWRIGHT_REPORT }}
+          path: ${{ ARTIFACT_PATH__DOCS_PLAYWRIGHT_REPORT }}
           retention-days: 30
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test, test-e2e]
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download ${{ ARTIFACT_NAME__DOCS_BUILD }} artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ ARTIFACT_NAME__DOCS_BUILD }}
+          path: ${{ ARTIFACT_PATH__DOCS_BUILD }}
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: react-knob-headless
+          directory: ${{ ARTIFACT_PATH__DOCS_BUILD }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
