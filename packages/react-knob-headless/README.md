@@ -11,7 +11,7 @@ Unstyled & accessible **knob** primitive for React.
 
 ## Documentation
 
-📚 **[react-knob-headless.vercel.app](https://react-knob-headless.vercel.app/)**
+📚 **[react-knob-headless.pages.dev](https://react-knob-headless.pages.dev/)**
 
 ## Installation
 
