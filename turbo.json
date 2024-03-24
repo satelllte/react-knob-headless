@@ -12,6 +12,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "start": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
     "test": {
       "dependsOn": ["^build"]
     },

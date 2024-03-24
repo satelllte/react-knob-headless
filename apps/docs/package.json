@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "serve out",
     "test": "vitest",
     "test:lint": "next lint --max-warnings=0 --format=compact",
     "test:e2e": "playwright test"
@@ -24,6 +24,7 @@
     "@types/react-dom": "18.2.18",
     "autoprefixer": "10.4.16",
     "postcss": "8.4.32",
+    "serve": "14.2.1",
     "tailwindcss": "3.4.0"
   }
 }

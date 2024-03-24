@@ -2,6 +2,7 @@
   "name": "react-knob-headless-monorepo",
   "scripts": {
     "dev": "turbo run dev",
+    "start": "turbo run start",
     "build": "turbo run build",
     "build:package": "turbo run build --filter=react-knob-headless",
     "test": "turbo run test",
