@@ -69,7 +69,7 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      * Orientation of the knob and its gesture.
      * Default: "vertical".
      */
-    readonly orientation?: 'horizontal' | 'vertical';
+    readonly orientation?: 'horizontal' | 'vertical' | 'vertical-horizontal';
     /**
      * Whether to include the element into the sequential tab order.
      * If true, the element will be focusable via the keyboard by tabbing.
@@ -111,10 +111,9 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
     /* v8 ignore start */ // eslint-disable-line capitalized-comments
     const bindDrag = useDrag(
       ({delta}) => {
-        const diff01 =
-          orientation === 'horizontal'
-            ? delta[0] * dragSensitivity
-            : delta[1] * -dragSensitivity; // Negating the sensitivity for vertical axis (Y), since the direction of it goes top down on computer screens.
+        let diff01 = 0;
+        if (orientation.includes('horizontal')) diff01 += delta[0] * dragSensitivity;
+        if (orientation.includes('vertical')) diff01 += delta[1] * -dragSensitivity; // Negating the sensitivity for vertical axis (Y), since the direction of it goes top down on computer screens.
 
         // Conversion of the raw value to 0-1 range
         // makes the sensitivity to be independent from min-max values range,
@@ -146,7 +145,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         aria-valuenow={value}
         aria-valuemin={valueMin}
         aria-valuemax={valueMax}
-        aria-orientation={orientation}
+        aria-orientation={orientation === 'vertical-horizontal' ? 'vertical' : orientation}
         aria-valuetext={valueRawDisplayFn(valueRaw)}
         tabIndex={includeIntoTabOrder ? 0 : -1}
         {...mergeProps(
