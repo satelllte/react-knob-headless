@@ -137,6 +137,31 @@ describe('KnobHeadless', () => {
     `);
   });
 
+  it('sets "aria-orientation" to "vertical", when "orientation" is "vertical-horizontal"', () => {
+    render(
+      <KnobHeadless
+        {...props}
+        orientation='vertical-horizontal'
+        aria-label='Test Knob'
+      />,
+    );
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-label="Test Knob"
+        aria-orientation="vertical"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        role="slider"
+        tabindex="-1"
+      />
+    `);
+  });
+
   it('sets tabIndex to 0, when "includeIntoTabOrder" is true', () => {
     render(
       <KnobHeadless {...props} includeIntoTabOrder aria-label='Test Knob' />,
