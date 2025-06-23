@@ -26,13 +26,13 @@ const decorativeKnobSky = ({page}: {page: Page}) =>
   });
 
 const exampleContainer = ({page, name}: {page: Page; name: string}) =>
-  page.getByRole('heading', {name}).locator('..');
+  page.getByRole('heading', {name, exact: true}).locator('..');
 
 const exampleViewSourceLink = ({container}: {container: Locator}) =>
   container.getByRole('link', {name: 'View source'});
 
 const exampleKnob = ({container, name}: {container: Locator; name: string}) =>
-  container.getByRole('slider', {name});
+  container.getByRole('slider', {name, exact: true});
 
 const exampleKnobOutput = ({container}: {container: Locator}) =>
   container.getByRole('status');
