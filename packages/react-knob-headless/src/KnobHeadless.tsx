@@ -12,7 +12,7 @@ type NativeDivPropsToExtend = Omit<
   | 'aria-valuemax' // Handled by "valueMin"
   | 'aria-valuenow' // Handled by "valueRaw" and "valueRawRoundFn"
   | 'aria-valuetext' // Handled by "valueRawDisplayFn"
-  | 'aria-orientation' // Handled by "orientation"
+  | 'aria-orientation' // Handled by "axis" and "orientation"
   | 'aria-label' // Handled by "KnobHeadlessLabelProps"
   | 'aria-labelledby' // Handled by "KnobHeadlessLabelProps"
   | 'tabIndex' // Handled by "includeIntoTabOrder"
