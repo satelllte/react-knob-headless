@@ -18,7 +18,7 @@ type NativeDivPropsToExtend = Omit<
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
 
-const orientationDefault = 'vertical';
+const axisDefault = 'y';
 const includeIntoTabOrderDefault = false;
 const mapTo01Default = mapTo01Linear;
 const mapFrom01Default = mapFrom01Linear;
@@ -66,10 +66,16 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly onValueRawChange: (newValueRaw: number) => void;
     /**
+     * @DEPRECATED Use "axis" instead.
+     *
      * Orientation of the knob and its gesture.
-     * Default: "vertical".
      */
-    readonly orientation?: 'horizontal' | 'vertical' | 'vertical-horizontal';
+    readonly orientation?: 'horizontal' | 'vertical'; // eslint-disable-line react/require-default-props
+    /**
+     * Gesture axis of the knob.
+     * Default: "y".
+     */
+    readonly axis?: 'x' | 'y' | 'xy';
     /**
      * Whether to include the element into the sequential tab order.
      * If true, the element will be focusable via the keyboard by tabbing.
@@ -98,7 +104,8 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       valueRawRoundFn,
       valueRawDisplayFn,
       onValueRawChange,
-      orientation = orientationDefault,
+      orientation,
+      axis = axisDefault,
       includeIntoTabOrder = includeIntoTabOrderDefault,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
@@ -111,9 +118,9 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
     /* v8 ignore start */ // eslint-disable-line capitalized-comments
     const bindDrag = useDrag(
       ({delta}) => {
-        let diff01 = 0;
-        if (orientation.includes('horizontal')) diff01 += delta[0] * dragSensitivity;
-        if (orientation.includes('vertical')) diff01 += delta[1] * -dragSensitivity; // Negating the sensitivity for vertical axis (Y), since the direction of it goes top down on computer screens.
+        let diff01 = 0.0;
+        diff01 += delta[0] * dragSensitivity;
+        diff01 += delta[1] * -dragSensitivity; // Negating the sensitivity for vertical axis (Y), since the direction of it goes top down on computer screens.
 
         // Conversion of the raw value to 0-1 range
         // makes the sensitivity to be independent from min-max values range,
@@ -134,6 +141,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
           // https://use-gesture.netlify.app/docs/options/#pointerkeys
           keys: false,
         },
+        axis: getDragAxis(orientation, axis),
       },
     );
     /* v8 ignore stop */ // eslint-disable-line capitalized-comments
@@ -145,7 +153,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         aria-valuenow={value}
         aria-valuemin={valueMin}
         aria-valuemax={valueMax}
-        aria-orientation={orientation === 'vertical-horizontal' ? 'vertical' : orientation}
+        aria-orientation={getAriaOrientation(orientation, axis)}
         aria-valuetext={valueRawDisplayFn(valueRaw)}
         tabIndex={includeIntoTabOrder ? 0 : -1}
         {...mergeProps(
@@ -172,8 +180,33 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
 KnobHeadless.displayName = 'KnobHeadless';
 
 KnobHeadless.defaultProps = {
-  orientation: orientationDefault,
+  axis: axisDefault,
   includeIntoTabOrder: includeIntoTabOrderDefault,
   mapTo01: mapTo01Default,
   mapFrom01: mapFrom01Default,
+};
+
+const getDragAxis = (
+  orientation: 'horizontal' | 'vertical' | undefined,
+  axis: 'x' | 'y' | 'xy',
+): 'x' | 'y' | undefined => {
+  // The prop is deprecated, but takes precedence for backwards compatibility
+  if (orientation) return orientation === 'horizontal' ? 'x' : 'y';
+
+  // "undefined" means no axis lock, i.e. "xy":
+  // https://use-gesture.netlify.app/docs/options/#axis
+  return axis === 'xy' ? undefined : axis;
+};
+
+const getAriaOrientation = (
+  orientation: 'horizontal' | 'vertical' | undefined,
+  axis: 'x' | 'y' | 'xy',
+): React.AriaAttributes['aria-orientation'] => {
+  // The prop is deprecated, but takes precedence for backwards compatibility
+  if (orientation) return orientation;
+
+  // When using both axes, the orientation is ambiguous:
+  // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-orientation#values
+  if (axis === 'xy') return undefined;
+  return axis === 'x' ? 'horizontal' : 'vertical';
 };
