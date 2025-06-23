@@ -2,6 +2,7 @@ type Property = {
   name: string;
   type: string;
   defaultValue?: string;
+  deprecationNotice?: string;
   description: string;
 };
 
@@ -46,6 +47,11 @@ export function TableApi({properties}: TableApiProps) {
               )}
             </td>
             <td className='text-left align-baseline font-normal pb-1 md:pb-4 md:w-1/3'>
+              {property.deprecationNotice && (
+                <span className='text-red-500 block pb-1'>
+                  {'DEPRECATED: ' + property.deprecationNotice}
+                </span>
+              )}
               <span className='text-stone-300'>{property.description}</span>
             </td>
           </tr>

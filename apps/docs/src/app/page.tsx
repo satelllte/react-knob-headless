@@ -98,10 +98,10 @@ function IndexPage() {
           </Example>
           <Example
             title='Vertical and horizontal orientation'
-            description="The knob gesture can occur along both the vertical (Y) axis and the horizontal (X) axis."
+            description='The knob gesture can occur along both vertical (Y) and horizontal (X) axis.'
             source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageVerticalHorizontal.tsx'
           >
-            <KnobPercentageVerticalHorizontal label='Y+X' theme='pink' />
+            <KnobPercentageVerticalHorizontal label='XY' theme='pink' />
           </Example>
         </div>
       </Section>
@@ -163,8 +163,16 @@ function IndexPage() {
                 name: 'orientation',
                 type: 'union',
                 defaultValue: 'vertical',
+                deprecationNotice: 'use "axis" instead.',
                 description:
-                  'Orientation of the knob and its gesture. Can be "vertical", "horizontal", or "vertical-horizontal".',
+                  'Orientation of the knob and its gesture. Can be "vertical" or "horizontal".',
+              },
+              {
+                name: 'axis',
+                type: 'union',
+                defaultValue: 'y',
+                description:
+                  'Orientation of the knob and its gesture. Can be "x", "y", or "xy".',
               },
               {
                 name: 'includeIntoTabOrder',

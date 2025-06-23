@@ -112,14 +112,8 @@ describe('KnobHeadless', () => {
     `);
   });
 
-  it('sets "aria-orientation" to "horizontal", when "orientation" is "horizontal"', () => {
-    render(
-      <KnobHeadless
-        {...props}
-        orientation='horizontal'
-        aria-label='Test Knob'
-      />,
-    );
+  it('sets "aria-orientation" to "horizontal", when "axis" is "x"', () => {
+    render(<KnobHeadless {...props} axis='x' aria-label='Test Knob' />);
 
     const knob = screen.getByRole('slider', {name: 'Test Knob'});
 
@@ -137,11 +131,30 @@ describe('KnobHeadless', () => {
     `);
   });
 
-  it('sets "aria-orientation" to "vertical", when "orientation" is "vertical-horizontal"', () => {
+  it('sets no "aria-orientation", when "axis" is "xy"', () => {
+    render(<KnobHeadless {...props} axis='xy' aria-label='Test Knob' />);
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-label="Test Knob"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        role="slider"
+        tabindex="-1"
+      />
+    `);
+  });
+
+  it('overrides "aria-orientation", when "orientation" is set on top of "axis"', () => {
     render(
       <KnobHeadless
         {...props}
-        orientation='vertical-horizontal'
+        axis='x'
+        orientation='vertical'
         aria-label='Test Knob'
       />,
     );

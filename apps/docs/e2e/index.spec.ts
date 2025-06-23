@@ -253,7 +253,6 @@ test.describe('"Horizontal orientation" example', () => {
   });
 });
 
-
 test.describe('"Vertical and horizontal orientation" example', () => {
   let container: Locator;
 
@@ -271,11 +270,12 @@ test.describe('"Vertical and horizontal orientation" example', () => {
     await expects.sourceCodeLinkIsValid({
       link: viewSourceLink,
       page,
-      filePath: 'apps/docs/src/components/knobs/KnobPercentageVerticalHorizontal.tsx',
+      filePath:
+        'apps/docs/src/components/knobs/KnobPercentageVerticalHorizontal.tsx',
     });
   });
 
-  test.describe('"Y+X" knob', () => {
+  test.describe('"XY" knob', () => {
     let knob: Locator;
     let knobOutput: Locator;
 

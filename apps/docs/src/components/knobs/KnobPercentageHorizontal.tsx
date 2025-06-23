@@ -2,8 +2,8 @@
 import {KnobPercentage} from './KnobPercentage';
 
 type KnobPercentageProps = React.ComponentProps<typeof KnobPercentage>;
-type KnobPercentageHorizontalProps = Omit<KnobPercentageProps, 'orientation'>;
+type KnobPercentageHorizontalProps = Omit<KnobPercentageProps, 'axis'>;
 
 export function KnobPercentageHorizontal(props: KnobPercentageHorizontalProps) {
-  return <KnobPercentage orientation='horizontal' {...props} />;
+  return <KnobPercentage axis='x' {...props} />;
 }
