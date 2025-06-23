@@ -280,7 +280,7 @@ test.describe('"Vertical and horizontal orientation" example', () => {
     let knobOutput: Locator;
 
     test.beforeEach(() => {
-      knob = locators.exampleKnob({container, name: 'Y+X'});
+      knob = locators.exampleKnob({container, name: 'XY'});
       knobOutput = locators.exampleKnobOutput({container});
     });
 
