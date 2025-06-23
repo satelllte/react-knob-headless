@@ -3,7 +3,7 @@ import {NormalisableRange} from '@/utils/math/NormalisableRange';
 import {KnobBase} from './KnobBase';
 
 type KnobBaseProps = React.ComponentProps<typeof KnobBase>;
-type KnobFrequencyProps = Pick<KnobBaseProps, 'theme' | 'label'>;
+type KnobFrequencyProps = Pick<KnobBaseProps, 'theme' | 'label' | 'axis'>;
 
 export function KnobFrequency(props: KnobFrequencyProps) {
   return (
