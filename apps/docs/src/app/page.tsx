@@ -172,7 +172,7 @@ function IndexPage() {
                 type: 'union',
                 defaultValue: 'y',
                 description:
-                  'Orientation of the knob and its gesture. Can be "x", "y", or "xy".',
+                  'Orientation of the knob and its gesture. Can be "x", "y", or "xy". Note, that "aria-orientation" attribute will not be set for the slider when it\'s "xy" to follow ARIA semantics.',
               },
               {
                 name: 'includeIntoTabOrder',
