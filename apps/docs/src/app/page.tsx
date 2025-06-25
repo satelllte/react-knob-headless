@@ -3,7 +3,7 @@ import {KnobDecorative} from '@/components/knobs/KnobDecorative';
 import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
 import {KnobPercentageX} from '@/components/knobs/KnobPercentageX';
-import {KnobPercentageVerticalHorizontal} from '@/components/knobs/KnobPercentageVerticalHorizontal';
+import {KnobPercentageXY} from '@/components/knobs/KnobPercentageXY';
 import {ExternalLinkUnstyled} from '@/components/ui/ExternalLinkUnstyled';
 import {TableApi} from '@/components/ui/TableApi';
 
@@ -99,9 +99,9 @@ function IndexPage() {
           <Example
             title='Vertical and horizontal orientation'
             description='The knob gesture can occur along both vertical (Y) and horizontal (X) axis.'
-            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageVerticalHorizontal.tsx'
+            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageXY.tsx'
           >
-            <KnobPercentageVerticalHorizontal label='XY' theme='pink' />
+            <KnobPercentageXY label='XY' theme='pink' />
           </Example>
         </div>
       </Section>
