@@ -2,7 +2,7 @@ import {GitHubLogoIcon} from '@radix-ui/react-icons';
 import {KnobDecorative} from '@/components/knobs/KnobDecorative';
 import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
-import {KnobPercentageHorizontal} from '@/components/knobs/KnobPercentageHorizontal';
+import {KnobPercentageX} from '@/components/knobs/KnobPercentageX';
 import {KnobPercentageVerticalHorizontal} from '@/components/knobs/KnobPercentageVerticalHorizontal';
 import {ExternalLinkUnstyled} from '@/components/ui/ExternalLinkUnstyled';
 import {TableApi} from '@/components/ui/TableApi';
@@ -92,9 +92,9 @@ function IndexPage() {
           <Example
             title='Horizontal orientation'
             description="The knob gesture can occur along horizontal (X) axis instead of vertical (Y) one, but it's not common in audio applications."
-            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageHorizontal.tsx'
+            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageX.tsx'
           >
-            <KnobPercentageHorizontal label='X' theme='stone' />
+            <KnobPercentageX label='X' theme='stone' />
           </Example>
           <Example
             title='Vertical and horizontal orientation'

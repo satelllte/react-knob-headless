@@ -218,14 +218,14 @@ test.describe('"Horizontal orientation" example', () => {
     });
   });
 
-  test('has "View source" link leading to "KnobPercentageHorizontal.tsx" source code file', async ({
+  test('has "View source" link leading to "KnobPercentageX.tsx" source code file', async ({
     page,
   }) => {
     const viewSourceLink = locators.exampleViewSourceLink({container});
     await expects.sourceCodeLinkIsValid({
       link: viewSourceLink,
       page,
-      filePath: 'apps/docs/src/components/knobs/KnobPercentageHorizontal.tsx',
+      filePath: 'apps/docs/src/components/knobs/KnobPercentageX.tsx',
     });
   });
 
