@@ -2,10 +2,7 @@
 import {KnobBase} from './KnobBase';
 
 type KnobBaseProps = React.ComponentProps<typeof KnobBase>;
-type KnobPercentageProps = Pick<
-  KnobBaseProps,
-  'theme' | 'label' | 'orientation'
->;
+type KnobPercentageProps = Pick<KnobBaseProps, 'theme' | 'label' | 'axis'>;
 
 export function KnobPercentage(props: KnobPercentageProps) {
   return (

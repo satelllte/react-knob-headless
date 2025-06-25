@@ -112,10 +112,74 @@ describe('KnobHeadless', () => {
     `);
   });
 
-  it('sets "aria-orientation" to "horizontal", when "orientation" is "horizontal"', () => {
+  it('sets "aria-orientation" to "horizontal", when "axis" is "x"', () => {
+    render(<KnobHeadless {...props} axis='x' aria-label='Test Knob' />);
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-label="Test Knob"
+        aria-orientation="horizontal"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        role="slider"
+        tabindex="-1"
+      />
+    `);
+  });
+
+  it('sets no "aria-orientation", when "axis" is "xy"', () => {
+    render(<KnobHeadless {...props} axis='xy' aria-label='Test Knob' />);
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-label="Test Knob"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        role="slider"
+        tabindex="-1"
+      />
+    `);
+  });
+
+  it('overrides "aria-orientation", when "orientation" is set on top of "axis"', () => {
     render(
       <KnobHeadless
         {...props}
+        axis='x'
+        orientation='vertical'
+        aria-label='Test Knob'
+      />,
+    );
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-label="Test Knob"
+        aria-orientation="vertical"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        role="slider"
+        tabindex="-1"
+      />
+    `);
+  });
+
+  it('overrides "aria-orientation", when "orientation" is set on top of "axis" (2)', () => {
+    render(
+      <KnobHeadless
+        {...props}
+        axis='y'
         orientation='horizontal'
         aria-label='Test Knob'
       />,

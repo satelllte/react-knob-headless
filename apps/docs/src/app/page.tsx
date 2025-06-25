@@ -2,7 +2,8 @@ import {GitHubLogoIcon} from '@radix-ui/react-icons';
 import {KnobDecorative} from '@/components/knobs/KnobDecorative';
 import {KnobFrequency} from '@/components/knobs/KnobFrequency';
 import {KnobPercentage} from '@/components/knobs/KnobPercentage';
-import {KnobPercentageHorizontal} from '@/components/knobs/KnobPercentageHorizontal';
+import {KnobPercentageX} from '@/components/knobs/KnobPercentageX';
+import {KnobPercentageXY} from '@/components/knobs/KnobPercentageXY';
 import {ExternalLinkUnstyled} from '@/components/ui/ExternalLinkUnstyled';
 import {TableApi} from '@/components/ui/TableApi';
 
@@ -91,9 +92,16 @@ function IndexPage() {
           <Example
             title='Horizontal orientation'
             description="The knob gesture can occur along horizontal (X) axis instead of vertical (Y) one, but it's not common in audio applications."
-            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageHorizontal.tsx'
+            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageX.tsx'
           >
-            <KnobPercentageHorizontal label='X' theme='stone' />
+            <KnobPercentageX label='X' theme='stone' />
+          </Example>
+          <Example
+            title='Vertical and horizontal orientation'
+            description='The knob gesture can occur along both vertical (Y) and horizontal (X) axis.'
+            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageXY.tsx'
+          >
+            <KnobPercentageXY label='XY' theme='pink' />
           </Example>
         </div>
       </Section>
@@ -155,8 +163,16 @@ function IndexPage() {
                 name: 'orientation',
                 type: 'union',
                 defaultValue: 'vertical',
+                deprecationNotice: 'use "axis" instead.',
                 description:
                   'Orientation of the knob and its gesture. Can be "vertical" or "horizontal".',
+              },
+              {
+                name: 'axis',
+                type: 'union',
+                defaultValue: 'y',
+                description:
+                  'Orientation of the knob and its gesture. Can be "x", "y", or "xy". Note, that "aria-orientation" attribute will not be set for the slider when it\'s "xy" to follow ARIA semantics.',
               },
               {
                 name: 'includeIntoTabOrder',

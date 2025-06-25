@@ -218,14 +218,14 @@ test.describe('"Horizontal orientation" example', () => {
     });
   });
 
-  test('has "View source" link leading to "KnobPercentageHorizontal.tsx" source code file', async ({
+  test('has "View source" link leading to "KnobPercentageX.tsx" source code file', async ({
     page,
   }) => {
     const viewSourceLink = locators.exampleViewSourceLink({container});
     await expects.sourceCodeLinkIsValid({
       link: viewSourceLink,
       page,
-      filePath: 'apps/docs/src/components/knobs/KnobPercentageHorizontal.tsx',
+      filePath: 'apps/docs/src/components/knobs/KnobPercentageX.tsx',
     });
   });
 
@@ -241,6 +241,59 @@ test.describe('"Horizontal orientation" example', () => {
     test('has correct default value', async () => {
       await expects.knobValueIsEqualTo({knob, valueNow: 50});
       await expects.knobValueTextIs({knob, knobOutput, valueText: '50%'});
+    });
+
+    test('has correct drag left behaviour', async ({page}) => {
+      await expects.knobDragsLeftCorrectly({knob, valueNow: 50, page});
+    });
+
+    test('has correct drag right behaviour', async ({page}) => {
+      await expects.knobDragsRightCorrectly({knob, valueNow: 50, page});
+    });
+  });
+});
+
+test.describe('"Vertical and horizontal orientation" example', () => {
+  let container: Locator;
+
+  test.beforeEach(({page}) => {
+    container = locators.exampleContainer({
+      page,
+      name: 'Vertical and horizontal orientation',
+    });
+  });
+
+  test('has "View source" link leading to "KnobPercentageXY.tsx" source code file', async ({
+    page,
+  }) => {
+    const viewSourceLink = locators.exampleViewSourceLink({container});
+    await expects.sourceCodeLinkIsValid({
+      link: viewSourceLink,
+      page,
+      filePath: 'apps/docs/src/components/knobs/KnobPercentageXY.tsx',
+    });
+  });
+
+  test.describe('"XY" knob', () => {
+    let knob: Locator;
+    let knobOutput: Locator;
+
+    test.beforeEach(() => {
+      knob = locators.exampleKnob({container, name: 'XY'});
+      knobOutput = locators.exampleKnobOutput({container});
+    });
+
+    test('has correct default value', async () => {
+      await expects.knobValueIsEqualTo({knob, valueNow: 50});
+      await expects.knobValueTextIs({knob, knobOutput, valueText: '50%'});
+    });
+
+    test('has correct drag up behaviour', async ({page}) => {
+      await expects.knobDragsUpCorrectly({knob, valueNow: 50, page});
+    });
+
+    test('has correct drag down behaviour', async ({page}) => {
+      await expects.knobDragsDownCorrectly({knob, valueNow: 50, page});
     });
 
     test('has correct drag left behaviour', async ({page}) => {

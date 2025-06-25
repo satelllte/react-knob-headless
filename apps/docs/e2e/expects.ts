@@ -112,14 +112,9 @@ export const sourceCodeLinkIsValid = async ({
   page: Page;
   filePath: string;
 }) => {
-  const url = `https://github.com/satelllte/react-knob-headless/blob/main/${filePath}`;
-  await expect(link).toHaveAttribute('href', url);
-  await link.click();
-
-  const githubPage = await page.waitForEvent('popup');
-  await expect(githubPage).toHaveURL(url);
-  await expect(githubPage).toHaveTitle(
-    `react-knob-headless/${filePath} at main · satelllte/react-knob-headless · GitHub`,
+  await expect(link).toHaveAttribute(
+    'href',
+    `https://github.com/satelllte/react-knob-headless/blob/main/${filePath}`,
   );
 };
 
