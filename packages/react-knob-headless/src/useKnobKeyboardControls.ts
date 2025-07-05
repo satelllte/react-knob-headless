@@ -34,6 +34,11 @@ type UseKnobKeyboardControlsProps = {
    * However, if your application needs some more customized one, you can set this prop to true and handle scroll prevention on your own.
    */
   readonly noDefaultPrevention?: boolean;
+  /**
+   * Disabled state, used to prevent component from being manipulated.
+   * If true, the knob will not respond to keyboard events.
+   */
+  readonly disabled?: boolean;
 };
 
 export const useKnobKeyboardControls = ({
@@ -44,8 +49,13 @@ export const useKnobKeyboardControls = ({
   stepLarger,
   onValueRawChange,
   noDefaultPrevention = false,
+  disabled = false,
 }: UseKnobKeyboardControlsProps): {onKeyDown: React.KeyboardEventHandler} => {
   const onKeyDown: React.KeyboardEventHandler = (event) => {
+    if (disabled) {
+      return;
+    }
+
     const {code} = event;
     switch (code) {
       case 'ArrowUp':

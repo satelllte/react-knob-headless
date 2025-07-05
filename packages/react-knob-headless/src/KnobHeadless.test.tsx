@@ -201,6 +201,29 @@ describe('KnobHeadless', () => {
     `);
   });
 
+  it('sets "aria-disabled" and "data-disabled" to true, when "disabled" option is true', () => {
+    render(
+      <KnobHeadless {...props} disabled axis='y' aria-label='Test Knob' />,
+    );
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-disabled="true"
+        aria-label="Test Knob"
+        aria-orientation="vertical"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        data-disabled="true"
+        role="slider"
+        tabindex="-1"
+      />
+    `);
+  });
+
   it('sets tabIndex to 0, when "includeIntoTabOrder" is true', () => {
     render(
       <KnobHeadless {...props} includeIntoTabOrder aria-label='Test Knob' />,
@@ -218,6 +241,55 @@ describe('KnobHeadless', () => {
         aria-valuetext="2 units"
         role="slider"
         tabindex="0"
+      />
+    `);
+  });
+
+  it('sets tabIndex to -1, when "includeIntoTabOrder" is true and "disabled" is true', () => {
+    render(
+      <KnobHeadless
+        {...props}
+        includeIntoTabOrder
+        disabled
+        aria-label='Test Knob'
+      />,
+    );
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-disabled="true"
+        aria-label="Test Knob"
+        aria-orientation="vertical"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        data-disabled="true"
+        role="slider"
+        tabindex="-1"
+      />
+    `);
+  });
+
+  it('sets tabIndex to -1, when "disabled" is true', () => {
+    render(<KnobHeadless {...props} disabled aria-label='Test Knob' />);
+
+    const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+    expect(knob).toMatchInlineSnapshot(`
+      <div
+        aria-disabled="true"
+        aria-label="Test Knob"
+        aria-orientation="vertical"
+        aria-valuemax="5"
+        aria-valuemin="-5"
+        aria-valuenow="2"
+        aria-valuetext="2 units"
+        data-disabled="true"
+        role="slider"
+        tabindex="-1"
       />
     `);
   });

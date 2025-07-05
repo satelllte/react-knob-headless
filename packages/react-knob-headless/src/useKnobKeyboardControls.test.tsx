@@ -363,9 +363,235 @@ describe('useKnobKeyboardControls', () => {
 
     expect(preventDefaultFn).toHaveBeenCalledTimes(0);
   });
+
+  describe('disabled state', () => {
+    it('does not change value on ArrowUp', async () => {
+      const user = userEvent.setup();
+
+      render(<TestComponent disabled />);
+
+      const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+      await act(async () => {
+        await user.click(knob);
+        await user.keyboard('{ArrowUp}');
+      });
+
+      expect(knob).toMatchInlineSnapshot(`
+        <div
+          aria-disabled="true"
+          aria-label="Test Knob"
+          aria-orientation="vertical"
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuetext="50 units"
+          data-disabled="true"
+          role="slider"
+          tabindex="-1"
+        />
+      `);
+    });
+
+    it('does not change value on ArrowRight', async () => {
+      const user = userEvent.setup();
+
+      render(<TestComponent disabled />);
+
+      const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+      await act(async () => {
+        await user.click(knob);
+        await user.keyboard('{ArrowRight}');
+      });
+
+      expect(knob).toMatchInlineSnapshot(`
+        <div
+          aria-disabled="true"
+          aria-label="Test Knob"
+          aria-orientation="vertical"
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuetext="50 units"
+          data-disabled="true"
+          role="slider"
+          tabindex="-1"
+        />
+      `);
+    });
+
+    it('does not change value on ArrowDown', async () => {
+      const user = userEvent.setup();
+
+      render(<TestComponent disabled />);
+
+      const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+      await act(async () => {
+        await user.click(knob);
+        await user.keyboard('{ArrowDown}');
+      });
+
+      expect(knob).toMatchInlineSnapshot(`
+        <div
+          aria-disabled="true"
+          aria-label="Test Knob"
+          aria-orientation="vertical"
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuetext="50 units"
+          data-disabled="true"
+          role="slider"
+          tabindex="-1"
+        />
+      `);
+    });
+
+    it('does not change value on ArrowLeft', async () => {
+      const user = userEvent.setup();
+
+      render(<TestComponent disabled />);
+
+      const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+      await act(async () => {
+        await user.click(knob);
+        await user.keyboard('{ArrowLeft}');
+      });
+
+      expect(knob).toMatchInlineSnapshot(`
+        <div
+          aria-disabled="true"
+          aria-label="Test Knob"
+          aria-orientation="vertical"
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuetext="50 units"
+          data-disabled="true"
+          role="slider"
+          tabindex="-1"
+        />
+      `);
+    });
+
+    it('does not change value on PageUp', async () => {
+      const user = userEvent.setup();
+
+      render(<TestComponent disabled />);
+
+      const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+      await act(async () => {
+        await user.click(knob);
+        await user.keyboard('{PageUp}');
+      });
+
+      expect(knob).toMatchInlineSnapshot(`
+        <div
+          aria-disabled="true"
+          aria-label="Test Knob"
+          aria-orientation="vertical"
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuetext="50 units"
+          data-disabled="true"
+          role="slider"
+          tabindex="-1"
+        />
+      `);
+    });
+
+    it('does not change value on PageDown', async () => {
+      const user = userEvent.setup();
+
+      render(<TestComponent disabled />);
+
+      const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+      await act(async () => {
+        await user.click(knob);
+        await user.keyboard('{PageDown}');
+      });
+
+      expect(knob).toMatchInlineSnapshot(`
+        <div
+          aria-disabled="true"
+          aria-label="Test Knob"
+          aria-orientation="vertical"
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuetext="50 units"
+          data-disabled="true"
+          role="slider"
+          tabindex="-1"
+        />
+      `);
+    });
+
+    it('does not change value on Home', async () => {
+      const user = userEvent.setup();
+
+      render(<TestComponent disabled />);
+
+      const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+      await act(async () => {
+        await user.click(knob);
+        await user.keyboard('{Home}');
+      });
+
+      expect(knob).toMatchInlineSnapshot(`
+        <div
+          aria-disabled="true"
+          aria-label="Test Knob"
+          aria-orientation="vertical"
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuetext="50 units"
+          data-disabled="true"
+          role="slider"
+          tabindex="-1"
+        />
+      `);
+    });
+
+    it('does not change value on End', async () => {
+      const user = userEvent.setup();
+
+      render(<TestComponent disabled />);
+
+      const knob = screen.getByRole('slider', {name: 'Test Knob'});
+
+      await act(async () => {
+        await user.click(knob);
+        await user.keyboard('{End}');
+      });
+
+      expect(knob).toMatchInlineSnapshot(`
+        <div
+          aria-disabled="true"
+          aria-label="Test Knob"
+          aria-orientation="vertical"
+          aria-valuemax="100"
+          aria-valuemin="0"
+          aria-valuenow="50"
+          aria-valuetext="50 units"
+          data-disabled="true"
+          role="slider"
+          tabindex="-1"
+        />
+      `);
+    });
+  });
 });
 
-function TestComponent() {
+function TestComponent({disabled = false}: {readonly disabled?: boolean}) {
   const [valueRaw, setValueRaw] = useState<number>(valueRawDefault);
   const keyboardControlHandlers = useKnobKeyboardControls({
     valueRaw,
@@ -373,6 +599,7 @@ function TestComponent() {
     valueMax,
     step,
     stepLarger,
+    disabled,
     onValueRawChange: setValueRaw,
   });
 
@@ -385,6 +612,7 @@ function TestComponent() {
       valueMax={valueMax}
       valueRawRoundFn={valueRawRoundFn}
       valueRawDisplayFn={valueRawDisplayFn}
+      disabled={disabled}
       onValueRawChange={setValueRaw}
       {...keyboardControlHandlers}
     />

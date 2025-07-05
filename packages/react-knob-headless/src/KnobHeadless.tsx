@@ -15,11 +15,14 @@ type NativeDivPropsToExtend = Omit<
   | 'aria-orientation' // Handled by "axis" and "orientation"
   | 'aria-label' // Handled by "KnobHeadlessLabelProps"
   | 'aria-labelledby' // Handled by "KnobHeadlessLabelProps"
+  | 'aria-disabled' // Handled by "disabled"
+  | 'data-disabled' // Handled by "disabled"
   | 'tabIndex' // Handled by "includeIntoTabOrder"
 >;
 
 const axisDefault = 'y';
 const includeIntoTabOrderDefault = false;
+const disabledDefault = false;
 const mapTo01Default = mapTo01Linear;
 const mapFrom01Default = mapFrom01Linear;
 
@@ -83,6 +86,10 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly includeIntoTabOrder?: boolean;
     /**
+     * Disabled state, used to prevent component from being manipulated.
+     */
+    readonly disabled?: boolean;
+    /**
      * Used for mapping the value to the normalized knob position (number from 0 to 1).
      * This is the place for making the interpolation, if non-linear one is required.
      * Example: logarithmic scale of frequency input, when knob center position 0.5 corresponds to ~ 1 kHz (instead of 10.1 kHz which is the "linear" center of frequency range).
@@ -93,6 +100,9 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      */
     readonly mapFrom01?: (x: number, min: number, max: number) => number;
   };
+
+const getTabIndex = (includeIntoTabOrder: boolean, disabled: boolean) =>
+  !disabled && includeIntoTabOrder ? 0 : -1;
 
 export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
   (
@@ -107,6 +117,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
       orientation,
       axis = axisDefault,
       includeIntoTabOrder = includeIntoTabOrderDefault,
+      disabled = disabledDefault,
       mapTo01 = mapTo01Default,
       mapFrom01 = mapFrom01Default,
       ...rest
@@ -142,6 +153,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
           keys: false,
         },
         axis: getDragAxis(orientation, axis),
+        enabled: !disabled,
       },
     );
     /* v8 ignore stop */ // eslint-disable-line capitalized-comments
@@ -155,7 +167,7 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
         aria-valuemax={valueMax}
         aria-orientation={getAriaOrientation(orientation, axis)}
         aria-valuetext={valueRawDisplayFn(valueRaw)}
-        tabIndex={includeIntoTabOrder ? 0 : -1}
+        tabIndex={getTabIndex(includeIntoTabOrder, disabled)}
         {...mergeProps(
           bindDrag(),
           {
@@ -163,12 +175,18 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
               touchAction: 'none', // It's recommended to disable "touch-action" for use-gesture: https://use-gesture.netlify.app/docs/extras/#touch-action
             },
             onPointerDown(event: React.PointerEvent<HTMLElement>) {
-              /* v8 ignore start */ // eslint-disable-line capitalized-comments
-              // Touch devices have a delay before focusing so it won't focus if touch immediately moves away from target (sliding). We want thumb to focus regardless.
-              // See, for reference, Radix UI Slider does the same: https://github.com/radix-ui/primitives/blob/eca6babd188df465f64f23f3584738b85dba610e/packages/react/slider/src/Slider.tsx#L442-L445
-              event.currentTarget.focus();
-              /* v8 ignore stop */ // eslint-disable-line capitalized-comments
+              if (!disabled) {
+                /* v8 ignore start */ // eslint-disable-line capitalized-comments
+                // Touch devices have a delay before focusing so it won't focus if touch immediately moves away from target (sliding). We want thumb to focus regardless.
+                // See, for reference, Radix UI Slider does the same: https://github.com/radix-ui/primitives/blob/eca6babd188df465f64f23f3584738b85dba610e/packages/react/slider/src/Slider.tsx#L442-L445
+                event.currentTarget.focus();
+                /* v8 ignore stop */ // eslint-disable-line capitalized-comments
+              }
             },
+          },
+          disabled && {
+            'aria-disabled': true,
+            'data-disabled': true,
           },
           rest,
         )}
@@ -182,6 +200,7 @@ KnobHeadless.displayName = 'KnobHeadless';
 KnobHeadless.defaultProps = {
   axis: axisDefault,
   includeIntoTabOrder: includeIntoTabOrderDefault,
+  disabled: disabledDefault,
   mapTo01: mapTo01Default,
   mapFrom01: mapFrom01Default,
 };

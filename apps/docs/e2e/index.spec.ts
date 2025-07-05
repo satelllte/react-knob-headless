@@ -305,3 +305,73 @@ test.describe('"Vertical and horizontal orientation" example', () => {
     });
   });
 });
+
+test.describe('"Disabled" knob', () => {
+  let container: Locator;
+  let knob: Locator;
+  let knobOutput: Locator;
+
+  test.beforeEach(({page}) => {
+    container = locators.exampleContainer({
+      page,
+      name: 'Disabled knob',
+    });
+    knob = locators.exampleKnob({container, name: 'Disabled'});
+    knobOutput = locators.exampleKnobOutput({container});
+  });
+
+  test('has "View source" link leading to "KnobDisabled.tsx" source code file', async ({
+    page,
+  }) => {
+    const viewSourceLink = locators.exampleViewSourceLink({container});
+    await expects.sourceCodeLinkIsValid({
+      link: viewSourceLink,
+      page,
+      filePath: 'apps/docs/src/components/knobs/KnobDisabled.tsx',
+    });
+  });
+
+  test('has correct default value', async () => {
+    await expects.knobValueIsEqualTo({knob, valueNow: 440});
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+  });
+
+  test('has correct drag down behaviour', async ({page}) => {
+    await expects.knobDragsDownCorrectly({knob, valueNow: 440, page});
+  });
+
+  test('has correct drag up behaviour', async ({page}) => {
+    await expects.knobDragsUpCorrectly({knob, valueNow: 440, page});
+  });
+
+  test('has correct keyboard controls behaviour', async ({page}) => {
+    // NOTE: we want to click it although it's not interactive to check if keyboard controls are ignored
+    await knob.click({force: true});
+
+    // NOTE: we don't check `knobValueIsEqualTo` because there's no rounding in the frequency knob
+
+    await page.keyboard.press('ArrowDown');
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+    await page.keyboard.press('ArrowLeft');
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+    await page.keyboard.press('ArrowUp');
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+    await page.keyboard.press('ArrowRight');
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+    await page.keyboard.press('PageUp');
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+    await page.keyboard.press('PageDown');
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+    await page.keyboard.press('Home');
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+
+    await page.keyboard.press('End');
+    await expects.knobValueTextIs({knob, knobOutput, valueText: '440 Hz'});
+  });
+});

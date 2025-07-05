@@ -13,6 +13,9 @@ const _knobDragsCorrectly =
   async ({knob, valueNow, page}: KnobDragAssertionProps) => {
     const dragSteps = 10;
     const dragAmplitude = 40.0;
+    const isDisabled =
+      (await knob.getAttribute('aria-disabled')) === 'true' &&
+      (await knob.getAttribute('data-disabled')) === 'true';
 
     // It's necessary to hover over the knob and scroll it into view,
     // so then we can calculate its bounds in the viewport properly
@@ -36,6 +39,11 @@ const _knobDragsCorrectly =
     await page.mouse.down();
     await page.mouse.move(x, y, {steps: dragSteps});
     await page.mouse.up();
+
+    if (isDisabled) {
+      await knobValueIsEqualTo({knob, valueNow});
+      return;
+    }
 
     if (direction === 'up' || direction === 'right') {
       await knobValueIsMoreThan({knob, value: valueNow});

@@ -20,6 +20,7 @@ type KnobBaseProps = Pick<
   | 'axis'
   | 'mapTo01'
   | 'mapFrom01'
+  | 'disabled'
 > &
   Pick<KnobBaseThumbProps, 'theme'> & {
     readonly label: string;
@@ -37,6 +38,7 @@ export function KnobBase({
   valueRawRoundFn,
   valueRawDisplayFn,
   axis,
+  disabled,
   stepFn,
   stepLargerFn,
   mapTo01 = mapTo01Linear,
@@ -56,6 +58,7 @@ export function KnobBase({
     valueMax,
     step,
     stepLarger,
+    disabled,
     onValueRawChange: setValueRaw,
   });
 
@@ -63,7 +66,8 @@ export function KnobBase({
     <div
       className={clsx(
         'w-16 flex flex-col gap-0.5 justify-center items-center text-xs select-none',
-        'outline-none focus-within:outline-1 focus-within:outline-offset-4 focus-within:outline-stone-300',
+        !disabled &&
+          'outline-none focus-within:outline-1 focus-within:outline-offset-4 focus-within:outline-stone-300',
       )}
     >
       <KnobHeadlessLabel id={labelId}>{label}</KnobHeadlessLabel>
@@ -78,6 +82,7 @@ export function KnobBase({
         valueRawDisplayFn={valueRawDisplayFn}
         dragSensitivity={dragSensitivity}
         axis={axis}
+        disabled={disabled}
         mapTo01={mapTo01}
         mapFrom01={mapFrom01}
         onValueRawChange={setValueRaw}

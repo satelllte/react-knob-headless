@@ -6,6 +6,7 @@ import {KnobPercentageX} from '@/components/knobs/KnobPercentageX';
 import {KnobPercentageXY} from '@/components/knobs/KnobPercentageXY';
 import {ExternalLinkUnstyled} from '@/components/ui/ExternalLinkUnstyled';
 import {TableApi} from '@/components/ui/TableApi';
+import {KnobDisabled} from '@/components/knobs/KnobDisabled';
 
 function IndexPage() {
   return (
@@ -102,6 +103,13 @@ function IndexPage() {
             source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobPercentageXY.tsx'
           >
             <KnobPercentageXY label='XY' theme='pink' />
+          </Example>
+          <Example
+            title='Disabled knob'
+            description='Knob can be disabled to prevent manipulation'
+            source='https://github.com/satelllte/react-knob-headless/blob/main/apps/docs/src/components/knobs/KnobDisabled.tsx'
+          >
+            <KnobDisabled label='Disabled' theme='gray' />
           </Example>
         </div>
       </Section>
@@ -200,6 +208,13 @@ function IndexPage() {
                 description: 'Labelling for accesibility purposes.',
               },
               {
+                name: 'disabled',
+                type: 'boolean',
+                defaultValue: 'false',
+                description:
+                  'Disabled state, used to prevent component from being manipulated. If true, the knob will not respond to mouse / touch / keyboard events.',
+              },
+              {
                 name: '...rest',
                 type: '...',
                 description: 'The rest of HTML "div" element props.',
@@ -282,6 +297,13 @@ function IndexPage() {
                 defaultValue: 'false',
                 description:
                   'To prevent scrolling, "event.preventDefault()" is called when the value changes, but for most cases you don\'t need to change this behaviour. However, if your application needs some more customized one, you can set this prop to true and handle scroll prevention on your own.',
+              },
+              {
+                name: 'disabled',
+                type: 'boolean',
+                defaultValue: 'false',
+                description:
+                  'Disabled state, used to prevent component from being manipulated. If true, the knob will not respond to keyboard events.',
               },
             ]}
           />
