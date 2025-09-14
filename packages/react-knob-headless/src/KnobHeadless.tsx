@@ -70,7 +70,7 @@ type KnobHeadlessProps = NativeDivPropsToExtend &
      *
      * Orientation of the knob and its gesture.
      */
-    readonly orientation?: 'horizontal' | 'vertical'; // eslint-disable-line react/require-default-props
+    readonly orientation?: 'horizontal' | 'vertical';
     /**
      * Gesture axis of the knob.
      * Default: "y".
@@ -178,13 +178,6 @@ export const KnobHeadless = forwardRef<HTMLDivElement, KnobHeadlessProps>(
 );
 
 KnobHeadless.displayName = 'KnobHeadless';
-
-KnobHeadless.defaultProps = {
-  axis: axisDefault,
-  includeIntoTabOrder: includeIntoTabOrderDefault,
-  mapTo01: mapTo01Default,
-  mapFrom01: mapFrom01Default,
-};
 
 const getDragAxis = (
   orientation: 'horizontal' | 'vertical' | undefined,
