@@ -15,4 +15,5 @@ parserOptions:
 
 rules:
   '@next/next/no-html-link-for-pages': 'off'
+  'react/require-default-props': 'off'
   'tailwindcss/classnames-order': 'off' # Handled by "prettier-plugin-tailwindcss"
